@@ -5,12 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { aprendiz, aprendizSchema } from './model/aprendices.schema';
 
 @Module({
-  imports:[
-    MongooseModule.forFeature(
-      [
-        {name:aprendiz.name, schema:aprendizSchema}
-      ]
-    )
+  imports: [
+    MongooseModule.forFeature([
+      { name: aprendiz.name, schema: aprendizSchema }
+    ]),
   ],
   controllers: [AprendicesController],
   providers: [AprendicesService],

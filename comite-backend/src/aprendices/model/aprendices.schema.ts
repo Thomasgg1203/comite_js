@@ -1,6 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
-import { IsNotEmpty, IsEmail, IsDateString } from 'class-validator';
 
 export type aprendizDocument = aprendiz & Document;
 
