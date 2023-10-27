@@ -16,8 +16,9 @@ export class CapitulosService {
     return this.capituloModel.create(createCapituloDto)
   }
 
-  findAll() {
-    return `This action returns all capitulos`;
+  async findAll() {
+    const capitulos = await this.capituloModel.find().exec();
+    return capitulos;
   }
 
   findOne(id: number) {

@@ -6,11 +6,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ArticulosModule } from './articulos/articulos.module';
 import { CapitulosModule } from './capitulos/capitulos.module';
 import { NumeralesModule } from './numerales/numerales.module';
+import { SolicitudesModule } from './solicitudes/solicitudes.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba'),
-    AprendicesModule,ArticulosModule,CapitulosModule, NumeralesModule],
+    AprendicesModule,ArticulosModule,CapitulosModule, NumeralesModule, SolicitudesModule],
   controllers: [AppController],
   providers: [AppService],
 })
