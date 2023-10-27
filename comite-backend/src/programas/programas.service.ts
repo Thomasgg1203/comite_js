@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProgramaDto } from './dto/create-programa.dto';
 import { UpdateProgramaDto } from './dto/update-programa.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Programas, programasDocument } from './model/programas.schema';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class ProgramasService {
+
+  constructor(
+    @InjectModel(Programas.name) private readonly programaModel: Model<programasDocument>
+  ){
+
+  }
   create(createProgramaDto: CreateProgramaDto) {
-    return 'This action adds a new programa';
+    return this.programaModel.create(CreateProgramaDto);
   }
 
-  findAll() {
-    return `This action returns all programas`;
+  async findAll() {
+    return this.programaModel.find(Programas);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} programa`;
+    return this.programaModel.findOne(Programas);
   }
 
   update(id: number, updateProgramaDto: UpdateProgramaDto) {
     return `This action updates a #${id} programa`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} programa`;
+  async remove(id: string) {
+    const _id = new Types.ObjectId(id)
+    const response = this.programaModel.deleteOne({_id})
+    return `This action removes a #${id} programa`+ response;
   }
 }

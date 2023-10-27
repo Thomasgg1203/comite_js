@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { FichasService } from './fichas.service';
 import { CreateFichaDto } from './dto/create-ficha.dto';
 import { UpdateFichaDto } from './dto/update-ficha.dto';
@@ -13,7 +13,7 @@ export class FichasController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query() query:string) {
     return this.fichasService.findAll();
   }
 
