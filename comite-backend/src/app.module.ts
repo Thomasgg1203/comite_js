@@ -5,11 +5,11 @@ import { AppService } from './app.service';
 import { ProgramasModule } from './programas/programas.module';
 import { FichasModule } from './fichas/fichas.module';
 import { GestorGrupoModule } from './gestor-grupo/gestor-grupo.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { AuthsModule } from './auths/auths.module';
 
 @Module({
-  // MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba'),
-  
-  imports: [MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba'),ProgramasModule, FichasModule, GestorGrupoModule],
+  imports: [MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba'),ProgramasModule, FichasModule, GestorGrupoModule, UsuariosModule, AuthsModule],
   controllers: [AppController],
   providers: [AppService],
 })
