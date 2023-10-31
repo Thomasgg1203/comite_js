@@ -1,9 +1,8 @@
 {
-  "name": "Panel-administrativo",
+  "name": "comite-frontend",
   "version": "2.2.0",
   "private": true,
-  "author": "Thomas Giraldo García",
-  "license": null,
+  "author": "",
   "description": "Panel administrativo para coordinancion academica",
   "dependencies": {
     "@emotion/cache": "11.10.8",

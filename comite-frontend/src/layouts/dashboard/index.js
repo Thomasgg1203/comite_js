@@ -40,8 +40,10 @@ function Dashboard() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {/*PArte de navegacion de arriba del dasboar */}
+      <DashboardNavbar /> {/*PArte de navegacion de arriba del dasboar */}
       <MDBox py={3}>
+        {/* PArte de tarjeticas de inicio(inicio codigo) */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
@@ -103,7 +105,9 @@ function Dashboard() {
             </MDBox>
           </Grid>
         </Grid>
+        {/* PArte de tarjeticas de inicio(inicio codigo) */}
         <MDBox mt={4.5}>
+          {/* PArte de graficos inicio */}
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
@@ -143,8 +147,10 @@ function Dashboard() {
               </MDBox>
             </Grid>
           </Grid>
+          {/* PArte de graficos fin */}
         </MDBox>
         <MDBox>
+          {/* PArte de tablas kulas que aparecen antes del footer */}
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
               <Projects />
@@ -153,6 +159,7 @@ function Dashboard() {
               <OrdersOverview />
             </Grid>
           </Grid>
+          {/* PArte de tablas kulas que aparecen antes del footer */}
         </MDBox>
       </MDBox>
       <Footer />

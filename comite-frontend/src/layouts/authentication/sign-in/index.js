@@ -24,10 +24,10 @@ import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 import MuiLink from "@mui/material/Link";
 
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
+// // @mui icons que tiene definida la plantialla
+// import FacebookIcon from "@mui/icons-material/Facebook";
+// import GitHubIcon from "@mui/icons-material/GitHub";
+// import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -38,7 +38,7 @@ import MDButton from "components/MDButton";
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
-// Images
+// Parte de la imagen del fondo del login
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
@@ -51,9 +51,9 @@ function Basic() {
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="success"
           borderRadius="lg"
-          coloredShadow="info"
+          coloredShadow="success"
           mx={2}
           mt={-3}
           p={2}
@@ -63,8 +63,11 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Ingresar
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 2 }}>
-            {/* <Grid item xs={2}>
+          {/*----------------------------------------------------------------------------------------
+           Parte de iconos donde puede ir un pequeñito icono del sena o del logo que le vamos a colocar 
+          -------------------------------------------------------------------------------------------*/}
+          {/* <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 2 }}>
+            <Grid item xs={2}>
               <MDTypography component={MuiLink} href="#" variant="body1" color="white">
                 <FacebookIcon color="inherit" />
               </MDTypography>
@@ -78,16 +81,19 @@ function Basic() {
               <MDTypography component={MuiLink} href="#" variant="body1" color="white">
                 <GoogleIcon color="inherit" />
               </MDTypography>
-            </Grid> */}
-          </Grid>
+            </Grid>
+          </Grid> */}
+          {/*----------------------------------------------------------------------------------------
+           Parte de iconos donde puede ir un pequeñito icono del sena o del logo que le vamos a colocar 
+          -------------------------------------------------------------------------------------------*/}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="text" label="Documento" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Contraseña" fullWidth />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -98,12 +104,12 @@ function Basic() {
                 onClick={handleSetRememberMe}
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
-                &nbsp;&nbsp;Remember me
+                &nbsp;&nbsp;Acuérdate de mí
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MDButton variant="gradient" color="success" fullWidth>
+                Ingresar
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">

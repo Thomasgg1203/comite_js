@@ -50,19 +50,19 @@ function Footer({ light }) {
             color={light ? "white" : "text"}
             fontSize={size.sm}
           >
-            &copy; {new Date().getFullYear()}, made with
+            &copy; {new Date().getFullYear()}, Sena Regional Caldas
             <MDBox fontSize={size.md} color={light ? "white" : "dark"} mb={-0.5} mx={0.25}>
-              <Icon color="inherit" fontSize="inherit">
+              {/* <Icon color="inherit" fontSize="inherit">
                 favorite
-              </Icon>
+              </Icon> */}
             </MDBox>
-            by
+            por
             <Link href="https://www.creative-tim.com/" target="_blank">
               <MDTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-                &nbsp;Creative Tim&nbsp;
+                &nbsp;Centro de Automatización Indrustrial&nbsp;
               </MDTypography>
             </Link>
-            for a better web.
+            Comite
           </MDBox>
           <MDBox
             component="ul"
