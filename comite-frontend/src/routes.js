@@ -51,11 +51,19 @@ import Icon from "@mui/material/Icon";
 const routes = [
   {
     type: "collapse",
-    name: "Dashboard",
+    name: "Panel Principal",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Perfil",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <Profile />,
   },
   {
     type: "collapse",
@@ -91,14 +99,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-  },
-  {
-    type: "collapse",
     name: "Sign In",
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
@@ -113,6 +113,16 @@ const routes = [
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
+  //Parte para el manual de convivencia
+  {
+    type: "collapse",
+    name: "Manual De Convivencia",
+    key: "manual",
+    icon: <Icon fontSize="small">menuBookIcon</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUp />,
+  },
+  //Parte para el manual de convivencia Fin
 ];
 
 export default routes;
