@@ -45,7 +45,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
-// @mui icons
+// Iconos
 import Icon from "@mui/material/Icon";
 
 const routes = [
@@ -118,7 +118,7 @@ const routes = [
     type: "collapse",
     name: "Manual De Convivencia",
     key: "manual",
-    icon: <Icon fontSize="small">menuBookIcon</Icon>,
+    icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
