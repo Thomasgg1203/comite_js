@@ -1,6 +1,6 @@
 {
-  "short_name": "Material Dashboard",
-  "name": "Material Dashboard 2 React",
+  "short_name": "comite-frontend",
+  "name": "Panel administrativo para comite",
   "icons": [
     {
       "src": "favicon.png",

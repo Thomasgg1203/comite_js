@@ -44,6 +44,8 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+//Reglamento del aprendiz
+import Reglamento from "layouts/reglamento";
 
 // Iconos
 import Icon from "@mui/material/Icon";
@@ -113,16 +115,16 @@ const routes = [
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
-  //Parte para el manual de convivencia
+  //Parte Reglamento Aprendiz
   {
     type: "collapse",
-    name: "Manual De Convivencia",
-    key: "manual",
+    name: "Reglamento Del Aprendiz",
+    key: "reglamento",
     icon: <Icon fontSize="small">menu_book</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
+    route: "/Reglamento",
+    component: <Reglamento />,
   },
-  //Parte para el manual de convivencia Fin
+  //Parte Reglamento Aprendiz fin
 ];
 
 export default routes;
