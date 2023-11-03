@@ -4,10 +4,16 @@ import { UpdateArticuloDto } from './dto/update-articulo.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { articulo, articuloDocument } from './model/articulos.schema';
 import { Model } from 'mongoose';
+import { paragrafo, paragrafoDocument } from 'src/paragrafos/model/paragrafos.schema';
 
+interface ModelExt<T> extends Model<T>{
+  Delete:Function;
+  findAllArticulos:Function;
+}
 @Injectable()
 export class ArticulosService {
-constructor (@InjectModel(articulo.name) private readonly articuloModel: Model<articuloDocument>){
+constructor (@InjectModel(articulo.name) private readonly articuloModel: Model<articuloDocument>,
+  @InjectModel(paragrafo.name) private readonly paragrafoModel: Model<paragrafoDocument>){
 
 }
 
@@ -15,8 +21,8 @@ constructor (@InjectModel(articulo.name) private readonly articuloModel: Model<a
     return this.articuloModel.create(createArticuloDto);
   }
 
-  findAll() {
-    return `This action returns all articulos`;
+  async findAll() {
+    return await this.articuloModel.findAllArticulos();
   }
 
   findOne(id: number) {

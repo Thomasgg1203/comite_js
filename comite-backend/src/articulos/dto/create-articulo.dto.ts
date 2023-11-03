@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class CreateArticuloDto {
     @IsNotEmpty()
@@ -8,5 +8,6 @@ export class CreateArticuloDto {
     descripcion: string;
 
     @IsNotEmpty()
-    paragrafo: string;
+    @IsUUID()
+    idParagrafo: string;
 }
