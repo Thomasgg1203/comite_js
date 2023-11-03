@@ -42,7 +42,7 @@ articuloSchema.statics.findAllArticulos = function(){
         }
       },
       {
-        $unwind: 'paragrafo'
+        $unwind: '$paragrafo'
       }
     ]
   )

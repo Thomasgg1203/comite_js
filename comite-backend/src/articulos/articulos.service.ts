@@ -12,8 +12,8 @@ interface ModelExt<T> extends Model<T>{
 }
 @Injectable()
 export class ArticulosService {
-constructor (@InjectModel(articulo.name) private readonly articuloModel: Model<articuloDocument>,
-  @InjectModel(paragrafo.name) private readonly paragrafoModel: Model<paragrafoDocument>){
+constructor (@InjectModel(articulo.name) private readonly articuloModel: ModelExt<articuloDocument>,
+  @InjectModel(paragrafo.name) private readonly paragrafoModel: ModelExt<paragrafoDocument>){
 
 }
 
