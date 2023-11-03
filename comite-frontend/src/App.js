@@ -66,7 +66,7 @@ export default function App() {
     setRtlCache(cacheRtl);
   }, []);
 
-  // Open sidenav when mouse enter on mini sidenav
+  // Abrir sidenav cuando el mouse ingresa en mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -74,7 +74,7 @@ export default function App() {
     }
   };
 
-  // Close sidenav when mouse leave mini sidenav
+  // Cerrar sidenav cuando el mouse salga del mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
       setMiniSidenav(dispatch, true);
@@ -82,15 +82,15 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
+  // Cambiar el estado de openConfigurator
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  // Setting the dir attribute for the body element
+  //Establecer el atributo dir para el elemento del cuerpo
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
 
-  // Setting page scroll to 0 when changing the route
+  // Configurar el desplazamiento de página a 0 al cambiar la ruta
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -151,6 +151,7 @@ export default function App() {
             {configsButton}
           </>
         )}
+        {/* Representar elementos de ruta usando React Router */}
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
@@ -163,10 +164,11 @@ export default function App() {
       <CssBaseline />
       {layout === "dashboard" && (
         <>
+          {/* Renderice el componente sidenav con las propiedades especificadas. */}
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
+            brandName="SSCS"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -176,6 +178,7 @@ export default function App() {
         </>
       )}
       {layout === "vr" && <Configurator />}
+      {/* Render route elements using React Router */}
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />

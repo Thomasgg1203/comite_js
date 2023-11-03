@@ -2,7 +2,6 @@
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
-import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -48,14 +47,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
-    route: "/rtl",
-    component: <RTL />,
-  },
-  {
-    type: "collapse",
     name: "Notifications",
     key: "notifications",
     icon: <Icon fontSize="small">notifications</Icon>,
@@ -84,7 +75,7 @@ const routes = [
     name: "Reglamento Del Aprendiz",
     key: "reglamento",
     icon: <Icon fontSize="small">menu_book</Icon>,
-    route: "/Reglamento",
+    route: "/reglamento",
     component: <Reglamento />,
   },
   //Parte Reglamento Aprendiz fin

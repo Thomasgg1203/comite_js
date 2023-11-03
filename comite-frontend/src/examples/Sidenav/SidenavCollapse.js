@@ -1,19 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// prop-types is a library for typechecking of props.
+// prop-types es una biblioteca para la verificación de tipos de accesorios.
 import PropTypes from "prop-types";
 
 // @mui material components
@@ -25,7 +10,7 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
-// Custom styles for the SidenavCollapse
+// Estilos personalizados para Sidenav Collapse
 import {
   collapseItem,
   collapseIconBox,
@@ -82,12 +67,12 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
   );
 }
 
-// Setting default values for the props of SidenavCollapse
+// Estableciendo valores predeterminados para los accesorios de SidenavCollapse
 SidenavCollapse.defaultProps = {
   active: false,
 };
 
-// Typechecking props for the SidenavCollapse
+// Escriba los accesorios de comprobación para el colapso de Sidenav
 SidenavCollapse.propTypes = {
   icon: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,

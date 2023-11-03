@@ -3,13 +3,13 @@
  */
 import { createContext, useContext, useReducer, useMemo } from "react";
 
-// prop-types is a library for typechecking of props
+// prop-types es una biblioteca para la verificación de tipos de accesorios
 import PropTypes from "prop-types";
 
 // Material Dashboard 2 React main context
 const MaterialUI = createContext();
 
-// Setting custom name for the context which is visible on react dev tools
+// Configuración de un nombre personalizado para el contexto que es visible en las herramientas de desarrollo de React
 MaterialUI.displayName = "MaterialUIContext";
 
 // Material Dashboard 2 React reducer
@@ -57,7 +57,7 @@ function MaterialUIControllerProvider({ children }) {
     miniSidenav: false,
     transparentSidenav: false,
     whiteSidenav: false,
-    sidenavColor: "info",
+    sidenavColor: "success",
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,
@@ -78,9 +78,7 @@ function useMaterialUIController() {
   const context = useContext(MaterialUI);
 
   if (!context) {
-    throw new Error(
-      "useMaterialUIController should be used inside the MaterialUIControllerProvider."
-    );
+    throw new Error("useMaterialUIController debe usarse dentro de MaterialUIControllerProvider.");
   }
 
   return context;
