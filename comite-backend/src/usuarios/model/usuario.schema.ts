@@ -18,5 +18,8 @@ export class Usuario {
 
     @Prop({required:true})
     telefono:string;
+
+    @Prop({required:true})
+    contrasenia:string;
 }
 export const usuarioSchema=SchemaFactory.createForClass(Usuario);

@@ -1,4 +1,4 @@
-import { IsNotEmpty,Length,IsEmail } from "class-validator";
+import { IsNotEmpty,Length,IsEmail, MinLength } from "class-validator";
 export class CreateUsuarioDto {
     @IsNotEmpty()
     nombres:string;
@@ -16,4 +16,8 @@ export class CreateUsuarioDto {
     @IsNotEmpty()
     @Length(10,15)
     telefono:string;
+
+    @IsNotEmpty()
+    @MinLength(10)
+    contrasenia:string;
 }
