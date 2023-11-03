@@ -18,10 +18,14 @@ const Reglamento = () => {
             <MDBox mx={2} mt={-3} py={3} px={2} bgColor="white" borderRadius="lg">
               <MDTypography variant="h3">Reglamento Del Aprendiz</MDTypography>
               <br />
-              <MDTypography variant="h5">Capitulo I</MDTypography>
+              <MDTypography variant="h5" color="black">
+                Capitulo I
+              </MDTypography>
               <br />
-              <MDTypography variant="h6">Articulo</MDTypography>
-              <MDTypography variant="body2">
+              <MDTypography variant="h6" color="black">
+                Articulo
+              </MDTypography>
+              <MDTypography variant="body2" color="black">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere nunc ut augue
                 aliquet, at consequat tellus placerat. Pellentesque habitant morbi tristique
                 senectus et netus et malesuada fames ac turpis egestas. Aliquam egestas velit a diam
@@ -34,7 +38,9 @@ const Reglamento = () => {
                 euismod lorem turpis
               </MDTypography>
               <br />
-              <MDTypography variant="body2">1. Numeral </MDTypography>
+              <MDTypography variant="body2" color="black">
+                1. Numeral
+              </MDTypography>
               <MDTypography variant="body2">1. Numeral </MDTypography>
               <MDTypography variant="body2">1. Numeral </MDTypography>
               <MDTypography variant="body2">1. Numeral </MDTypography>
