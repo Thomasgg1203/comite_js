@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 // prop-types is a library for typechecking of props.
@@ -43,7 +28,7 @@ function Header({ children }) {
   const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
-    // A function that sets the orientation state of the tabs.
+    // Una función que establece el estado de orientación de las pestañas.
     function handleTabsOrientation() {
       return window.innerWidth < breakpoints.values.sm
         ? setTabsOrientation("vertical")
@@ -51,11 +36,11 @@ function Header({ children }) {
     }
 
     /** 
-     The event listener that's calling the handleTabsOrientation function when resizing the window.
+     El detector de eventos que llama a la función handleTabsOrientation al cambiar el tamaño de la ventana.
     */
     window.addEventListener("resize", handleTabsOrientation);
 
-    // Call the handleTabsOrientation function to set the state with the initial value.
+    // Llame a la función handleTabsOrientation para establecer el estado con el valor inicial.
     handleTabsOrientation();
 
     // Remove event listener on cleanup
