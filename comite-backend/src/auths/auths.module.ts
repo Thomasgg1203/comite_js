@@ -4,7 +4,7 @@ import { AuthsController } from './auths.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Usuario, usuarioSchema } from 'src/usuarios/model/usuario.schema';
 import { JwtModule } from '@nestjs/jwt';
-
+import { jwtStrategy } from './strategy/jwt.strategy';
 @Module({
   imports:[
     // importamos JwtModule, este componente ayuda a implementar JsonWebToken y manipularlo
@@ -28,6 +28,7 @@ import { JwtModule } from '@nestjs/jwt';
     ])
   ],
   controllers: [AuthsController],
-  providers: [AuthsService],
+  //dependencias que requiere el modulo de autenticación
+  providers: [AuthsService, jwtStrategy],
 })
 export class AuthsModule {}
