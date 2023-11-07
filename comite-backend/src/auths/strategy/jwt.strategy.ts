@@ -14,8 +14,9 @@ export class jwtStrategy extends PassportStrategy(Strategy){
         super({
             // en estos parametros se define que se extraera el jwt de la cabecera del Auth con el esquema JWT
             jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
-            // esta configuración es opcional, nos pregunta si ignoraremos tokens ya usados previamente 
-            ignoreExpiration:false
+            // estas son configuraciones, nos pregunta si ignoraremos tokens ya usados previamente y el secret
+            ignoreExpiration:false,
+            secretOrKey: process.env.SECRET_KEY,
         });
     }
     // metodo asincrono que valida el obj payload compuesto de id y documento de usuario 

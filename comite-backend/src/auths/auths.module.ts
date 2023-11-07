@@ -9,14 +9,13 @@ import { jwtStrategy } from './strategy/jwt.strategy';
   imports:[
     // importamos JwtModule, este componente ayuda a implementar JsonWebToken y manipularlo
     JwtModule.registerAsync({
-      // una ez llamado el modulo, vamos a sobreescribir algunas configuraciones basicas 'useFactory'
+      // una vez llamado el modulo, vamos a sobreescribir algunas configuraciones basicas 'useFactory'
       useFactory:() =>{
         return {
           // en la opción de las firmas, haremos que estas expiren en 1 dia
           signOptions: {expiresIn: '1d'},
-          // el secretKey, se define como una constante que solo sabremos de lado del BackEnd
-          secret: 'sena010203',
-          // podemos cambiarla o introducirla en un .env para produccion
+          // el secretKey, se define como una constante que solo sabremos de lado del BackEnd, ya sea aquí o en el .env
+          secret: process.env.SECRET_KEY,
         };
       }
     }),
@@ -29,6 +28,6 @@ import { jwtStrategy } from './strategy/jwt.strategy';
   ],
   controllers: [AuthsController],
   //dependencias que requiere el modulo de autenticación
-  providers: [AuthsService, jwtStrategy],
+  providers: [AuthsService,jwtStrategy],
 })
 export class AuthsModule {}
