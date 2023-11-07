@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGestorGrupoDto } from './dto/create-gestor-grupo.dto';
 import { UpdateGestorGrupoDto } from './dto/update-gestor-grupo.dto';
+import { GestorGrupo, gestorGrupoDocument } from './model/gestor-grupo.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class GestorGrupoService {
-  create(createGestorGrupoDto: CreateGestorGrupoDto) {
-    return 'This action adds a new gestorGrupo';
+  
+  constructor(
+    @InjectModel(GestorGrupo.name) private readonly gestorGrupoModel: Model<gestorGrupoDocument>
+  ){
+
+  }
+  // Los metodos con función asincrona se encuentran en uso
+  async create(createGestorGrupoDto: CreateGestorGrupoDto) {
+    return createGestorGrupoDto;
   }
 
-  findAll() {
-    return `This action returns all gestorGrupo`;
+  async findAll() {
+    return this.gestorGrupoModel.find(CreateGestorGrupoDto);
   }
 
   findOne(id: number) {
