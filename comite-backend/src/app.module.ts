@@ -8,6 +8,11 @@ import { GestorGrupoModule } from './gestor-grupo/gestor-grupo.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthsModule } from './auths/auths.module';
 import { ConfigModule } from '@nestjs/config';
+import { AprendicesModule } from './aprendices/aprendices.module';
+import { ArticulosModule } from './articulos/articulos.module';
+import { CapitulosModule } from './capitulos/capitulos.module';
+import { NumeralesModule } from './numerales/numerales.module';
+import { SolicitudesModule } from './solicitudes/solicitudes.module';
 
 @Module({
   imports: [
@@ -17,7 +22,14 @@ import { ConfigModule } from '@nestjs/config';
     FichasModule, 
     GestorGrupoModule, 
     UsuariosModule,
-    AuthsModule ],
+    AuthsModule,
+    AprendicesModule,
+    ArticulosModule,
+    CapitulosModule,
+    NumeralesModule, 
+    SolicitudesModule
+  ]
+  
   controllers: [AppController],
   providers: [AppService],
 })
