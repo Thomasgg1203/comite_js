@@ -23,7 +23,6 @@ export class articulo {
 
   @Prop()
   idParagrafo: string;
-
 }
 
 export const articuloSchema = SchemaFactory.createForClass(articulo);
