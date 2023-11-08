@@ -2,21 +2,18 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-
-export type capituloDocument = capitulo & Document;
+export type paragrafoDocument = paragrafo & Document;
 
 @Schema()
-export class capitulo {
+export class paragrafo {
+
   @Prop({unique: true , default: uuidv4})
   id: string;
 
   @Prop()
-  capitulo: string;
-
-  @Prop()
-  titulo: string;
+  descripcion: string;
 
 }
 
-export const capituloSchema = SchemaFactory.createForClass(capitulo);
+export const paragrafoSchema = SchemaFactory.createForClass(paragrafo);
 

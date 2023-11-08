@@ -12,23 +12,23 @@ export class CapitulosController {
     return this.capitulosService.create(createCapituloDto);
   }
 
-  @Get()
-  findAll() {
+  @Get('')
+  getListCapitulos() {
     return this.capitulosService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.capitulosService.findOne(+id);
+    return this.capitulosService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCapituloDto: UpdateCapituloDto) {
-    return this.capitulosService.update(+id, updateCapituloDto);
+    return this.capitulosService.update(id, updateCapituloDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.capitulosService.remove(+id);
+    return this.capitulosService.remove(id);
   }
 }

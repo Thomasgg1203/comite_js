@@ -19,16 +19,17 @@ export class ArticulosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.articulosService.findOne(+id);
+    return this.articulosService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArticuloDto: UpdateArticuloDto) {
-    return this.articulosService.update(+id, updateArticuloDto);
+  update(@Param('id') id: string, @Body() body:UpdateArticuloDto) {
+    return this.articulosService.update(id,body)
+    
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.articulosService.remove(+id);
+    return this.articulosService.remove(id);
   }
 }

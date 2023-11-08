@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class CreateCapituloDto {
     @IsNotEmpty()
@@ -6,4 +6,5 @@ export class CreateCapituloDto {
 
     @IsNotEmpty()
     titulo: string;
+    
 }
