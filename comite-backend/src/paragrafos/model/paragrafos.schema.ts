@@ -12,7 +12,7 @@ export class paragrafo {
 
   @Prop()
   descripcion: string;
-
+  
 }
 
 export const paragrafoSchema = SchemaFactory.createForClass(paragrafo);

@@ -23,6 +23,9 @@ export class articulo {
 
   @Prop()
   idParagrafo: string;
+
+  @Prop()
+  idNumeral: string;
 }
 
 export const articuloSchema = SchemaFactory.createForClass(articulo);
@@ -78,7 +81,29 @@ articuloSchema.statics.findAllArticulos = function() {
         path: '$capitulo',
         preserveNullAndEmptyArrays: true
       }
-    }
+    },
+    {
+      $lookup: {
+        from: 'numerals',
+        foreignField: 'id',
+        localField: 'idNumeral',
+        as: 'numeral',
+        pipeline: [
+          {
+            $project: {
+              _id: 0,
+              descripcion: 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      $unwind: {
+        path: '$numeral',
+        preserveNullAndEmptyArrays: true
+      }
+    },
   ]);
   return list;
 }

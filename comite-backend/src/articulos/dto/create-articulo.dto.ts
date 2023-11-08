@@ -9,6 +9,10 @@ export class CreateArticuloDto {
     @IsUUID()
     idParagrafo: string;
 
+    @IsOptional()
+    @IsUUID()
+    idNumeral: string;
+
     @IsNotEmpty()
     articulo: string;
 
