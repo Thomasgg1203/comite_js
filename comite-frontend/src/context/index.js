@@ -108,7 +108,17 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 /**
  * --------------------------Inicio de logica por parte de Apis----------------------------------
  */
+//Logica por parte de capitulos
+import { GetAllCapitulos } from "api/capitulo";
 
+const capitulosData = async () => {
+  try {
+    const res = await GetAllCapitulos();
+    return res;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+};
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
  */
@@ -126,4 +136,5 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  capitulosData,
 };
