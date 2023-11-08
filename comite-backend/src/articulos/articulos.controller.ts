@@ -12,7 +12,7 @@ export class ArticulosController {
     return this.articulosService.create(createArticuloDto);
   }
 
-  @Get()
+  @Get()//localhost:4000/articulos
   findAll() {
     return this.articulosService.findAll();
   }
