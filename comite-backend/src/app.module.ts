@@ -28,8 +28,7 @@ import { SolicitudesModule } from './solicitudes/solicitudes.module';
     CapitulosModule,
     NumeralesModule, 
     SolicitudesModule
-  ]
-  
+  ],  
   controllers: [AppController],
   providers: [AppService],
 })

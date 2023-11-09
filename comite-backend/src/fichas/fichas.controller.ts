@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { FichasService } from './fichas.service';
 import { CreateFichaDto } from './dto/create-ficha.dto';
 import { UpdateFichaDto } from './dto/update-ficha.dto';
-
+import { JwtGuardGuard } from 'src/guards/jwt-guard.guard';
+// Podemos hacer uso del guard aquí con solo llamar el decorador, y brindo su metadata
+@UseGuards(JwtGuardGuard)
 @Controller('fichas')
 export class FichasController {
   constructor(private readonly fichasService: FichasService) {}
