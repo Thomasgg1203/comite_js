@@ -39,18 +39,11 @@ const Reglamento = () => {
                 mt={-3}
                 py={3}
                 px={2}
-                bgColor="white"
-                borderRadius="lg"
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
               >
-                <CircularProgress
-                  color="inherit"
-                  sx={{
-                    "--CircularProgress-size": "150px", //no aumenta la monda, porque es beta
-                  }}
-                />
+                <CircularProgress color="primary" />
               </MDBox>
             </Grid>
           </Grid>
@@ -66,6 +59,20 @@ const Reglamento = () => {
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
+            <MDBox
+              mx="auto"
+              mt={-3}
+              py={3}
+              px={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              bgColor="light"
+            >
+              <MDTypography variant="h3" color="dark">
+                Reglamento Del Aprendiz
+              </MDTypography>
+            </MDBox>
             {datos.map((item) => (
               <MDBox
                 key={item.capitulo._id}
@@ -73,25 +80,26 @@ const Reglamento = () => {
                 mt={-3}
                 py={3}
                 px={2}
-                bgColor="white"
+                bgColor="light"
                 borderRadius="lg"
               >
-                <MDTypography variant="h3">Reglamento Del Aprendiz</MDTypography>
                 <br />
-                <MDTypography variant="h5" color="black">
+                <MDTypography variant="h5" color="dark">
                   {item.capitulo.capitulo} - {item.capitulo.titulo}
                 </MDTypography>
                 <br />
                 {item.articulos.map((articulo) => (
                   <div key={articulo._id}>
-                    <MDTypography variant="h6" color="black">
-                      {articulo.titulo}
+                    <MDTypography variant="h6" color="dark">
+                      {articulo.articulo} {articulo.titulo}
                     </MDTypography>
-                    <MDTypography variant="body2" color="black">
+                    <MDTypography variant="body2" color="dark">
                       {articulo.descripcion}
                     </MDTypography>
-                    <br />
-                    {/* Aquí puedes agregar los numerales y parágrafos si están disponibles en los datos del artículo */}
+                    {/* <MDTypography variant="body2" color="black">
+                      <b>Parágrafo:</b> {articulo.paragrafo.descripcion}
+                    </MDTypography> */}
+                    {/* Aqui  */}
                   </div>
                 ))}
               </MDBox>
