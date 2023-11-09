@@ -21,7 +21,8 @@ export class NumeralesService {
   }
 
   async findAll() {
-    return this.numeralModel.findAllNumerales();
+    const numeral = await this.numeralModel.find().exec();
+    return numeral;
   }
 
   async findOne(id: string) {

@@ -24,8 +24,8 @@ export class articulo {
   @Prop()
   idParagrafo: string;
 
-  @Prop()
-  idNumeral: string;
+  @Prop({type:[String]})
+  idNumeral: string[];
 }
 
 export const articuloSchema = SchemaFactory.createForClass(articulo);
