@@ -98,15 +98,22 @@ articuloSchema.statics.findAllArticulos = function() {
         ]
       }
     },
+    // Elimina la etapa $unwind para 'numeral'
     {
-      $unwind: {
-        path: '$numeral',
-        preserveNullAndEmptyArrays: true
+      $project: {
+        id: 1,
+        idCapitulo: 1,
+        articulo: 1,
+        titulo: 1,
+        descripcion: 1,
+        idParagrafo: 1,
+        paragrafo: '$paragrafo.descripcion',
+        capitulo: '$capitulo.capitulo',
+        capituloTitulo: '$capitulo.titulo',
+        numeral: '$numeral.descripcion' // Puedes ajustar esto según la estructura de tu modelo Numeral
       }
     },
   ]);
+
   return list;
 }
-
-
-
