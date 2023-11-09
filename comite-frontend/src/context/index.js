@@ -119,6 +119,16 @@ const capitulosData = async () => {
     console.log(`Error: ${e.message}`);
   }
 };
+//Logica por parte de articulos
+import { getAllArticulos } from "api/articulo";
+const articulosData = async () => {
+  try {
+    const res = await getAllArticulos();
+    return res;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+};
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
  */

@@ -1,14 +1,65 @@
-// Componentes de ubicacio
+//libreria de react
+import { useState, useEffect } from "react";
+//recargar pagina componente de Material ui
+import { CircularProgress } from "@material-ui/core";
+// Componentes de ubicacion
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-
 import MDBox from "components/MDBox";
 //Parte de la funcionalidad del margen
 import Grid from "@mui/material/Grid";
 //Parte de tipografia
 import MDTypography from "components/MDTypography";
+//contexto
+import { capitulosData } from "context";
 
 const Reglamento = () => {
+  const [capitulos, setCapitulos] = useState([]);
+
+  useEffect(() => {
+    const dataAll = async () => {
+      //Porque es lo que se esta respondiendo el backend
+      const responts = await capitulosData();
+      console.log(responts.data);
+      setCapitulos(responts.data);
+    };
+    dataAll();
+  }, [capitulosData]);
+
+  //si capitulos no ejecuta
+  if (!capitulos || capitulos.length === 0) {
+    return (
+      <DashboardLayout>
+        <DashboardNavbar />
+        <MDBox pt={6} pb={3}>
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <MDBox
+                mx="auto"
+                mt={-3}
+                py={3}
+                px={2}
+                bgColor="white"
+                borderRadius="lg"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <CircularProgress
+                  color="inherit"
+                  sx={{
+                    "--CircularProgress-size": "150px", //no aumenta la monda, porque es beta
+                  }}
+                />
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
+      </DashboardLayout>
+    );
+  }
+
+  //Si todo esta bien envia esto
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -19,7 +70,7 @@ const Reglamento = () => {
               <MDTypography variant="h3">Reglamento Del Aprendiz</MDTypography>
               <br />
               <MDTypography variant="h5" color="black">
-                Capitulo I
+                {`${capitulos[0].capitulo}, ${capitulos[0].titulo}`}
               </MDTypography>
               <br />
               <MDTypography variant="h6" color="black">
