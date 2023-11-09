@@ -22,5 +22,14 @@ export class Usuario {
 
     @Prop({required:true})
     contrasenia:string;
+
+    @Prop()
+    direccion: string;
+  
+    @Prop()
+    fecha_nacimiento: Date;
+
+    @Prop({default:'admin'})
+    roles:[];
 }
 export const usuarioSchema=SchemaFactory.createForClass(Usuario);

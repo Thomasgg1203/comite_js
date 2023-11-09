@@ -7,14 +7,15 @@ import { UpdateGestorGrupoDto } from './dto/update-gestor-grupo.dto';
 export class GestorGrupoController {
   constructor(private readonly gestorGrupoService: GestorGrupoService) {}
 
-  @Post()
-  create(@Body() createGestorGrupoDto: CreateGestorGrupoDto) {
-    return this.gestorGrupoService.create(createGestorGrupoDto);
-  }
+  // @Post()
+  // create(@Body() createGestorGrupoDto: CreateGestorGrupoDto) {
+  //   return this.gestorGrupoService.create(createGestorGrupoDto);
+  // }
 
+  // retirar metodos 'POST' para centrarlo al Usuario
   @Get()
-  findAll() {
-    return this.gestorGrupoService.findAll();
+  findAllTypeRole(@Param('rol') rol:[]) {
+    return this.gestorGrupoService.findAllByRole(rol:[]);
   }
 
   @Get(':id')
