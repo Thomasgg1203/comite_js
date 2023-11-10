@@ -7,6 +7,7 @@ import { Model, Types } from 'mongoose';
 import { paragrafo, paragrafoDocument } from 'src/paragrafos/model/paragrafos.schema';
 import { types } from 'util';
 import { capitulo, capituloDocument } from 'src/capitulos/model/capitulos.schema';
+import { numeral, numeralDocument } from 'src/numerales/model/numerales.schema';
 
 interface ModelExt<T> extends Model<T>{
   delete:Function;
@@ -17,7 +18,8 @@ export class ArticulosService {
 constructor 
 (@InjectModel(articulo.name) private readonly articuloModel: ModelExt<articuloDocument>,
   @InjectModel(paragrafo.name) private readonly paragrafoModel: ModelExt<paragrafoDocument>,
-  @InjectModel(capitulo.name) private readonly capituloModel: ModelExt<capituloDocument>){
+  @InjectModel(capitulo.name) private readonly capituloModel: ModelExt<capituloDocument>,
+  @InjectModel(numeral.name) private readonly numeralModel: ModelExt<numeralDocument>){
 
 }
 
