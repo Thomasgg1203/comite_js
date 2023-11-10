@@ -13,7 +13,8 @@ export class ProgramasService {
   ){
 
   }
-  create(createProgramaDto: CreateProgramaDto) {
+  // Los metodos con función asincrona se encuentran en uso
+  async create(createProgramaDto: CreateProgramaDto) {
     return this.programaModel.create(CreateProgramaDto);
   }
 

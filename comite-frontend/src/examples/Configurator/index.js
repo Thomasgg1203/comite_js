@@ -44,22 +44,22 @@ function Configurator() {
     darkMode,
   } = controller;
   const [disabled, setDisabled] = useState(false);
-  const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+  const sidenavColors = ["info", "success", "warning"];
 
-  // Use the useEffect hook to change the button state for the sidenav type based on window size.
+  // Utilice el gancho useEffect para cambiar el estado del botón para el tipo de navegación lateral según el tamaño de la ventana.
   useEffect(() => {
-    // A function that sets the disabled state of the buttons for the sidenav type.
+    // Una función que establece el estado deshabilitado de los botones para el tipo de navegación lateral.
     function handleDisabled() {
       return window.innerWidth > 1200 ? setDisabled(false) : setDisabled(true);
     }
 
-    // The event listener that's calling the handleDisabled function when resizing the window.
+    // El detector de eventos que llama a la función handleDisabled al cambiar el tamaño de la ventana.
     window.addEventListener("resize", handleDisabled);
 
-    // Call the handleDisabled function to set the state with the initial value.
+    // Llame a la función handleDisabled para establecer el estado con el valor inicial.
     handleDisabled();
 
-    // Remove event listener on cleanup
+    // Eliminar la escucha de eventos en la limpieza
     return () => window.removeEventListener("resize", handleDisabled);
   }, []);
 
@@ -79,7 +79,7 @@ function Configurator() {
   const handleFixedNavbar = () => setFixedNavbar(dispatch, !fixedNavbar);
   const handleDarkMode = () => setDarkMode(dispatch, !darkMode);
 
-  // sidenav type buttons styles
+  // estilos de botones de tipo sidenav
   const sidenavTypeButtonsStyles = ({
     functions: { pxToRem },
     palette: { white, dark, background },
@@ -97,7 +97,7 @@ function Configurator() {
     },
   });
 
-  // sidenav type active button styles
+  // Estilos de botones activos de tipo Sidenav
   const sidenavTypeActiveButtonStyles = ({
     functions: { pxToRem, linearGradient },
     palette: { white, gradients, background },
@@ -123,9 +123,9 @@ function Configurator() {
         px={3}
       >
         <MDBox>
-          <MDTypography variant="h5">Material UI Configurator</MDTypography>
+          <MDTypography variant="h5">Configuración</MDTypography>
           <MDTypography variant="body2" color="text">
-            See our dashboard options.
+            Opciones de Configuración de tema
           </MDTypography>
         </MDBox>
 
@@ -148,7 +148,7 @@ function Configurator() {
 
       <MDBox pt={0.5} pb={3} px={3}>
         <MDBox>
-          <MDTypography variant="h6">Sidenav Colors</MDTypography>
+          <MDTypography variant="h6">Colores de Navegacion Lateral</MDTypography>
 
           <MDBox mb={0.5}>
             {sidenavColors.map((color) => (
@@ -194,9 +194,9 @@ function Configurator() {
         </MDBox>
 
         <MDBox mt={3} lineHeight={1}>
-          <MDTypography variant="h6">Sidenav Type</MDTypography>
+          <MDTypography variant="h6">Tipo de Navegacion Lateral</MDTypography>
           <MDTypography variant="button" color="text">
-            Choose between different sidenav types.
+            Elija entre diferentes tipos de navegación lateral
           </MDTypography>
 
           <MDBox
@@ -218,7 +218,7 @@ function Configurator() {
                   : sidenavTypeButtonsStyles
               }
             >
-              Dark
+              Oscuro
             </MDButton>
             <MDBox sx={{ mx: 1, width: "8rem", minWidth: "8rem" }}>
               <MDButton
@@ -233,7 +233,7 @@ function Configurator() {
                     : sidenavTypeButtonsStyles
                 }
               >
-                Transparent
+                Transparente
               </MDButton>
             </MDBox>
             <MDButton
@@ -248,7 +248,7 @@ function Configurator() {
                   : sidenavTypeButtonsStyles
               }
             >
-              White
+              Claro
             </MDButton>
           </MDBox>
         </MDBox>
@@ -259,71 +259,17 @@ function Configurator() {
           mt={3}
           lineHeight={1}
         >
-          <MDTypography variant="h6">Navbar Fixed</MDTypography>
+          <MDTypography variant="h6">Barra de Navegación Fija</MDTypography>
 
           <Switch checked={fixedNavbar} onChange={handleFixedNavbar} />
         </MDBox>
         <Divider />
         <MDBox display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
-          <MDTypography variant="h6">Light / Dark</MDTypography>
+          <MDTypography variant="h6">Claro / Oscuro</MDTypography>
 
           <Switch checked={darkMode} onChange={handleDarkMode} />
         </MDBox>
         <Divider />
-        <MDBox mt={3} mb={2}>
-          <MDButton
-            component={Link}
-            href="https://www.creative-tim.com/learning-lab/react/quick-start/material-dashboard/"
-            target="_blank"
-            rel="noreferrer"
-            color={darkMode ? "light" : "dark"}
-            variant="outlined"
-            fullWidth
-          >
-            view documentation
-          </MDButton>
-        </MDBox>
-        <MDBox display="flex" justifyContent="center">
-          <GitHubButton
-            href="https://github.com/creativetimofficial/material-dashboard-react"
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star creativetimofficial/material-dashboard-react on GitHub"
-          >
-            Star
-          </GitHubButton>
-        </MDBox>
-        <MDBox mt={2} textAlign="center">
-          <MDBox mb={0.5}>
-            <MDTypography variant="h6">Thank you for sharing!</MDTypography>
-          </MDBox>
-
-          <MDBox display="flex" justifyContent="center">
-            <MDBox mr={1.5}>
-              <MDButton
-                component={Link}
-                href="//twitter.com/intent/tweet?text=Check%20Material%20Dashboard%20React%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23react%20%mui&url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fmaterial-dashboard-react"
-                target="_blank"
-                rel="noreferrer"
-                color="dark"
-              >
-                <TwitterIcon />
-                &nbsp; Tweet
-              </MDButton>
-            </MDBox>
-            <MDButton
-              component={Link}
-              href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard-react"
-              target="_blank"
-              rel="noreferrer"
-              color="dark"
-            >
-              <FacebookIcon />
-              &nbsp; Share
-            </MDButton>
-          </MDBox>
-        </MDBox>
       </MDBox>
     </ConfiguratorRoot>
   );

@@ -1,3 +1,5 @@
+// Iconos
+import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
@@ -8,9 +10,8 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 //Reglamento del aprendiz
 import Reglamento from "layouts/reglamento";
-
-// Iconos
-import Icon from "@mui/material/Icon";
+//Gestor-grupo
+import Gestor_grupo from "layouts/cruds/gestor-grupo";
 
 const routes = [
   {
@@ -79,6 +80,16 @@ const routes = [
     component: <Reglamento />,
   },
   //Parte Reglamento Aprendiz fin
+  //Parte crud Gestor de grupo
+  {
+    type: "collapse",
+    name: "Gestor Grupo",
+    key: "gestor-grupo",
+    icon: <Icon fontSize="small">menu_book</Icon>,
+    route: "/gestor-grupo",
+    component: <Gestor_grupo />,
+  },
+  //Parte crud Gestor de grupo fin
 ];
 
 /**

@@ -108,6 +108,57 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 /**
  * --------------------------Inicio de logica por parte de Apis----------------------------------
  */
+// //Logica por parte de capitulos
+// import { GetAllCapitulos } from "api/capitulo";
+
+// const capitulosData = async () => {
+//   try {
+//     const res = await GetAllCapitulos();
+//     return res;
+//   } catch (e) {
+//     console.log(`Error: ${e.message}`);
+//   }
+// };
+// //Logica por parte de articulos
+// import { getAllArticulos } from "api/articulo";
+// const articulosData = async () => {
+//   try {
+//     const res = await getAllArticulos();
+//     return res;
+//   } catch (e) {
+//     console.log(`Error: ${e.message}`);
+//   }
+// };
+/**
+ * Parte de reglamento
+ */
+import { GetAllCapitulos } from "api/capitulo";
+import { GetArticulosByCapituloId } from "api/articulo";
+
+const reglamento = async () => {
+  try {
+    // Obtener todos los capítulos
+    const response = await GetAllCapitulos();
+
+    // Si la respuesta es un objeto, conviértela en un array
+    const capitulos = Array.isArray(response.data) ? response.data : Object.values(response.data);
+
+    // Recorrer los capítulos y obtener los artículos relacionados
+    const datosRelacionados = await Promise.all(
+      capitulos.map(async (capitulo) => {
+        const articulos = await GetArticulosByCapituloId(capitulo._id);
+        return {
+          capitulo,
+          articulos,
+        };
+      })
+    );
+
+    return datosRelacionados;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+};
 
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
@@ -126,4 +177,5 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  reglamento,
 };

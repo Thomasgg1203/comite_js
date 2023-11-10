@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFichaDto } from './dto/create-ficha.dto';
 import { UpdateFichaDto } from './dto/update-ficha.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Ficha, fichaDocument } from './model/fichas.schema';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class FichasService {
-  create(createFichaDto: CreateFichaDto) {
-    return 'This action adds a new ficha';
+  constructor(
+    @InjectModel(Ficha.name) private readonly fichaModel: Model<fichaDocument>
+  ){
+
+  }
+  // Los metodos con función asincrona se encuentran en uso
+  async create(createFichaDto: CreateFichaDto) {
+    return this.fichaModel.create(CreateFichaDto);
   }
 
-  findAll() {
-    return `This action returns all fichas`;
+  async findAll() {
+    return this.fichaModel.find(Ficha);
   }
 
   findOne(id: number) {
@@ -20,7 +29,9 @@ export class FichasService {
     return `This action updates a #${id} ficha`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ficha`;
+  async remove(id: number) {
+    const _id = new Types.ObjectId(id)
+    const response = this.fichaModel.deleteOne({_id})
+    return `This action removes a #${id} programa`+ response;
   }
 }
