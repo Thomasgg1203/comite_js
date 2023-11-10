@@ -1,5 +1,5 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export type usuarioDocument = Usuario & Document;
 
@@ -29,7 +29,10 @@ export class Usuario {
     @Prop()
     fecha_nacimiento: Date;
 
-    @Prop({default:'admin'})
-    roles:[];
+    @Prop()
+    id_:mongoose.Types.ObjectId;
+
+    @Prop({default:'administrador'})
+    roles:string[];
 }
 export const usuarioSchema=SchemaFactory.createForClass(Usuario);
