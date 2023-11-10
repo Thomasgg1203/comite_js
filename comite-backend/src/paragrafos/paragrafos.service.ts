@@ -5,28 +5,36 @@ import { InjectModel } from '@nestjs/mongoose';
 import { paragrafo, paragrafoDocument } from './model/paragrafos.schema';
 import { Model } from 'mongoose';
 
+interface ModelExt<T> extends Model<T>{
+  delete:Function;
+}
 @Injectable()
 export class ParagrafosService {
-  constructor (@InjectModel(paragrafo.name) private readonly paragrafoModel: Model<paragrafoDocument>){
+  constructor (@InjectModel(paragrafo.name) private readonly paragrafoModel: ModelExt<paragrafoDocument>){
   }
   
     create(createparagrafoDto: CreateParagrafoDto) {
       return this.paragrafoModel.create(createparagrafoDto);
     }
 
-  findAll() {
-    return `This action returns all paragrafos`;
+  async findAll() {
+    const paragrafo= await this.paragrafoModel.find().exec();
+    return paragrafo;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} paragrafo`;
+  async findOne(id: string) {
+    return this.paragrafoModel.findOne({ id });
   }
 
-  update(id: number, updateParagrafoDto: UpdateParagrafoDto) {
-    return `This action updates a #${id} paragrafo`;
+  async update(id: string, UpdateParagrafoDto: UpdateParagrafoDto) {
+    return this.paragrafoModel.findOneAndUpdate({ id }, UpdateParagrafoDto, {
+      upsert: true,
+      new: true
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} paragrafo`;
+  async remove(id: string) {
+    const response = await this.paragrafoModel.delete({ id });
+    return response
   }
 }
