@@ -45,19 +45,17 @@ function Footer({ company, links }) {
         fontSize={size.sm}
         px={1.5}
       >
-        &copy; {new Date().getFullYear()}, made with
+        SENA Caldas &copy; {new Date().getFullYear()} ADSO , Centro de automatizacion industrial
         <MDBox fontSize={size.md} color="text" mb={-0.5} mx={0.25}>
-          <Icon color="inherit" fontSize="inherit">
+          {/* <Icon color="inherit" fontSize="inherit">
             favorite
-          </Icon>
+          </Icon> */}
         </MDBox>
-        by
         <Link href={href} target="_blank">
           <MDTypography variant="button" fontWeight="medium">
             &nbsp;{name}&nbsp;
           </MDTypography>
         </Link>
-        for a better web.
       </MDBox>
       <MDBox
         component="ul"
@@ -84,12 +82,12 @@ function Footer({ company, links }) {
 
 // Setting default values for the props of Footer
 Footer.defaultProps = {
-  company: { href: "#", name: "Creative Tim" },
+  company: { href: "#", name: "Creado por el grupo 4-6" },
   links: [
-    { href: "#", name: "SSCS" },
+    //{ href: "#", name: "SSCS" },
     { href: "https://www.sena.edu.co/es-co/Paginas/default.aspx", name: "Sena" },
-    { href: "#", name: "Blog" },
-    { href: "#", name: "License" },
+    // { href: "#", name: "Blog" },
+    //{ href: "#", name: "License" },
   ],
 };
 
