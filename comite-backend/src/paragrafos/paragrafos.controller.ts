@@ -19,16 +19,16 @@ export class ParagrafosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.paragrafosService.findOne(+id);
+    return this.paragrafosService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateParagrafoDto: UpdateParagrafoDto) {
-    return this.paragrafosService.update(+id, updateParagrafoDto);
+    return this.paragrafosService.update(id, updateParagrafoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.paragrafosService.remove(+id);
+    return this.paragrafosService.remove(id);
   }
 }
