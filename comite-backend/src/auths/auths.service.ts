@@ -15,12 +15,15 @@ export class AuthsService {
     ){}
 
     public async registrar(usuarioRegistrarBody:registrarUsuarioDto){
+        // des-estructuración de objetos JS, definiendo variables que contienen los atributos propios de un obj.Javascript especifico
         const {contrasenia, ...usuario}= usuarioRegistrarBody;
-        
+        // luego en un nuevo objeto, asignamos los valores de la variable 'usuario' y 'contrasenia' desestructurados
         const authUsuario = {...usuario, contrasenia:
+            //  pero, 'contrasenia' la transformamos por medio de la funcion plainTextToHash para encriptarla
             await plainTextToHash(contrasenia)   
         }
-        return this.usuarioModel.create(usuarioRegistrarBody);
+        // retornamos este nuevo objeto que tiene el atributo 'contrasenia' encriptada.
+        return this.usuarioModel.create(authUsuario);
     }
     public async ingresar(usuarioIngresarBody:ingresarUsuarioDto){
         // definimos un objeto, en base a los datos des-estructurados del objeto tratado en cuestion, 

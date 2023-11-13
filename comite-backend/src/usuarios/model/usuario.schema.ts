@@ -16,12 +16,12 @@ export class Usuario {
     
     @Prop({required:true})
     correo:string;
-
-    @Prop({required:true})
-    telefono:string;
-
+    
     @Prop({required:true})
     contrasenia:string;
+
+    @Prop()
+    telefono:string;
 
     @Prop()
     direccion: string;
