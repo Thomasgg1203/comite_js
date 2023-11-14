@@ -13,14 +13,14 @@ export class jwtStrategy extends PassportStrategy(Strategy){
     // Se llama al construtor de la clase padre PassportStrategy
         super({
             // en estos parametros se define que se extraera el jwt de la cabecera del Auth con el esquema JWT
-            jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             // estas son configuraciones, nos pregunta si ignoraremos tokens ya usados previamente y el secret
             ignoreExpiration:false,
             secretOrKey: process.env.SECRET_KEY,
         });
     }
-    // metodo asincrono que valida el obj payload compuesto de id y documento de usuario 
-    async validation(payload:{id:string,documento:string}){
+    // metodo asincrono pre-escrito por interfaz IAuthStrategy, valida el obj payload compuesto de id y documento de usuario 
+    async validate(payload:{id:string,documento:string}){
         // una vez con el id, buscamos el usuario
         const usuario = await this.usuarioModel.findById(payload.id);
         // y retornamos el obj usuario que equivale al 'Usuario'

@@ -3,7 +3,7 @@ import mongoose, { Document } from "mongoose";
 
 export type usuarioDocument = Usuario & Document;
 
-@Schema()
+@Schema({ timestamps:true })
 export class Usuario {
     @Prop({required:true})
     nombres:string;

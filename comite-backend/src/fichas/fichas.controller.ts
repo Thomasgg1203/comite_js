@@ -1,16 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Req } from '@nestjs/common';
 import { FichasService } from './fichas.service';
 import { CreateFichaDto } from './dto/create-ficha.dto';
 import { UpdateFichaDto } from './dto/update-ficha.dto';
 import { JwtGuardGuard } from 'src/guards/jwt-guard.guard';
-// Podemos hacer uso del guard aquí con solo llamar el decorador, y brindo su metadata
-@UseGuards(JwtGuardGuard)
+import { Request } from 'express';
+import { RoleGuardGuard } from 'src/guards/role-guard.guard';
+import { Rol } from 'src/decorators/rol.decorator';
+// uso del guard con solo llamar su decorador, brindamos la metadata de los guardas que tenemos definidos
+@UseGuards(JwtGuardGuard, RoleGuardGuard)
 @Controller('fichas')
 export class FichasController {
   constructor(private readonly fichasService: FichasService) {}
 
   @Post()
-  create(@Body() createFichaDto: CreateFichaDto) {
+  // con el decorador personalizado @Rol vamos a poder establecer que Roles tiene permiso de acceder a determinadas solicitudes
+  @Rol(['administrador'])
+  create(@Req() req:Request , @Body() createFichaDto: CreateFichaDto) {
     return this.fichasService.create(createFichaDto);
   }
 
