@@ -15,12 +15,15 @@ export class AuthsService {
     ){}
 
     public async registrar(usuarioRegistrarBody:registrarUsuarioDto){
+        // des-estructuración de objetos JS, definiendo variables que contienen los atributos propios de un obj.Javascript especifico
         const {contrasenia, ...usuario}= usuarioRegistrarBody;
-        
+        // luego en un nuevo objeto, asignamos los valores de la variable 'usuario' y 'contrasenia' desestructurados
         const authUsuario = {...usuario, contrasenia:
+            //  pero, 'contrasenia' la transformamos por medio de la funcion plainTextToHash para encriptarla
             await plainTextToHash(contrasenia)   
         }
-        return this.usuarioModel.create(usuarioRegistrarBody);
+        // retornamos este nuevo objeto que tiene el atributo 'contrasenia' encriptada.
+        return this.usuarioModel.create(authUsuario);
     }
     public async ingresar(usuarioIngresarBody:ingresarUsuarioDto){
         // definimos un objeto, en base a los datos des-estructurados del objeto tratado en cuestion, 
@@ -42,7 +45,7 @@ export class AuthsService {
         if (!isValidate) throw new HttpException('NOT_VALID', HttpStatus.UNAUTHORIZED)
         
         // de lo contrario creamos un objeto Usuario y lo convertimos a objeto de TypeScript, por medio del usuario validado  
-        const Usuario = userValidate.toObject()
+        const Usuario = userValidate.toObject();
         // para luego omitir, de este nuevo objeto, la propiedad contrasenia que viene de nuestro campo contrasenia, y así retornarlo seguramente
         delete Usuario.contrasenia;
 
@@ -50,14 +53,14 @@ export class AuthsService {
         const payload = {
             // _TODO_:cambhiar el _id de mongoose, por el id propio de nuestra logica 'id'
             id: Usuario._id, 
-            usuarioname: Usuario.documento 
+            documento: Usuario.documento 
         };
 
         const token = this.jwtService.sign(payload);
         const data = {
             token,
             user:Usuario
-        }
-        return Usuario;
+        };
+        return data;
     }
 }

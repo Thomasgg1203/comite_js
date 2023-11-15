@@ -1,3 +1,5 @@
+// Iconos
+import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
@@ -10,9 +12,6 @@ import SignUp from "layouts/authentication/sign-up";
 import Reglamento from "layouts/reglamento";
 //Gestor-grupo
 import Gestor_grupo from "layouts/cruds/gestor-grupo";
-
-// Iconos
-import Icon from "@mui/material/Icon";
 
 const routes = [
   {

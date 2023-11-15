@@ -13,11 +13,18 @@ import { ArticulosModule } from './articulos/articulos.module';
 import { CapitulosModule } from './capitulos/capitulos.module';
 import { NumeralesModule } from './numerales/numerales.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
+import { ParagrafosModule } from './paragrafos/paragrafos.module';
+import { Connection, connection } from 'mongoose';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal:true }),
-    MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba'),
+    MongooseModule.forRoot('mongodb+srv://Admin:AYCUBrRgsgDVhBa5@cluster0.rdb206m.mongodb.net/prueba', {
+      connectionFactory: (connection) => {
+        connection.plugin(require('mongoose-delete'));
+        return connection;
+      },
+    }),
     ProgramasModule, 
     FichasModule, 
     GestorGrupoModule, 
@@ -25,12 +32,13 @@ import { SolicitudesModule } from './solicitudes/solicitudes.module';
     AuthsModule,
     AprendicesModule,
     ArticulosModule,
-    CapitulosModule,
+    CapitulosModule, 
     NumeralesModule, 
-    SolicitudesModule
-  ]
-  
+    SolicitudesModule, 
+    ParagrafosModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+

@@ -12,23 +12,23 @@ export class NumeralesController {
     return this.numeralesService.create(createNumeraleDto);
   }
 
-  @Get()
-  findAll() {
+  @Get('')
+  getListNumerales() {
     return this.numeralesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.numeralesService.findOne(+id);
+    return this.numeralesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNumeraleDto: UpdateNumeraleDto) {
-    return this.numeralesService.update(+id, updateNumeraleDto);
+    return this.numeralesService.update(id, updateNumeraleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.numeralesService.remove(+id);
+    return this.numeralesService.remove(id);
   }
 }

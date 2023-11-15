@@ -83,11 +83,11 @@ function Header({ children }) {
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
-              <MDTypography variant="h5" fontWeight="medium">
-                Richard Davis
+              <MDTypography variant="h2" fontWeight="medium">
+                Elena
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                CEO / Co-Founder
+                Programador del sena
               </MDTypography>
             </MDBox>
           </Grid>

@@ -1,24 +1,9 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { forwardRef } from "react";
 
-// prop-types is a library for typechecking of props
+// prop-types es una biblioteca para la verificación de tipos de accesorios
 import PropTypes from "prop-types";
 
-// Custom styles for MDBox
+// Estilos personalizados para MDBox
 import MDBoxRoot from "components/MDBox/MDBoxRoot";
 
 const MDBox = forwardRef(
@@ -31,7 +16,7 @@ const MDBox = forwardRef(
   )
 );
 
-// Setting default values for the props of MDBox
+// Establecer valores predeterminados para los accesorios de MDBox
 MDBox.defaultProps = {
   variant: "contained",
   bgColor: "transparent",
@@ -42,7 +27,7 @@ MDBox.defaultProps = {
   coloredShadow: "none",
 };
 
-// Typechecking props for the MDBox
+// Accesorios de verificación de tipos para MDBox
 MDBox.propTypes = {
   variant: PropTypes.oneOf(["contained", "gradient"]),
   bgColor: PropTypes.string,
