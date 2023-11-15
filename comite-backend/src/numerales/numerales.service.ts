@@ -4,29 +4,40 @@ import { UpdateNumeraleDto } from './dto/update-numerale.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { numeral, numeralDocument } from './model/numerales.schema';
 import { Model } from 'mongoose';
+import { articulo, articuloDocument } from 'src/articulos/model/articulos.schema';
+
+interface ModelExt<T> extends Model<T>{
+  delete:Function;
+  findAllNumerales:Function;
+}
 
 @Injectable()
 export class NumeralesService {
 
-  constructor(@InjectModel(numeral.name) private readonly numeralModel: Model<numeralDocument>){
+  constructor(@InjectModel(numeral.name) private readonly numeralModel: ModelExt<numeralDocument>,@InjectModel(articulo.name) private readonly articuloModel: ModelExt<articuloDocument>){
   } 
   create(createNumeraleDto: CreateNumeraleDto) {
     return this.numeralModel.create(createNumeraleDto);
   }
 
-  findAll() {
-    return `This action returns all numerales`;
+  async findAll() {
+    const numeral = await this.numeralModel.find().exec();
+    return numeral;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} numerale`;
+  async findOne(id: string) {
+    return this.numeralModel.findOne({id});
   }
 
-  update(id: number, updateNumeraleDto: UpdateNumeraleDto) {
-    return `This action updates a #${id} numerale`;
+  async update(id: string, updateNumeraleDto: UpdateNumeraleDto) {
+    return this.numeralModel.findOneAndUpdate({id},updateNumeraleDto,{
+      upsert: true,
+      new: true
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} numerale`;
+  async remove(id: string) {
+    const response = await this.numeralModel.delete({id});
+    return response
   }
 }

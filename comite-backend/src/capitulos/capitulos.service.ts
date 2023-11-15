@@ -4,11 +4,16 @@ import { UpdateCapituloDto } from './dto/update-capitulo.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { capitulo, capituloDocument } from './model/capitulos.schema';
 import { Model } from 'mongoose';
+import { articulo, articuloDocument } from 'src/articulos/model/articulos.schema';
 
-
+interface ModelExt<T> extends Model<T>{
+  delete:Function;
+  findAllCapitulos:Function;
+}
 @Injectable()
 export class CapitulosService {
-  constructor(@InjectModel(capitulo.name) private readonly capituloModel: Model<capituloDocument>){
+  constructor(@InjectModel(capitulo.name) private readonly capituloModel: ModelExt<capituloDocument>,
+  @InjectModel(articulo.name) private readonly articuloModel: ModelExt<articuloDocument>){
 
   }
 
@@ -21,15 +26,18 @@ export class CapitulosService {
     return capitulos;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} capitulo`;
+  async findOne(id: string) {
+    return this.capituloModel.findOne({ id });
   }
 
-  update(id: number, updateCapituloDto: UpdateCapituloDto) {
-    return `This action updates a #${id} capitulo`;
+  async update(id: string, updateCapituloDto: UpdateCapituloDto) {
+    return this.articuloModel.findOneAndUpdate({ id }, updateCapituloDto, {
+      upsert: true,
+      new: true
+    });
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} capitulo`;
+  async remove(id: string) {
+    const response = await this.capituloModel.delete({ id });
+    return response
   }
 }
