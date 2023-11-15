@@ -14,7 +14,7 @@ export class FichasService {
   }
   // Los metodos con función asincrona se encuentran en uso
   async create(createFichaDto: CreateFichaDto) {
-    return this.fichaModel.create(CreateFichaDto);
+    return this.fichaModel.create(createFichaDto);
   }
 
   async findAll() {

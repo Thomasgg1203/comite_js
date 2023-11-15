@@ -20,9 +20,8 @@ export class aprendiz {
   telefono: string;
 
   @Prop()
-
   direccion: string;
-
+  
   @Prop()
   fecha_nacimiento: Date;
 

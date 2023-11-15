@@ -10,16 +10,12 @@ export class Ficha {
     numero_ficha: string;
     
     @Prop({required:true})
-    @IsDateString()
     fecha_inicio_lectiva:Date;
     @Prop({required:true})
-    @IsDateString()
     fecha_fin_lectiva:Date;
     @Prop({required:true})
-    @IsDateString()
     fecha_inicio_productiva:Date;
     @Prop({required:true})
-    @IsDateString()
     fecha_fin_productiva:Date;
     
     @Prop({required:true})
