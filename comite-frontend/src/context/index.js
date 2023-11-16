@@ -46,7 +46,7 @@ function reducer(state, action) {
       return { ...state, darkMode: action.value };
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Tipo de acción no controlada: ${action.type}`);
     }
   }
 }
@@ -159,6 +159,33 @@ const reglamento = async () => {
     console.log(`Error: ${e.message}`);
   }
 };
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Parte de ingreso de aplicacion>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+import { useState } from "react";
+const AuthContext = createContext();
+
+const AuthProvider = ({ children }) => {
+  const [authData, setAuthData] = useState(null);
+
+  return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
+};
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
+export { AuthContext, useAuth, AuthProvider };
+/**
+ * En este ejemplo, PropTypes.node.isRequired especifica que children debe ser un nodo React y es requerido.
+ * Asegúrate de importar PropTypes desde 'prop-types'. Esto debería resolver el problema del linter.
+ */
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+//<>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<PArte fin de validacion del ingreso<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
