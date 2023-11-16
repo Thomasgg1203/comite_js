@@ -177,7 +177,6 @@ const useAuth = () => {
   return context;
 };
 
-export { AuthContext, useAuth, AuthProvider };
 /**
  * En este ejemplo, PropTypes.node.isRequired especifica que children debe ser un nodo React y es requerido.
  * Asegúrate de importar PropTypes desde 'prop-types'. Esto debería resolver el problema del linter.
@@ -205,4 +204,7 @@ export {
   setLayout,
   setDarkMode,
   reglamento,
+  AuthContext,
+  useAuth,
+  AuthProvider,
 };

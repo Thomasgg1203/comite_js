@@ -138,7 +138,9 @@ function Basic() {
               />
               {/* Validacion en el campo documento */}
               {formik.touched.documento && formik.errors.documento && (
-                <div style={{ color: "red" }}>{formik.errors.documento}</div>
+                <MDTypography variant="caption" color="error" textGradient>
+                  {formik.errors.documento}
+                </MDTypography>
               )}
             </MDBox>
             <MDBox mb={2}>
@@ -155,7 +157,9 @@ function Basic() {
               />
               {/* Validacion en el campo contraseña(password) */}
               {formik.touched.contrasenia && formik.errors.contrasenia && (
-                <div style={{ color: "red" }}>{formik.errors.contrasenia}</div>
+                <MDTypography variant="caption" color="error" textGradient>
+                  {formik.errors.contrasenia}
+                </MDTypography>
               )}
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
