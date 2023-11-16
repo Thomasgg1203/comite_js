@@ -12,7 +12,7 @@ export class AuthsController {
   register(@Body() registrarUsuario : registrarUsuarioDto ){
     return this.authsService.registrar(registrarUsuario);
   }
-  @Post('ingresar')
+  @Post('ingresar')//auths/ingresar
   login(@Body() ingresarUsuario : ingresarUsuarioDto ){
     return this.authsService.ingresar(ingresarUsuario);
   }

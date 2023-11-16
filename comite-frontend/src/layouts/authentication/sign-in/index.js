@@ -19,11 +19,6 @@ import Switch from "@mui/material/Switch";
 // import Grid from "@mui/material/Grid";
 // import MuiLink from "@mui/material/Link";
 
-// // @mui icons que tiene definida la plantialla
-// import FacebookIcon from "@mui/icons-material/Facebook";
-// import GitHubIcon from "@mui/icons-material/GitHub";
-// import GoogleIcon from "@mui/icons-material/Google";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -54,23 +49,6 @@ function Basic() {
   //uso del formik
   const navigate = useNavigate();
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     documento: "", // Puedes establecer un valor predeterminado aquí si lo deseas, por ejemplo: "123456789"
-  //     password: "",
-  //   },
-  //   validationSchema: validationSchema,
-  //   onSubmit: (values) => {
-  //     // Verifica si los valores coinciden con el valor predeterminado
-  //     if (values.documento === "123456789" && values.password === "1234") {
-  //       // Redirige al usuario a la ruta "/dashboard" si los valores coinciden
-  //       navigate("/dashboard");
-  //     } else {
-  //       // Muestra un alert si los valores no coinciden
-  //       alert("Los datos ingresados son incorrectos");
-  //     }
-  //   },
-  // });
   const formik = useFormik({
     initialValues: {
       documento: "",
@@ -83,7 +61,7 @@ function Basic() {
         const response = await axios.post("http://localhost:4000/auths/ingresar", values);
         console.log("Respuesta del servidor:", response);
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           const { token, user } = response.data;
           setAuthData({
             token,
@@ -91,6 +69,8 @@ function Basic() {
           });
           console.log("Ingreso exitoso", response.data);
           navigate("/dashboard");
+        } else if (response.status === 400) {
+          console.log("Error con los datos", response.data);
         } else {
           console.error("Error al ingresar:", response.data.message);
         }
@@ -171,6 +151,7 @@ function Basic() {
                 value={formik.values.contrasenia}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                error={formik.touched.contrasenia && Boolean(formik.errors.contrasenia)}
               />
               {/* Validacion en el campo contraseña(password) */}
               {formik.touched.contrasenia && formik.errors.contrasenia && (
