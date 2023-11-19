@@ -17,9 +17,9 @@ export class UsuariosController {
     return this.usuariosService.findAll();
   }
   // ${baseURL}/usuarios/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
-  @Get('obtener:id')
-  findOne(@Param('id') id: string) {
-    return this.usuariosService.findOne(+id);
+  @Get('obtener:nombres')
+  findOne(@Param('nombres') nombres: string) {
+    return this.usuariosService.findOne(nombres);
   }
   // ${baseURL}/usuarios/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   @Patch('actualizar:id')

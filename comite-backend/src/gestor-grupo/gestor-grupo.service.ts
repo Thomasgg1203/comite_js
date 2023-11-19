@@ -20,12 +20,13 @@ export class GestorGrupoService {
     return createGestorGrupoDto;
   }
 
-  async findAllByRole(roles: string) {
-    return this.UsuarioModel.find(CreateUsuarioDto);
+  async findAllByRole():Promise<usuarioDocument[]> {
+    return await this.UsuarioModel.find({roles: 'gestor-grupo'}).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} gestorGrupo`;
+  async findOne(nombres:string,documento:string,):Promise<usuarioDocument> {
+    const usuario = await this.UsuarioModel.findOne({nombres:nombres, documento:documento, roles:'gestor-grupo'}).exec();
+    return usuario;
   }
 
   update(id: number, updateGestorGrupoDto: UpdateGestorGrupoDto) {

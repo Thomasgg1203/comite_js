@@ -10,16 +10,17 @@ export class UsuariosService {
   constructor(@InjectModel(Usuario.name) private readonly usuarioModel: Model<usuarioDocument>){
 
   }
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+  async create(createUsuario: CreateUsuarioDto) {
+    return await this.usuarioModel.create(createUsuario);
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll() {
+    return await this.usuarioModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(nombres:string,documento?:string) {
+    const usuario = await this.usuarioModel.findOne({nombres:nombres, documento:documento,});
+    return usuario;
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
