@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AprendicesModule } from './aprendices/aprendices.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ArticulosModule } from './articulos/articulos.module';
 import { CapitulosModule } from './capitulos/capitulos.module';
@@ -18,7 +17,6 @@ import { Connection, connection } from 'mongoose';
         return connection;
       },
     }),
-    AprendicesModule,
     ArticulosModule,
     CapitulosModule, 
     NumeralesModule, 

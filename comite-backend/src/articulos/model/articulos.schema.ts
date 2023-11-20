@@ -114,6 +114,5 @@ articuloSchema.statics.findAllArticulos = function() {
       }
     },
   ]);
-
   return list;
 }
