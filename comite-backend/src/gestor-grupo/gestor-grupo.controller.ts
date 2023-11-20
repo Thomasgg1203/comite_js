@@ -19,17 +19,17 @@ export class GestorGrupoController {
 
   // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gestorGrupoService.findOne(+id);
+  @Get('obtener:documento')
+  findOne(@Param('documento') [nombres,apellidos],documento:string) {
+    return this.gestorGrupoService.findOne(nombres,apellidos);
   }
 
-  @Patch(':id')
+  @Patch('actualizar:id')
   update(@Param('id') id: string, @Body() updateGestorGrupoDto: UpdateGestorGrupoDto) {
     return this.gestorGrupoService.update(+id, updateGestorGrupoDto);
   }
 
-  @Delete(':id')
+  @Delete('eliminar:id')
   remove(@Param('id') id: string) {
     return this.gestorGrupoService.remove(+id);
   }
