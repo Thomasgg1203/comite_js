@@ -1,12 +1,15 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'; 
-import { IsDateString } from 'class-validator';
-import { timeStamp } from 'console';
 import mongoose, { Document } from 'mongoose';
+import {v4 as uuidv4} from "uuid";
+import { Ficha, FichaSchema, fichaDocument } from 'src/fichas/model/fichas.schema';
 
 export type programasDocument = Programas & Document;
 
 @Schema()
 export class Programas {
+    @Prop({required:true, default:uuidv4})
+    id:string;
+
     @Prop({required:true})
     codigo:string;
     
@@ -16,7 +19,7 @@ export class Programas {
     @Prop({required:true})
     nivel_formacion:string;
 
-    // @Prop()
-    // id_:mongoose.Types.ObjectId;
+    @Prop({type:FichaSchema})
+    fichaId:Ficha[];
 }
 export const ProgramasSchema = SchemaFactory.createForClass(Programas);
