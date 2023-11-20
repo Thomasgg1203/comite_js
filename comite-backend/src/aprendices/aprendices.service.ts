@@ -2,22 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateAprendiceDto } from './dto/create-aprendice.dto';
 import { UpdateAprendiceDto } from './dto/update-aprendice.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { aprendiz, aprendizDocument } from './model/aprendices.schema';
 import { Model } from 'mongoose';
+import { Usuario, usuarioDocument } from 'src/usuarios/model/usuario.schema';
 
 @Injectable()
 export class AprendicesService {
 
-  constructor(@InjectModel(aprendiz.name) private  readonly aprendizModel: Model<aprendizDocument>){
-    
+  constructor(@InjectModel(Usuario.name) private readonly aprendizModel: Model<usuarioDocument>){
   }
 
-  create(createAprendiceDto: CreateAprendiceDto) {
-    return this.aprendizModel.create(createAprendiceDto)
-  }
-
-  findAll() {
-    return `This action returns all aprendices`;
+  async findAll() {
+    return await this.aprendizModel.find({roles:'aprendiz'});
   }
 
   findOne(id: number) {
