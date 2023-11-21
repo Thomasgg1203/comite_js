@@ -12,22 +12,22 @@ export class GestorComiteController {
     return this.gestorComiteService.create(createGestorComiteDto);
   }
 
-  @Get()
+  @Get('obtener')
   findAll() {
     return this.gestorComiteService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:documento')
   findOne(@Param('id') id: string) {
     return this.gestorComiteService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('actualizar/:id')
   update(@Param('id') id: string, @Body() updateGestorComiteDto: UpdateGestorComiteDto) {
     return this.gestorComiteService.update(+id, updateGestorComiteDto);
   }
 
-  @Delete(':id')
+  @Delete('eliminar/:id')
   remove(@Param('id') id: string) {
     return this.gestorComiteService.remove(+id);
   }

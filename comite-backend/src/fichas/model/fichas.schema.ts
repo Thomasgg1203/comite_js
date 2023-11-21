@@ -32,7 +32,7 @@ export class Ficha {
 }
 export const FichaSchema = SchemaFactory.createForClass(Ficha);
 
-ProgramasSchema.statics.getFichaPrograma = async function(fichaId:string):Promise<fichaDocument[]> {
+FichaSchema.statics.getFichaPrograma = async function(fichaId:string):Promise<fichaDocument[]> {
     return this.aggregate([
         {
             $match: {id: fichaId}

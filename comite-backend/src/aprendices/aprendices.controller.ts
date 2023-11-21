@@ -7,14 +7,14 @@ import { UpdateAprendiceDto } from './dto/update-aprendice.dto';
 export class AprendicesController {
   constructor(private readonly aprendicesService: AprendicesService) {}
 
-  @Get()
+  @Get('obtener')
   findAll() {
     return this.aprendicesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.aprendicesService.findOne(+id);
+  @Get('obtener/:documento')
+  findOne(documento: string) {
+    return this.aprendicesService.findOne(documento);
   }
 
   @Patch(':id')

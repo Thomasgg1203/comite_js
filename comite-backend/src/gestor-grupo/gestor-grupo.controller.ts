@@ -13,23 +13,22 @@ export class GestorGrupoController {
   //   return this.gestorGrupoService.create(createGestorGrupoDto);
   // }
 
-  // @Get()
-  // findAllTypeRole(@Param('rol')) {
-  //   return this.gestorGrupoService.findAll();
+  @Get('obtener')
+  findAll(){
+    return this.gestorGrupoService.findAll();
+  }
 
-  // }
-
-  @Get('obtener:documento')
+  @Get('obtener/:documento')
   findOne(@Param('documento') [nombres,apellidos],documento:string) {
     return this.gestorGrupoService.findOne(nombres,apellidos);
   }
 
-  @Patch('actualizar:id')
-  update(@Param('id') id: string, @Body() updateGestorGrupoDto: UpdateGestorGrupoDto) {
-    return this.gestorGrupoService.update(+id, updateGestorGrupoDto);
+  @Patch('actualizar/:documento')
+  update(@Param('documento') documento: string, @Body() updateGestorDto: UpdateGestorGrupoDto) {
+    return this.gestorGrupoService.update(documento, updateGestorDto);
   }
 
-  @Delete('eliminar:id')
+  @Delete('eliminar/:id')
   remove(@Param('id') id: string) {
     return this.gestorGrupoService.remove(+id);
   }

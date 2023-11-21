@@ -1,29 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, UseGuards } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
-
+import { AuthsService } from 'src/auths/auths.service';
+import { RoleGuardGuard } from 'src/guards/role-guard.guard';
+import { JwtGuardGuard } from 'src/guards/jwt-guard.guard';
+import { Rol } from 'src/decorators/rol.decorator';
+@UseGuards(JwtGuardGuard,RoleGuardGuard)
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
   // ${baseURL}/usuarios/crear
   @Post('crear')
+  @Rol(['administrador'])//solo el administrador puede crear usuarios
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return this.usuariosService.create(createUsuarioDto);
+    return this.usuariosService.registrar(createUsuarioDto);
   }
   // ${baseURL}/usuarios/obtener
   @Get('obtener')
   findAll() {
     return this.usuariosService.findAll();
   }
-  // ${baseURL}/usuarios/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
-  @Get('obtener:nombres')
-  findOne(@Param('nombres') nombres: string) {
-    return this.usuariosService.findOne(nombres);
+  // ${baseURL}/usuarios/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento)
+  @Get('obtener/:documento')
+  findOne(@Param('documento') documento: string) {
+    return this.usuariosService.findOne(documento);
   }
   // ${baseURL}/usuarios/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   //organizar el metodo actualizar para buscar y actualizar usuario por medio del documento o los nombres y apellidos
-  @Patch('actualizar:')
+  @Patch('actualizar/:documento')
   update(@Param() @Body() body: Partial<UpdateUsuarioDto>) {
     if (body.documento) {
       return /*this.usuariosService.actualizarPorDocumento(body.documento, body);*/
@@ -34,8 +39,8 @@ export class UsuariosController {
     }
   }
   // ${baseURL}/usuarios/eliminar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
-  @Delete('eliminar:id')
-  remove(@Param('id') id: string) {
-    return this.usuariosService.remove(+id);
+  @Delete('eliminar/:documento')
+  eliminar(@Param('documento') documento: string) {
+    return this.usuariosService.remove(documento);
   }
 }

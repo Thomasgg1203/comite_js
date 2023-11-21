@@ -11,19 +11,19 @@ export class AprendicesService {
   constructor(@InjectModel(Usuario.name) private readonly aprendizModel: Model<usuarioDocument>){
   }
 
-  async findAll() {
+  async findAll():Promise<usuarioDocument[]> {
     return await this.aprendizModel.find({roles:'aprendiz'});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aprendice`;
+  async findOne(documento:string):Promise<any> {
+    return await this.aprendizModel.findOne({documento:documento});
   }
 
-  update(id: number, updateAprendiceDto: UpdateAprendiceDto) {
+  async update(id: number, updateAprendiceDto: UpdateAprendiceDto) {
     return `This action updates a #${id} aprendice`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} aprendice`;
   }
 }

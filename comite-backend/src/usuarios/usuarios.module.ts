@@ -5,6 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Usuario, usuarioSchema } from './model/usuario.schema';
 import { AprendicesService } from 'src/aprendices/aprendices.service';
 import { GestorGrupoService } from 'src/gestor-grupo/gestor-grupo.service';
+import { GestorComiteService } from 'src/gestor-comite/gestor-comite.service';
+import { AuthsService } from 'src/auths/auths.service';
+import { jwtStrategy } from 'src/auths/strategy/jwt.strategy';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -16,7 +20,10 @@ import { GestorGrupoService } from 'src/gestor-grupo/gestor-grupo.service';
   providers: [
     UsuariosService,
     AprendicesService,
-    GestorGrupoService
+    GestorGrupoService,
+    GestorComiteService,
+    AuthsService,
+    JwtService
   ],
 })
 export class UsuariosModule {}
