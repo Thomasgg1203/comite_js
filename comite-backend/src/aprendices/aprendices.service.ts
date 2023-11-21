@@ -2,33 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { CreateAprendiceDto } from './dto/create-aprendice.dto';
 import { UpdateAprendiceDto } from './dto/update-aprendice.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { aprendiz, aprendizDocument } from './model/aprendices.schema';
 import { Model } from 'mongoose';
+import { Usuario, usuarioDocument } from 'src/usuarios/model/usuario.schema';
 
 @Injectable()
 export class AprendicesService {
 
-  constructor(@InjectModel(aprendiz.name) private  readonly aprendizModel: Model<aprendizDocument>){
-    
+  constructor(@InjectModel(Usuario.name) private readonly aprendizModel: Model<usuarioDocument>){
   }
 
-  create(createAprendiceDto: CreateAprendiceDto) {
-    return this.aprendizModel.create(createAprendiceDto)
+  async findAll():Promise<usuarioDocument[]> {
+    return await this.aprendizModel.find({roles:'aprendiz'});
   }
 
-  findAll() {
-    return `This action returns all aprendices`;
+  async findOne(documento:string):Promise<any> {
+    return await this.aprendizModel.findOne({documento:documento});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aprendice`;
-  }
-
-  update(id: number, updateAprendiceDto: UpdateAprendiceDto) {
+  async update(id: number, updateAprendiceDto: UpdateAprendiceDto) {
     return `This action updates a #${id} aprendice`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} aprendice`;
   }
 }

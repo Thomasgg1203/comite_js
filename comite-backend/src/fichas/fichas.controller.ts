@@ -11,30 +11,35 @@ import { Rol } from 'src/decorators/rol.decorator';
 @Controller('fichas')
 export class FichasController {
   constructor(private readonly fichasService: FichasService) {}
-
-  @Post()
+  
+  // ${baseURL}/fichas/crear
+  @Post('crear')
   // con el decorador personalizado @Rol vamos a poder establecer que Roles tiene permiso de acceder a determinadas solicitudes
   @Rol(['administrador'])
   create(@Req() req:Request , @Body() createFichaDto: CreateFichaDto) {
     return this.fichasService.create(createFichaDto);
   }
 
-  @Get()
+  // ${baseURL}/fichas/obtener
+  @Get('obtener')
   findAll(@Query() query:string) {
     return this.fichasService.findAll();
   }
 
-  @Get(':id')
+  // ${baseURL}/fichas/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
+  @Get('obtener:id')
   findOne(@Param('id') id: string) {
     return this.fichasService.findOne(+id);
   }
 
-  @Patch(':id')
+  // ${baseURL}/fichas/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
+  @Patch('actualizar:id')
   update(@Param('id') id: string, @Body() updateFichaDto: UpdateFichaDto) {
     return this.fichasService.update(+id, updateFichaDto);
   }
 
-  @Delete(':id')
+  // ${baseURL}/fichas/eliminar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
+  @Delete('eliminar:id')
   remove(@Param('id') id: string) {
     return this.fichasService.remove(+id);
   }

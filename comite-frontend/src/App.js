@@ -17,15 +17,12 @@ import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
 
 // Material Dashboard 2 React Dark Mode themes
 import themeDark from "assets/theme-dark";
-import themeDarkRTL from "assets/theme-dark/theme-rtl";
 
 // RTL plugins
 import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 //Llamado de las rutas en archivo diferente
@@ -37,6 +34,8 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Logo del sliver
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+//context
+import { AuthProvider } from "context";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -131,56 +130,39 @@ export default function App() {
     </MDBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+  // Solo mostrar Configurator y configsButton en el layout "dashboard"
+  const dashboardComponents = layout === "dashboard" && (
+    <>
+      <Configurator />
+      {configsButton}
+    </>
+  );
+
+  return (
+    <AuthProvider>
+      <ThemeProvider theme={darkMode ? themeDark : theme}>
         <CssBaseline />
         {layout === "dashboard" && (
           <>
+            {/* Renderice el componente sidenav con las propiedades especificadas. */}
             <Sidenav
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Material Dashboard 2"
+              brandName="SSCS"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            <Configurator />
-            {configsButton}
+            {dashboardComponents}
           </>
         )}
-        {/* Representar elementos de ruta usando React Router */}
         {layout === "vr" && <Configurator />}
+        {/* Render route elements using React Router */}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
         </Routes>
       </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          {/* Renderice el componente sidenav con las propiedades especificadas. */}
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="SSCS"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      {/* Render route elements using React Router */}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </ThemeProvider>
+    </AuthProvider>
   );
 }

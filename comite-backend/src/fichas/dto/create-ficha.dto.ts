@@ -1,4 +1,4 @@
-import {IsNotEmpty,Length, ValidateIf, IsDate, IsDateString} from 'class-validator';
+import {IsNotEmpty,Length, ValidateIf, IsDate, IsDateString, IsUUID, IsOptional} from 'class-validator';
 export class CreateFichaDto {
     @IsNotEmpty()
     @ValidateIf((object,value) => value != undefined)
@@ -21,4 +21,8 @@ export class CreateFichaDto {
 
     @IsNotEmpty()
     jornada:string;
+
+    @IsOptional()
+    @IsUUID()
+    idPrograma:string;
 }

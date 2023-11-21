@@ -13,9 +13,10 @@ export class AuthsService {
         private readonly jwtService:JwtService,
         @InjectModel(Usuario.name) private readonly usuarioModel: Model<usuarioDocument>
     ){}
-
+    
+    // registrar esta deshabilitado
     public async registrar(usuarioRegistrarBody:registrarUsuarioDto){
-        // des-estructuración de objetos JS, definiendo variables que contienen los atributos propios de un obj.Javascript especifico
+        // des-estructuración de objetos JS definiendo variables que contienen los atributos propios de un obj.Javascript especifico
         const {contrasenia, ...usuario}= usuarioRegistrarBody;
         // luego en un nuevo objeto, asignamos los valores de la variable 'usuario' y 'contrasenia' desestructurados
         const authUsuario = {...usuario, contrasenia:
@@ -25,22 +26,21 @@ export class AuthsService {
         // retornamos este nuevo objeto que tiene el atributo 'contrasenia' encriptada.
         return this.usuarioModel.create(authUsuario);
     }
+    // & solo se usa de prueba //
+
     public async ingresar(usuarioIngresarBody:ingresarUsuarioDto){
         // definimos un objeto, en base a los datos des-estructurados del objeto tratado en cuestion, 
         // que en este caso es del ingresarUsuarioDto. 
         const {contrasenia}=usuarioIngresarBody;
-
         // definimos un objeto, que nos promete un usuario, 
         //por medio de la busqueda del campo documento que coincida con el campo 'documento' de nuestro archivo de mongoDB   
         const userValidate= await this.usuarioModel.findOne({documento:usuarioIngresarBody.documento});
-
         // Si nuestro usuario no es validado correctamente por la comparación de docuemnto, arrojamos una escepción HTTP
         if (!userValidate) throw new HttpException('NOT_FOUND',HttpStatus.NOT_FOUND);
         
         // de lo contrario creamos un objeto que, por medio del usuario validado nos permitira comparar el campo contrasenia
         // gracias a nuestro manejador de hashes, así podremos desencriptar y comparar
         const isValidate = await compareTextToHash(contrasenia, userValidate.contrasenia);
-
         //Si el campo no coincide con el de nuestro archivo arrojamos una escepción HTTP
         if (!isValidate) throw new HttpException('NOT_VALID', HttpStatus.UNAUTHORIZED)
         
@@ -52,7 +52,7 @@ export class AuthsService {
         // definimos que datos enviamos a la estructura del JWT
         const payload = {
             // _TODO_:cambhiar el _id de mongoose, por el id propio de nuestra logica 'id'
-            id: Usuario._id, 
+            id: Usuario.id, 
             documento: Usuario.documento 
         };
 
