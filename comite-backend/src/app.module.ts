@@ -15,6 +15,7 @@ import { NumeralesModule } from './numerales/numerales.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { ParagrafosModule } from './paragrafos/paragrafos.module';
 import { Connection, connection } from 'mongoose';
+import { GestorComiteModule } from './gestor-comite/gestor-comite.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { Connection, connection } from 'mongoose';
     CapitulosModule, 
     NumeralesModule, 
     SolicitudesModule, 
-    ParagrafosModule,
+    ParagrafosModule, 
+    GestorComiteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

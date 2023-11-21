@@ -7,11 +7,6 @@ import { UpdateAprendiceDto } from './dto/update-aprendice.dto';
 export class AprendicesController {
   constructor(private readonly aprendicesService: AprendicesService) {}
 
-  @Post()
-  create(@Body() createAprendiceDto: CreateAprendiceDto) {
-    return this.aprendicesService.create(createAprendiceDto);
-  }
-
   @Get()
   findAll() {
     return this.aprendicesService.findAll();

@@ -10,23 +10,53 @@ export class UsuariosService {
   constructor(@InjectModel(Usuario.name) private readonly usuarioModel: Model<usuarioDocument>){
 
   }
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+  async create(createUsuario: CreateUsuarioDto) {
+    return await this.usuarioModel.create(createUsuario);
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll() {
+    return await this.usuarioModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(nombres:string,documento?:string) {
+    const usuario = await this.usuarioModel.findOne({nombres:nombres, documento:documento,});
+    return usuario;
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(updateUsuarioDto:UpdateUsuarioDto, documento:string,[nombres,apellidos]:string) {
+    return this.usuarioModel.findOneAndUpdate({documento},{
+      upsert:true,
+      new: true
+    });
   }
 
   remove(id: number) {
     return `This action removes a #${id} usuario`;
   }
 }
+/*
+Idea para socializar con Thom y Mono
+async actualizarPorDocumento(documento: string, datosActualizados: Partial<UpdateUsuarioDto>): Promise<Usuario> {
+  const usuario = await this.usuarioModel.findOne({ documento });
+
+  if (!usuario) {
+    throw new NotFoundException('Usuario no encontrado');
+  }
+
+  Object.assign(usuario, datosActualizados);
+
+  return usuario.save();
+}
+
+async actualizarPorNombreApellido(nombres: string, apellidos: string, datosActualizados: Partial<UpdateUsuarioDto>): Promise<Usuario> {
+  const usuario = await this.usuarioModel.findOne({ nombres, apellidos });
+
+  if (!usuario) {
+    throw new NotFoundException('Usuario no encontrado');
+  }
+
+  Object.assign(usuario, datosActualizados);
+
+  return usuario.save();
+}
+ */

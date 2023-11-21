@@ -13,7 +13,10 @@ export class AuthsService {
         private readonly jwtService:JwtService,
         @InjectModel(Usuario.name) private readonly usuarioModel: Model<usuarioDocument>
     ){}
-
+    
+    // _TODO: requerimos de centralizar la logica de creación de usuarios en el servicio de autenticación o usuario,
+    //  preferiblemente en la de auth, disponer la ruta de autenticacion de registro solo para los administradores y eliminar los metodos create del servicio usuarios.  
+    
     public async registrar(usuarioRegistrarBody:registrarUsuarioDto){
         // des-estructuración de objetos JS, definiendo variables que contienen los atributos propios de un obj.Javascript especifico
         const {contrasenia, ...usuario}= usuarioRegistrarBody;
