@@ -1,7 +1,8 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
 import { Type } from "class-transformer";
 import mongoose, { Document, Types } from "mongoose";
-import { Ficha } from "src/fichas/model/fichas.schema";
+import { FichasService } from "src/fichas/fichas.service";
+import { Ficha, fichaDocument } from "src/fichas/model/fichas.schema";
 import {v4 as uuidv4} from "uuid";
 export type usuarioDocument = Usuario & Document;
 
@@ -48,7 +49,16 @@ export class Usuario {
     @Prop({default:'aprendiz' ,type: [String], enum: Roles})
     roles:string[];
 
-    @Prop({type: Types.ObjectId, ref:'Ficha'})
-    ficha: Types.ObjectId;
+    //No tiene integridad, si va a ingresar un usuario.Rol['aprendiz'] toca que le ingrese el id de la ficha
+    @Prop({})
+    fichaId:string;
 }
 export const usuarioSchema=SchemaFactory.createForClass(Usuario);
+
+usuarioSchema.statics.getFichaAprendiz = async function(usuarioId:string):Promise<fichaDocument | null> {
+    const user=await this.findOne({id:usuarioId, roles:Roles.APRENDIZ});
+    if (!user){
+        return null
+    }
+    return this.findOne({ id: user.fichaId })
+}

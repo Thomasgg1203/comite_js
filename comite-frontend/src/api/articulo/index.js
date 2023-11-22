@@ -1,18 +1,34 @@
-//importacion de axios
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 
-//url
-const baseURL = `http://localhost:4000`;
+const baseURL = "http://localhost:4000";
 
-export const getAllArticulos = async () => await axios.get(`${baseURL}/articulos`);
+export const getAllArticulos = async () => {
+  const { token, cancel } = CancelToken.source();
 
-//Parar traer articulo, por articulo
+  const response = await axios.get(`${baseURL}/articulos`, { cancelToken: token });
+
+  // Resto del código...
+
+  return response.data;
+};
+
 export const GetArticulosByCapituloId = async (capituloId) => {
   try {
-    const response = await axios.get(`${baseURL}/articulos?capituloId=${capituloId}`);
+    const { token, cancel } = CancelToken.source();
+
+    const response = await axios.get(`${baseURL}/articulos?capituloId=${capituloId}`, {
+      cancelToken: token,
+    });
+
+    // Resto del código...
+
     return response.data;
   } catch (error) {
-    console.log(`Error: ${error.message}`);
+    if (axios.isCancel(error)) {
+      console.log("Solicitud cancelada:", error.message);
+    } else {
+      console.error(`Error: ${error.message}`);
+    }
     return [];
   }
 };

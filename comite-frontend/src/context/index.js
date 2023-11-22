@@ -185,7 +185,11 @@ AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 //<>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<PArte fin de validacion del ingreso<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//usuarios logica
 
+//logica para usuarios
+
+//fin usuarios
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
  */
