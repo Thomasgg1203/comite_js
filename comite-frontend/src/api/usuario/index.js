@@ -13,7 +13,7 @@ export const loginUser = async (loginData) => {
 };
 
 //all users
-export const allusers = () => {
+export const allUsers = () => {
   try {
     const response = axios.get(`${baseURL}/usuarios`);
     return response;

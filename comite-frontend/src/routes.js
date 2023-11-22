@@ -11,6 +11,8 @@ import SignIn from "layouts/authentication/sign-in";
 import Reglamento from "layouts/reglamento";
 //Gestor-grupo
 import Gestor_grupo from "layouts/cruds/gestor-grupo";
+//componente usuarios
+import Usuarios from "layouts/cruds/usuarios";
 
 const routes = [
   {
@@ -87,6 +89,15 @@ const routes = [
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/gestor-grupo",
     component: <Gestor_grupo />,
+  },
+  //Parte crud Gestor de grupo fin
+  {
+    type: "collapse",
+    name: "Usuarios",
+    key: "usuarios",
+    icon: <Icon fontSize="small">menu_book</Icon>,
+    route: "/usuarios",
+    component: <Usuarios />,
   },
   //Parte crud Gestor de grupo fin
 ];

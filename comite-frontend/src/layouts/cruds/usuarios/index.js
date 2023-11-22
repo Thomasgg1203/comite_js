@@ -7,8 +7,9 @@ import Button from "@material-ui/core/Button";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import { UnsubscribeSharp } from "@mui/icons-material";
 
-const Gestor_grupo = () => {
+const Usuarios = () => {
   // Función para manejar el evento de editar
   const handleEditar = (id) => {
     // Lógica para editar el elemento con el id proporcionado
@@ -98,4 +99,4 @@ const Gestor_grupo = () => {
   );
 };
 
-export default Gestor_grupo;
+export default Usuarios;

@@ -129,6 +129,23 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 //     console.log(`Error: ${e.message}`);
 //   }
 // };
+
+/*
+Parte de usuarios
+*/
+import { allUsers } from "api/usuario";
+const usuariosData = async () => {
+  try {
+    const res = await allUsers();
+    return res;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+};
+/*
+Parte de usuarios
+*/
+
 /**
  * Parte de reglamento
  */
