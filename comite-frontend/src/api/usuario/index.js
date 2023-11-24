@@ -1,5 +1,6 @@
 //importacion de axios
 import axios from "axios";
+import { useAuth } from "context";
 //Url
 const baseURL = `http://localhost:4000`;
 //funcion, que valida el post, para ingreso
@@ -12,12 +13,25 @@ export const loginUser = async (loginData) => {
   }
 };
 
-//all users
-export const allUsers = () => {
+//all user
+// En el archivo de API
+export const allUsers = async (token) => {
   try {
-    const response = axios.get(`${baseURL}/usuarios`);
-    return response;
+    if (token) {
+      const response = await axios.get(`${baseURL}/usuarios/obtener`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Respuesta de la API (allUsers):", response);
+      return response;
+    } else {
+      // Manejar el caso en el que no hay un token disponible
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
   } catch (error) {
+    console.error("Error en allUsers:", error);
     throw error;
   }
 };

@@ -2,14 +2,39 @@
 import DataTable from "examples/Tables/DataTable";
 //Material ui Botones
 import Button from "@material-ui/core/Button";
+//importacion de react
+import { useState, useEffect } from "react";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import { UnsubscribeSharp } from "@mui/icons-material";
+
+//componente context
+import { useAuth } from "context";
+import { allUsers } from "api/usuario";
 
 const Usuarios = () => {
+  const { authData } = useAuth();
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await allUsers(authData.token);
+        if (res && res.data) {
+          // Asegúrate de que res y res.data estén definidos
+          setUserData(res.data);
+        } else {
+          console.error("La respuesta de la API no tiene la estructura esperada:", res);
+        }
+      } catch (error) {
+        console.error(`Error al obtener datos de usuarios: ${error.message}`);
+      }
+    };
+    fetchData();
+  }, [authData.token]);
+
   // Función para manejar el evento de editar
   const handleEditar = (id) => {
     // Lógica para editar el elemento con el id proporcionado

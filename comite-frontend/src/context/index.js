@@ -1,7 +1,7 @@
 /**
  * Logica por parte del diseño
  */
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer, useMemo, useState } from "react";
 
 // prop-types es una biblioteca para la verificación de tipos de accesorios
 import PropTypes from "prop-types";
@@ -133,15 +133,17 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 /*
 Parte de usuarios
 */
-import { allUsers } from "api/usuario";
+// En el contexto
 const usuariosData = async () => {
   try {
     const res = await allUsers();
+    console.log("Respuesta de la API (usuariosData):", res);
     return res;
   } catch (e) {
     console.log(`Error: ${e.message}`);
   }
 };
+
 /*
 Parte de usuarios
 */
@@ -178,19 +180,27 @@ const reglamento = async () => {
 };
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Parte de ingreso de aplicacion>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-import { useState } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(null);
+  if (authData && authData.token) {
+    console.log(authData.token);
+  } else {
+    console.error("authData es nulo o no tiene la propiedad token");
+  }
+  // console.log(`Datos almacenados: ${}}`); // Imprime los datos almacenados
 
   return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
 };
-const useAuth = () => {
+
+export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };
 
@@ -226,6 +236,6 @@ export {
   setDarkMode,
   reglamento,
   AuthContext,
-  useAuth,
+  usuariosData,
   AuthProvider,
 };
