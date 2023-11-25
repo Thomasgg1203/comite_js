@@ -20,7 +20,7 @@ export class UsuariosService {
       await plainTextToHash(contrasenia)   
     }
     // retornamos este nuevo objeto que tiene el atributo 'contrasenia' encriptada.
-    return await this.usuarioModel.create(createUsuario);
+    return await this.usuarioModel.create(authUsuario);
   }
 
   async findAll() {

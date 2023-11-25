@@ -18,7 +18,7 @@ export class FichasService {
   }
 
   async findAll() {
-    return this.fichaModel.find(Ficha);
+    return this.fichaModel.find().exec();
   }
 
   findOne(id: number) {

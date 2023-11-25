@@ -18,17 +18,20 @@ export class UsuariosController {
   }
   // ${baseURL}/usuarios/obtener
   @Get('obtener')
+  @Rol(['administrador'])//solo el administrador puede ver todos los usuarios
   findAll() {
     return this.usuariosService.findAll();
   }
   // ${baseURL}/usuarios/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento)
   @Get('obtener/:documento')
+  @Rol(['administrador'])
   findOne(@Param('documento') documento: string) {
     return this.usuariosService.findOne(documento);
   }
   // ${baseURL}/usuarios/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   //organizar el metodo actualizar para buscar y actualizar usuario por medio del documento o los nombres y apellidos
   @Patch('actualizar/:documento')
+  @Rol(['administrador'])
   update(@Param() @Body() body: Partial<UpdateUsuarioDto>) {
     if (body.documento) {
       return /*this.usuariosService.actualizarPorDocumento(body.documento, body);*/
@@ -40,6 +43,7 @@ export class UsuariosController {
   }
   // ${baseURL}/usuarios/eliminar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   @Delete('eliminar/:documento')
+  @Rol(['administrador'])
   eliminar(@Param('documento') documento: string) {
     return this.usuariosService.remove(documento);
   }
