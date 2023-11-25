@@ -4,8 +4,10 @@ import { CreateProgramaDto } from './dto/create-programa.dto';
 import { UpdateProgramaDto } from './dto/update-programa.dto';
 import { RoleGuardGuard } from 'src/guards/role-guard.guard';
 import { JwtGuardGuard } from 'src/guards/jwt-guard.guard';
+import { Rol } from 'src/decorators/rol.decorator';
 // uso del guard con solo llamar su decorador, brindamos la metadata de los guardas que tenemos definidos
 @UseGuards(JwtGuardGuard, RoleGuardGuard)
+@Rol(['administrador','aprendiz','gestor-grupo','gestor-comite'])
 @Controller('programas')
 export class ProgramasController {
   constructor(private readonly programasService: ProgramasService) {}
