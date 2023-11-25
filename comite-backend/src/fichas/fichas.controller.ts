@@ -22,24 +22,28 @@ export class FichasController {
 
   // ${baseURL}/fichas/obtener
   @Get('obtener')
+  @Rol(['administrador','aprendiz','gestor-grupo','gestor-comite'])
   findAll(@Query() query:string) {
     return this.fichasService.findAll();
   }
 
   // ${baseURL}/fichas/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   @Get('obtener:id')
+  @Rol(['administrador','aprendiz','gestor-grupo','gestor-comite'])
   findOne(@Param('id') id: string) {
     return this.fichasService.findOne(+id);
   }
 
   // ${baseURL}/fichas/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   @Patch('actualizar:id')
+  @Rol(['administrador','gestor-grupo'])
   update(@Param('id') id: string, @Body() updateFichaDto: UpdateFichaDto) {
     return this.fichasService.update(+id, updateFichaDto);
   }
 
   // ${baseURL}/fichas/eliminar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
   @Delete('eliminar:id')
+  @Rol(['administrador','gestor-grupo'])
   remove(@Param('id') id: string) {
     return this.fichasService.remove(+id);
   }

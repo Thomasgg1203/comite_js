@@ -51,8 +51,8 @@ export class AuthsService {
 
         // definimos que datos enviamos a la estructura del JWT
         const payload = {
-            // _TODO_:cambhiar el _id de mongoose, por el id propio de nuestra logica 'id'
-            id: Usuario.id, 
+            // _TODO_:cambiar el _id de mongoose, por el id propio de nuestra logica 'id'
+            id: Usuario._id, 
             documento: Usuario.documento 
         };
 

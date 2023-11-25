@@ -14,7 +14,7 @@ export class RoleGuardGuard implements CanActivate {
     // obtenemos el atributo rol del usuario autentificado por medio del request
     const { roles } = req.user;
     
-    console.log("________",req,"________"); 
+    // console.log("________",roles,"________"); 
     
     // ahora se obtiene la lista con el/los rol(es) permitidos según se esteblace en el decorador personalizado @Rol()
     const getRol= this.reflector.get<string[]>('rol', context.getHandler());
