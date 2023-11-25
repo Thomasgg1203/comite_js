@@ -136,7 +136,7 @@ Parte de usuarios
 // En el contexto
 const usuariosData = async () => {
   try {
-    const res = await allUsers();
+    const res = await allUsers(authData.token);
     console.log("Respuesta de la API (usuariosData):", res);
     return res;
   } catch (e) {

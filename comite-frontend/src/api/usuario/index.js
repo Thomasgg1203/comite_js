@@ -1,8 +1,7 @@
 //importacion de axios
 import axios from "axios";
-import { useAuth } from "context";
 //Url
-const baseURL = `http://localhost:4000`;
+const baseURL = `http://192.168.1.88:4000`;
 //funcion, que valida el post, para ingreso
 export const loginUser = async (loginData) => {
   try {
@@ -23,15 +22,14 @@ export const allUsers = async (token) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Respuesta de la API (allUsers):", response);
+      console.log("Respuesta de la API (allUsers):", response.data);
       return response;
     } else {
-      // Manejar el caso en el que no hay un token disponible
       console.error("No hay token disponible en la información de autenticación.");
       throw new Error("No hay token disponible");
     }
   } catch (error) {
     console.error("Error en allUsers:", error);
-    throw error;
+    throw error; // Lanza el error para que pueda ser capturado en el componente
   }
 };

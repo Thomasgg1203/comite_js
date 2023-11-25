@@ -59,11 +59,11 @@ const Usuarios = () => {
       <DataTable
         table={{
           columns: [
-            { Header: "Id", accessor: "Id", with: "10%" },
-            { Header: "Nombres", accessor: "Nombres", width: "16%" },
-            { Header: "Apellidos", accessor: "Apellidos", width: "16%" },
-            { Header: "Documento", accessor: "Documento", width: "16%" },
-            { Header: "Correo", accessor: "Correo", width: "16%" },
+            { Header: "Id", accessor: "id", width: "10%" },
+            { Header: "Nombres", accessor: "nombres", width: "16%" },
+            { Header: "Apellidos", accessor: "apellidos", width: "16%" },
+            { Header: "Documento", accessor: "documento", width: "16%" },
+            { Header: "Correo", accessor: "correo", width: "16%" },
             {
               Header: "Acciones",
               accessor: "acciones",
@@ -73,21 +73,21 @@ const Usuarios = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    onClick={() => handleEditar(rows.original.Id)}
+                    onClick={() => handleEditar(row.original._id)}
                   >
                     Editar
                   </Button>
                   <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => handleEliminar(rows.original.Id)}
+                    onClick={() => handleEliminar(row.original._id)}
                   >
                     Eliminar
                   </Button>
                   <Button
                     variant="outlined"
                     color="default"
-                    onClick={() => handleMostrar(rows.original.Id)}
+                    onClick={() => handleMostrar(row.original._id)}
                   >
                     Mostrar
                   </Button>
@@ -95,26 +95,7 @@ const Usuarios = () => {
               ),
             },
           ],
-          rows: [
-            {
-              Id: "8",
-              Nombres: "Sara",
-              Apellidos: "Williams",
-              Documento: 44444444,
-              Correo: "sara.williams@example.com",
-              startDate: "7/15/2019",
-              salary: "$90,000",
-            },
-            {
-              Id: "9",
-              Nombres: "David",
-              Apellidos: "Martinez",
-              Documento: 66666666,
-              Correo: "david.martinez@example.com",
-              startDate: "1/8/2022",
-              salary: "$62,000",
-            },
-          ],
+          rows: userData,
         }}
       />
       {/* Fin de parte de la tabla */}
