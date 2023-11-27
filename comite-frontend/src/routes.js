@@ -13,6 +13,8 @@ import Reglamento from "layouts/reglamento";
 import Gestor_grupo from "layouts/cruds/gestor-grupo";
 //componente usuarios
 import Usuarios from "layouts/cruds/usuarios";
+//fichas
+import Fichas from "layouts/cruds/fichas";
 
 const routes = [
   {
@@ -63,14 +65,6 @@ const routes = [
     route: "/authentication/sign-in",
     component: <SignIn />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
   //Parte Reglamento Aprendiz
   {
     type: "collapse",
@@ -100,30 +94,16 @@ const routes = [
     component: <Usuarios />,
   },
   //Parte crud Gestor de grupo fin
+  //ficha
+  {
+    type: "collapse",
+    name: "Fichas",
+    key: "ficha",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/ficha",
+    component: <Fichas />,
+  },
+  // Ficha
 ];
-
-/**
- * ----------------------------------Rutas para Aprendiz--------------------------------
- */
-
-/**
- * ----------------------------------Fin rutas para Aprendiz--------------------------------
- */
-
-/**
- * ----------------------------------Rutas para Instructor--------------------------------
- */
-
-/**
- * ----------------------------------fin rutas para Instructor--------------------------------
- */
-
-/**
- * ----------------------------------Rutas para Gestor de comite--------------------------------
- */
-
-/**
- * ----------------------------------fin rutas para Gestor de comite--------------------------------
- */
 
 export default routes;

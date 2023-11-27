@@ -12,27 +12,27 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React base styles
 import typography from "assets/theme/base/typography";
 
-function Footer({ company, links }) {
-  const { href, name } = company;
+function Footer() {
+  // const { href, name } = company;
   const { size } = typography;
 
-  const renderLinks = () =>
-    links.map((link) => (
-      <MDBox key={link.name} component="li" px={2} lineHeight={1}>
-        <Link href={link.href} target="_blank">
-          <MDTypography variant="button" fontWeight="regular" color="text">
-            {link.name}
-          </MDTypography>
-        </Link>
-      </MDBox>
-    ));
+  // const renderLinks = () =>
+  //   links.map((link) => (
+  //     <MDBox key={link.name} component="li" px={2} lineHeight={1}>
+  //       <Link href={link.href} target="_blank">
+  //         <MDTypography variant="button" fontWeight="regular" color="text">
+  //           {link.name}
+  //         </MDTypography>
+  //       </Link>
+  //     </MDBox>
+  //   ));
 
   return (
     <MDBox
       width="100%"
       display="flex"
       flexDirection={{ xs: "column", lg: "row" }}
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       px={1.5}
     >
@@ -45,19 +45,14 @@ function Footer({ company, links }) {
         fontSize={size.sm}
         px={1.5}
       >
-        SENA Caldas &copy; {new Date().getFullYear()} ADSO , Centro de automatizacion industrial
-        <MDBox fontSize={size.md} color="text" mb={-0.5} mx={0.25}>
-          {/* <Icon color="inherit" fontSize="inherit">
-            favorite
-          </Icon> */}
-        </MDBox>
-        <Link href={href} target="_blank">
-          <MDTypography variant="button" fontWeight="medium">
-            &nbsp;{name}&nbsp;
-          </MDTypography>
-        </Link>
+        SENA Caldas &copy; {new Date().getFullYear()} Centro de Automatización Industrial
+        {/* <Link href={href} target="_blank"> */}
+        <MDTypography variant="button" fontWeight="medium">
+          &nbsp;{name}&nbsp;
+        </MDTypography>
+        {/* </Link> */}
       </MDBox>
-      <MDBox
+      {/* <MDBox
         component="ul"
         sx={({ breakpoints }) => ({
           display: "flex",
@@ -75,21 +70,21 @@ function Footer({ company, links }) {
         })}
       >
         {renderLinks()}
-      </MDBox>
+      </MDBox> */}
     </MDBox>
   );
 }
 
-// Setting default values for the props of Footer
-Footer.defaultProps = {
-  company: { href: "#", name: "Creado por el grupo 4-6" },
-  links: [
-    //{ href: "#", name: "SSCS" },
-    { href: "https://www.sena.edu.co/es-co/Paginas/default.aspx", name: "Sena" },
-    // { href: "#", name: "Blog" },
-    //{ href: "#", name: "License" },
-  ],
-};
+// // Setting default values for the props of Footer
+// Footer.defaultProps = {
+//   company: { href: "#", name: "Creado por el grupo 4-6" },
+//   links: [
+//     //{ href: "#", name: "SSCS" },
+//     { href: "https://www.sena.edu.co/es-co/Paginas/default.aspx", name: "Sena" },
+//     // { href: "#", name: "Blog" },
+//     //{ href: "#", name: "License" },
+//   ],
+// };
 
 // Typechecking props for the Footer
 Footer.propTypes = {

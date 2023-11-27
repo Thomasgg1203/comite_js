@@ -98,29 +98,6 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Ingresar
           </MDTypography>
-          {/*----------------------------------------------------------------------------------------
-           Parte de iconos donde puede ir un pequeñito icono del sena o del logo que le vamos a colocar 
-          -------------------------------------------------------------------------------------------*/}
-          {/* <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid> */}
-          {/*----------------------------------------------------------------------------------------
-           Parte de iconos donde puede ir un pequeñito icono del sena o del logo que le vamos a colocar 
-          -------------------------------------------------------------------------------------------*/}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
@@ -181,7 +158,7 @@ function Basic() {
               </MDButton>
               {/* Fin de parte del boton de ingreso */}
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
+            {/* <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
                 <MDTypography
@@ -195,7 +172,7 @@ function Basic() {
                   Sign up
                 </MDTypography>
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

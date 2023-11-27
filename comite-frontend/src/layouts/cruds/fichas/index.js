@@ -19,41 +19,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import { CircularProgress, Grid, TextField } from "@mui/material";
 //uso del yup para validar
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
+import MDTypography from "components/MDTypography";
 
 const Fichas = () => {
   const { authData } = useAuth();
-
-  // Verifica si authData está definido antes de acceder a sus propiedades
-  if (!authData) {
-    return (
-      <DashboardLayout>
-        <DashboardNavbar />
-        <MDBox pt={6} pb={3}>
-          <Grid container spacing={6}>
-            <Grid item xs={12}>
-              <MDBox
-                mx="auto"
-                mt={-3}
-                py={3}
-                px={2}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <CircularProgress color="primary" />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
-      </DashboardLayout>
-    );
-  }
 
   const [fichaData, setFichaData] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -75,6 +49,7 @@ const Fichas = () => {
     };
     fetchData();
   }, [authData.token]);
+
   //validaciones de ficha
   // Define el esquema de validación con Yup
   const validationSchema = Yup.object({
@@ -86,7 +61,9 @@ const Fichas = () => {
     fecha_inicio_lectiva: Yup.date().required("La fecha de inicio lectiva es requerida"),
     fecha_fin_lectiva: Yup.date().required("La fecha de fin lectiva es requerida"),
   });
-  //componente para crear usuario
+  /**
+   * Componente para el formulario de crear ficha
+   */
   const MyModal = ({ open, handleClose }) => {
     const formik = useFormik({
       initialValues: {
@@ -109,7 +86,7 @@ const Fichas = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Crear Ficha</DialogTitle>
         <DialogContent>
-          <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
+          <MDBox component="form" role="form" onSubmit={formik.handleSubmit} my={2} mx={1}>
             {/* Campos de entrada del formulario */}
             <MDInput
               label="Número de Ficha"
@@ -121,7 +98,12 @@ const Fichas = () => {
               error={formik.touched.numero_ficha && Boolean(formik.errors.numero_ficha)}
               helperText={formik.touched.numero_ficha && formik.errors.numero_ficha}
             />
-            <TextField
+            {formik.touched.numero_ficha && formik.errors.numero_ficha && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.numero_ficha}
+              </MDTypography>
+            )}
+            <MDInput
               label="Jornada"
               fullWidth
               id="jornada"
@@ -185,8 +167,8 @@ const Fichas = () => {
     <DashboardLayout>
       <DashboardNavbar />
       {/* Botón para abrir el modal */}
-      <Button variant="contained" color="primary" onClick={handleOpenModal}>
-        Abrir Modal
+      <Button variant="outlined" color="primary" onClick={handleOpenModal}>
+        Crear Ficha
       </Button>
       <br />
       <br />

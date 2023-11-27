@@ -8,17 +8,14 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import MDTypography from "components/MDTypography";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
@@ -28,123 +25,47 @@ function Dashboard() {
       {/*PArte de navegacion de arriba del dasboar */}
       <DashboardNavbar /> {/*PArte de navegacion de arriba del dasboar */}
       <MDBox py={3}>
-        {/* PArte de tarjeticas de inicio(inicio codigo) */}
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* PArte de tarjeticas de inicio(inicio codigo) */}
-        <MDBox mt={4.5}>
-          {/* PArte de graficos inicio */}
+        {/* Sección de bienvenida (nueva adición) */}
+        <MDBox my={5}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
-              </MDBox>
+            <Grid item xs={12}>
+              <MDTypography variant="h3" fontWeight="bold" textAlign="center">
+                ¡Bienvenido a la Plataforma del SENA!
+              </MDTypography>
+              <MDTypography variant="body1" textAlign="center">
+                Aquí encontrarás herramientas y estadísticas para gestionar eficientemente tus
+                procesos diciplinarios.
+              </MDTypography>
             </Grid>
           </Grid>
-          {/* PArte de graficos fin */}
         </MDBox>
-        <MDBox>
-          {/* PArte de tablas kulas que aparecen antes del footer */}
-          <Grid container spacing={3}>
+        {/* Sección de bienvenida (nueva adición) */}
+        {/* <MDBox> */}
+        {/* PArte de tablas kulas que aparecen antes del footer */}
+        {/* <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
               <Projects />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid>
+          </Grid> */}
+        {/* PArte de tablas kulas que aparecen antes del footer */}
+        {/* </MDBox> */}
+        <MDBox>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={8}>
+              <MDTypography variant="body1" textAlign="center">
+                Aquí encontrarás herramientas y estadísticas para gestionar eficientemente tus
+                procesos diciplinarios.
+              </MDTypography>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDTypography variant="body1" textAlign="center">
+                Aqui una descripcion bien arrecha
+              </MDTypography>
+            </Grid>
           </Grid>
-          {/* PArte de tablas kulas que aparecen antes del footer */}
         </MDBox>
       </MDBox>
       <Footer />

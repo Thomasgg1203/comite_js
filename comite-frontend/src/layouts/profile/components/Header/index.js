@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -22,10 +18,15 @@ import breakpoints from "assets/theme/base/breakpoints";
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
-
+//contex
+import { useAuth } from "context";
 function Header({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
+  //para perfil
+  const { authData } = useAuth();
+  // Utiliza authData.user u otra propiedad según la estructura de tu objeto de autenticación
+  const profileInfo = authData?.user;
 
   useEffect(() => {
     // Una función que establece el estado de orientación de las pestañas.
@@ -84,42 +85,12 @@ function Header({ children }) {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h2" fontWeight="medium">
-                Elena
+                {profileInfo.nombres}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                Programador del sena
+                {profileInfo.correo}
               </MDTypography>
             </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}>
-            <AppBar position="static">
-              <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
-                <Tab
-                  label="App"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      home
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Message"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      email
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Settings"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      settings
-                    </Icon>
-                  }
-                />
-              </Tabs>
-            </AppBar>
           </Grid>
         </Grid>
         {children}

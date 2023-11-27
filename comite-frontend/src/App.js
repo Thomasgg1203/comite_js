@@ -37,11 +37,6 @@ import brandDark from "assets/images/logo-ct-dark.png";
 //context
 import { AuthProvider } from "context";
 import { useAuth } from "context";
-import PropTypes from "prop-types";
-
-PrivateRoute.propTypes = {
-  element: PropTypes.element.isRequired,
-};
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -58,6 +53,8 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  //Parte de validacion de usuario
+  const { authData } = useAuth();
 
   // Cache for the rtl
   useMemo(() => {
@@ -150,23 +147,28 @@ export default function App() {
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            {/* Renderice el componente sidenav con las propiedades especificadas. */}
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="SSCS"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            {dashboardComponents}
+            {authData ? (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                  brandName="SSCS"
+                  routes={routes} // Usa las rutas específicas de roles
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+                {dashboardComponents}
+              </>
+            ) : (
+              <Navigate to="/authentication/sign-in" />
+            )}
           </>
         )}
         {layout === "vr" && <Configurator />}
-        {/* Render route elements using React Router */}
         <Routes>
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
+          {/* <Route path="*" element={<Navigate to="/authentication/sign-in" />} /> */}
         </Routes>
       </ThemeProvider>
     </AuthProvider>

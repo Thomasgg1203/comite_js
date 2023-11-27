@@ -18,7 +18,29 @@ import Footer from "examples/Footer";
 import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 // Overview page components
 import Header from "layouts/profile/components/Header";
+//traer perfil
+import { useAuth } from "context";
+
 function Overview() {
+  const { authData } = useAuth();
+  // Utiliza authData.user u otra propiedad según la estructura de tu objeto de autenticación
+  const profileInfo = authData?.user;
+
+  const getRoleDescription = (role) => {
+    switch (role) {
+      case "aprendiz":
+        return "¡Hola! Soy un aprendiz. Estoy aquí para aprender y crecer.";
+      case "gestor-comite":
+        return "¡Hola! Soy un gestor de comité. Mi objetivo es coordinar y liderar el comité.";
+      case "administrador":
+        return "¡Hola! Soy un administrador. Tengo acceso a funciones administrativas.";
+      case "gestor-grupo":
+        return "¡Hola! Soy un gestor de grupo. Mi tarea principal es gestionar y apoyar al grupo.";
+      default:
+        return "¡Hola! Soy un usuario con un rol no especificado.";
+    }
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -26,40 +48,44 @@ function Overview() {
       <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={12} xl={12} sx={{ display: "flex" }}>
-              <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
+            <Grid item xs={12} md={12} xl={12} sx={12}>
               <ProfileInfoCard
-                title="profile informacion"
-                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                title="Información Perfil"
+                description={getRoleDescription(
+                  profileInfo.roles && profileInfo.roles.length > 0 ? profileInfo.roles[0] : ""
+                )}
                 info={{
-                  Nombre: "Alec ",
-                  Apellidos: "M. Thompson",
-                  Telefono: "(44) 123 1234 123",
-                  Direccion: "Valle del cocora",
-                  Email: "alecthompson@mail.com",
-                  Documento: "1056120544",
+                  Nombre: profileInfo.nombres,
+                  Apellidos: profileInfo.apellidos,
+                  Telefono: profileInfo.telefono,
+                  Direccion: profileInfo.direccion,
+                  Email: profileInfo.correo,
+                  Documento: profileInfo.documento,
+                  Rol:
+                    profileInfo.roles && profileInfo.roles.length > 0
+                      ? profileInfo.roles[0]
+                      : "Sin rol",
                 }}
-                social={[
-                  {
-                    link: "https://www.facebook.com/CreativeTim/",
-                    icon: <FacebookIcon />,
-                    color: "facebook",
-                  },
-                  {
-                    link: "https://twitter.com/creativetim",
-                    icon: <TwitterIcon />,
-                    color: "twitter",
-                  },
-                  {
-                    link: "https://www.instagram.com/creativetimofficial/",
-                    icon: <InstagramIcon />,
-                    color: "instagram",
-                  },
-                ]}
+                // social={[
+                //   {
+                //     link: "https://www.facebook.com/CreativeTim/",
+                //     icon: <FacebookIcon />,
+                //     color: "facebook",
+                //   },
+                //   {
+                //     link: "https://twitter.com/creativetim",
+                //     icon: <TwitterIcon />,
+                //     color: "twitter",
+                //   },
+                //   {
+                //     link: "https://www.instagram.com/creativetimofficial/",
+                //     icon: <InstagramIcon />,
+                //     color: "instagram",
+                //   },
+                // ]}
                 action={{ route: "", tooltip: "Edit Profile" }}
                 shadow={false}
               />
-              <Divider orientation="vertical" sx={{ mx: 0 }} />
             </Grid>
           </Grid>
         </MDBox>
