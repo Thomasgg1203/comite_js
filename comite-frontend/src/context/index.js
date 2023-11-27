@@ -1,7 +1,7 @@
 /**
  * Logica por parte del diseño
  */
-import { createContext, useContext, useReducer, useMemo, useState } from "react";
+import { createContext, useContext, useReducer, useMemo, useState, useEffect } from "react";
 
 // prop-types es una biblioteca para la verificación de tipos de accesorios
 import PropTypes from "prop-types";
@@ -108,32 +108,10 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 /**
  * --------------------------Inicio de logica por parte de Apis----------------------------------
  */
-// //Logica por parte de capitulos
-// import { GetAllCapitulos } from "api/capitulo";
-
-// const capitulosData = async () => {
-//   try {
-//     const res = await GetAllCapitulos();
-//     return res;
-//   } catch (e) {
-//     console.log(`Error: ${e.message}`);
-//   }
-// };
-// //Logica por parte de articulos
-// import { getAllArticulos } from "api/articulo";
-// const articulosData = async () => {
-//   try {
-//     const res = await getAllArticulos();
-//     return res;
-//   } catch (e) {
-//     console.log(`Error: ${e.message}`);
-//   }
-// };
 
 /*
 Parte de usuarios
 */
-// En el contexto
 const usuariosData = async () => {
   try {
     const res = await allUsers(authData.token);
@@ -183,13 +161,16 @@ const reglamento = async () => {
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState(null);
-  if (authData && authData.token) {
-    console.log(authData.token);
-  } else {
-    console.error("authData es nulo o no tiene la propiedad token");
-  }
-  // console.log(`Datos almacenados: ${}}`); // Imprime los datos almacenados
+  const [authData, setAuthData] = useState(() => {
+    // Intentar obtener datos de autenticación desde localStorage al inicio
+    const storedAuthData = localStorage.getItem("authData");
+    return storedAuthData ? JSON.parse(storedAuthData) : null;
+  });
+
+  useEffect(() => {
+    // Guardar en localStorage cada vez que authData cambie
+    localStorage.setItem("authData", JSON.stringify(authData));
+  }, [authData]);
 
   return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
 };

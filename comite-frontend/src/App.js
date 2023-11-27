@@ -36,6 +36,12 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 //context
 import { AuthProvider } from "context";
+import { useAuth } from "context";
+import PropTypes from "prop-types";
+
+PrivateRoute.propTypes = {
+  element: PropTypes.element.isRequired,
+};
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -160,7 +166,7 @@ export default function App() {
         {/* Render route elements using React Router */}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
     </AuthProvider>
