@@ -1,4 +1,4 @@
-import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable, ExecutionContext  } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Usuario, usuarioDocument } from 'src/usuarios/model/usuario.schema';
@@ -63,4 +63,18 @@ export class AuthsService {
         };
         return data;
     }
+    
+    //----------------------------------------------------------------------------
+    // TODO: implementación para poder sacar el usuario.nombre de la sesion actual
+    public async settingCreadoPor(context: ExecutionContext): Promise<string | null> {
+        const req = context.switchToHttp().getRequest;
+        
+        // obtenemos el atributo rol del usuario autentificado por medio del request
+        // const { nombre } = req.user.
+        
+        console.log("________",req,"________"); 
+        return null
+    }
+    // TODO: implementación para poder sacar el usuario.nombre de la sesion actual
+
 }

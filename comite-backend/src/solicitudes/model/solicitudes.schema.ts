@@ -3,11 +3,13 @@ import mongoose, { Document } from 'mongoose';
 import * as moment from 'moment';
 
 
-export type solicitudDocument = solicitud & Document;
+export type solicitudDocument = Solicitud & Document;
 
 @Schema()
-export class solicitud {
-    
+export class Solicitud {
+  @Prop()
+  creadoPor: string;
+  
   @Prop()
   creadoEn: string;
 
@@ -18,7 +20,7 @@ export class solicitud {
   asunto: string;
 }
 
-export const solicitudSchema = SchemaFactory.createForClass(solicitud);
+export const solicitudSchema = SchemaFactory.createForClass(Solicitud);
 
 solicitudSchema.pre('save', function (next) {
   this.creadoEn = moment().format('MMMM Do YYYY, h:mm:ss a'); // Obtener la fecha y hora actual en el formato especificado
