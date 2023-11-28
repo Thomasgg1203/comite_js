@@ -152,7 +152,7 @@ export default function App() {
                 <Sidenav
                   color={sidenavColor}
                   brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                  brandName="SSCS"
+                  brandName="SCES"
                   routes={routes} // Usa las rutas específicas de roles
                   onMouseEnter={handleOnMouseEnter}
                   onMouseLeave={handleOnMouseLeave}

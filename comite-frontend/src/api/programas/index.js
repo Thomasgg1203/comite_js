@@ -1,8 +1,8 @@
 //importacion de axios para el consumo de la api
 import axios from "axios";
 
-const baseURL = "http://192.168.1.88:4000";
-
+// const baseURL = "http://192.168.1.88:4000";
+const baseURL = "http://localhost:4000";
 export const allProgramas = async (token) => {
   try {
     if (token) {

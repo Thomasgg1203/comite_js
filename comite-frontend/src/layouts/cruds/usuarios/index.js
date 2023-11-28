@@ -189,7 +189,7 @@ const Usuarios = () => {
   };
 
   const handleEditarUsuario = (id) => {
-    const selectedUser = userData.find((user) => user._id === id);
+    const selectedUser = userData.find((user) => user.id === id);
     if (selectedUser) {
       setModalOpen(true);
       setSelectedUserId(id);
@@ -238,14 +238,14 @@ const Usuarios = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    onClick={() => handleEditarUsuario(row.original._id)}
+                    onClick={() => handleEditarUsuario(row.original.id)}
                   >
                     Editar
                   </Button>
                   <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => handleEliminarUsuario(row.original._id)}
+                    onClick={() => handleEliminarUsuario(row.original.id)}
                   >
                     Eliminar
                   </Button>
@@ -266,7 +266,7 @@ Usuarios.propTypes = {
   // ... Otras propTypes que puedas tener
   row: PropTypes.shape({
     original: PropTypes.shape({
-      _id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
+      id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
       // ... Otras propiedades que puedas tener en tus objetos de datos
     }).isRequired,
   }).isRequired,
