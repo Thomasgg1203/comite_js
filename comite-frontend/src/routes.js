@@ -9,12 +9,11 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 //Reglamento del aprendiz
 import Reglamento from "layouts/reglamento";
-//Gestor-grupo
-import Gestor_grupo from "layouts/cruds/gestor-grupo";
 //componente usuarios
 import Usuarios from "layouts/cruds/usuarios";
 //fichas
 import Fichas from "layouts/cruds/fichas";
+import Programas from "layouts/cruds/programas";
 
 const routes = [
   {
@@ -75,16 +74,6 @@ const routes = [
     component: <Reglamento />,
   },
   //Parte Reglamento Aprendiz fin
-  //Parte crud Gestor de grupo
-  {
-    type: "collapse",
-    name: "Gestor Grupo",
-    key: "gestor-grupo",
-    icon: <Icon fontSize="small">menu_book</Icon>,
-    route: "/gestor-grupo",
-    component: <Gestor_grupo />,
-  },
-  //Parte crud Gestor de grupo fin
   {
     type: "collapse",
     name: "Usuarios",
@@ -104,6 +93,16 @@ const routes = [
     component: <Fichas />,
   },
   // Ficha
+  //Programa
+  {
+    type: "collapse",
+    name: "Programas",
+    key: "programas",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/programas",
+    component: <Programas />,
+  },
+  //Programa
 ];
 
 export default routes;

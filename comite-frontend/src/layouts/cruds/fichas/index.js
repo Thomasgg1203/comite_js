@@ -13,7 +13,7 @@ import Footer from "examples/Footer";
 
 //componente context
 import { useAuth } from "context";
-import { allfichas } from "api/fichas";
+import { allfichas, guardarFicha, eliminarFicha } from "api/fichas";
 
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -25,6 +25,7 @@ import { useFormik } from "formik";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const Fichas = () => {
   const { authData } = useAuth();
@@ -37,7 +38,6 @@ const Fichas = () => {
       try {
         const res = await allfichas(authData.token);
         if (res && res.data) {
-          // Asegúrate de que res y res.data estén definidos
           setFichaData(res.data);
           console.log(fichaData);
         } else {
@@ -50,14 +50,30 @@ const Fichas = () => {
     fetchData();
   }, [authData.token]);
 
-  //validaciones de ficha
   // Define el esquema de validación con Yup
   const validationSchema = Yup.object({
-    numero_ficha: Yup.string().required("El número de ficha es requerido"),
+    numero_ficha: Yup.number()
+      .typeError("El número de ficha debe ser un número")
+      .required("El número de ficha es requerido")
+      .integer("El número de ficha debe ser un número entero")
+      .positive("El número de ficha debe ser un número positivo")
+      .max(99999999, "El número de ficha no puede tener más de 10 dígitos"),
     jornada: Yup.string().required("La jornada es requerida"),
-    modalidad: Yup.string().required("La modalidad es requerida"),
     fecha_inicio_productiva: Yup.date().required("La fecha de inicio productiva es requerida"),
-    fecha_fin_productiva: Yup.date().required("La fecha de fin productiva es requerida"),
+    fecha_fin_productiva: Yup.date()
+      .required("La fecha de fin productiva es requerida")
+      .test(
+        "is-after",
+        "La fecha de fin productiva debe ser después de la fecha de inicio",
+        function (value) {
+          const { fecha_inicio_productiva } = this.parent; // Obtiene el valor de fecha_inicio_productiva
+          return (
+            !fecha_inicio_productiva ||
+            !value ||
+            new Date(value) > new Date(fecha_inicio_productiva)
+          );
+        }
+      ),
     fecha_inicio_lectiva: Yup.date().required("La fecha de inicio lectiva es requerida"),
     fecha_fin_lectiva: Yup.date().required("La fecha de fin lectiva es requerida"),
   });
@@ -69,56 +85,178 @@ const Fichas = () => {
       initialValues: {
         numero_ficha: "",
         jornada: "",
-        modalidad: "",
-        fecha_inicio_productiva: "",
-        fecha_fin_productiva: "",
-        fecha_inicio_lectiva: "",
-        fecha_fin_lectiva: "",
+        modalidad: "presencial",
+        fecha_inicio_productiva: "2000-11-23",
+        fecha_fin_productiva: "2000-11-23",
+        fecha_inicio_lectiva: "2000-11-23",
+        fecha_fin_lectiva: "2000-11-23",
       },
       validationSchema: validationSchema,
-      onSubmit: (values) => {
-        // Aquí puedes realizar la lógica para enviar los datos del formulario
-        console.log("Valores del formulario:", values);
-        // También puedes llamar a la función para manejar el evento de crear aquí
+      onSubmit: async (values) => {
+        try {
+          // Llama a la función para guardar la ficha
+          await guardarFicha(authData.token, values);
+          // Aquí puedes realizar otras acciones después de guardar exitosamente
+          // Recarga la página después de guardar exitosamente
+          alert("Se creo con exito");
+          window.location.reload();
+        } catch (error) {
+          alert("No se pudo crear");
+          console.log("Error:", error);
+          // Maneja el error, por ejemplo, mostrando un mensaje al usuario
+        }
       },
     });
     return (
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Crear Ficha</DialogTitle>
         <DialogContent>
-          <MDBox component="form" role="form" onSubmit={formik.handleSubmit} my={2} mx={1}>
+          <MDBox component="form" role="form" onSubmit={formik.handleSubmit} mb={2}>
             {/* Campos de entrada del formulario */}
             <MDInput
               label="Número de Ficha"
               fullWidth
               id="numero_ficha"
+              textGradient
               name="numero_ficha"
+              variant="standard"
               value={formik.values.numero_ficha}
               onChange={formik.handleChange}
               error={formik.touched.numero_ficha && Boolean(formik.errors.numero_ficha)}
-              helperText={formik.touched.numero_ficha && formik.errors.numero_ficha}
+              success={formik.touched.numero_ficha && Boolean(!formik.errors.numero_ficha)}
             />
             {formik.touched.numero_ficha && formik.errors.numero_ficha && (
               <MDTypography variant="caption" color="error" textGradient>
                 {formik.errors.numero_ficha}
               </MDTypography>
             )}
-            <MDInput
-              label="Jornada"
+            {/* Parte de select, para la jornada */}
+            <FormControl
               fullWidth
-              id="jornada"
-              name="jornada"
-              value={formik.values.jornada}
-              onChange={formik.handleChange}
+              variant="standard"
               error={formik.touched.jornada && Boolean(formik.errors.jornada)}
-              helperText={formik.touched.jornada && formik.errors.jornada}
+              success={formik.touched.jornada && Boolean(!formik.errors.jornada)}
               margin="normal"
+            >
+              <InputLabel id="jornada-label">Jornada</InputLabel>
+              <Select
+                labelId="jornada-label"
+                id="jornada"
+                name="jornada"
+                value={formik.values.jornada}
+                onChange={formik.handleChange}
+                MenuProps={{
+                  anchorOrigin: { vertical: "bottom", horizontal: "center" },
+                  transformOrigin: { vertical: "top", horizontal: "center" },
+                }}
+              >
+                <MenuItem value="mañana">Mañana</MenuItem>
+                <MenuItem value="tarde">Tarde</MenuItem>
+                <MenuItem value="noche">Noche</MenuItem>
+                <MenuItem value="mixta">Mixta</MenuItem>
+              </Select>
+            </FormControl>
+            {formik.touched.jornada && formik.errors.jornada && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.jornada}
+              </MDTypography>
+            )}
+            {/* Parte de select, para la jornada */}
+            {/* Selector de fecha para fecha_inicio_lectiva */}
+            <MDInput
+              mt={2}
+              type="date"
+              fullWidth
+              label="Fecha Inicio Lectiva"
+              id="fecha_inicio_lectiva"
+              name="fecha_inicio_lectiva"
+              value={formik.values.fecha_inicio_lectiva}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.fecha_inicio_lectiva && Boolean(formik.errors.fecha_inicio_lectiva)
+              }
+              success={
+                formik.touched.fecha_inicio_lectiva && Boolean(!formik.errors.fecha_inicio_lectiva)
+              }
+              // Puedes agregar cualquier otra prop necesaria
             />
-            {/* Agrega más campos de entrada según sea necesario */}
-            {/* ... */}
-
-            {/* Botón para enviar el formulario */}
-            <Button variant="contained" color="primary" type="submit">
+            {formik.touched.fecha_inicio_lectiva && formik.errors.fecha_inicio_lectiva && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.fecha_inicio_lectiva}
+              </MDTypography>
+            )}
+            {/* Selector de fecha para fecha_fin_lectiva */}
+            <MDInput
+              my={5}
+              type="date"
+              fullWidth
+              label="Fecha Fin Lectiva"
+              id="fecha_fin_lectiva"
+              name="fecha_fin_lectiva"
+              value={formik.values.fecha_fin_lectiva}
+              onChange={formik.handleChange}
+              error={formik.touched.fecha_fin_lectiva && Boolean(formik.errors.fecha_fin_lectiva)}
+              success={
+                formik.touched.fecha_fin_lectiva && Boolean(!formik.errors.fecha_fin_lectiva)
+              }
+              // Puedes agregar cualquier otra prop necesaria
+            />
+            {formik.touched.fecha_fin_lectiva && formik.errors.fecha_fin_lectiva && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.fecha_fin_lectiva}
+              </MDTypography>
+            )}
+            {/* Fecha productiva */}
+            {/* Selector de fecha para fecha_inicio_productiva */}
+            <MDInput
+              mt={2}
+              type="date"
+              fullWidth
+              label="Fecha Inicio Productiva"
+              id="fecha_inicio_productiva"
+              name="fecha_inicio_productiva"
+              value={formik.values.fecha_inicio_productiva}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.fecha_inicio_productiva &&
+                Boolean(formik.errors.fecha_inicio_productiva)
+              }
+              success={
+                formik.touched.fecha_inicio_productiva &&
+                Boolean(!formik.errors.fecha_inicio_productiva)
+              }
+              // Puedes agregar cualquier otra prop necesaria
+            />
+            {formik.touched.fecha_inicio_productiva && formik.errors.fecha_inicio_productiva && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.fecha_inicio_productiva}
+              </MDTypography>
+            )}
+            {/* Selector de fecha para fin_productiva*/}
+            <MDInput
+              my={5}
+              type="date"
+              fullWidth
+              label="Fecha Fin Productiva"
+              id="fecha_fin_productiva"
+              name="fecha_fin_productiva"
+              value={formik.values.fecha_fin_productiva}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.fecha_fin_productiva && Boolean(formik.errors.fecha_fin_productiva)
+              }
+              success={
+                formik.touched.fecha_fin_productiva && Boolean(!formik.errors.fecha_fin_productiva)
+              }
+              // Puedes agregar cualquier otra prop necesaria
+            />
+            {formik.touched.fecha_fin_productiva && formik.errors.fecha_fin_productiva && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.fecha_fin_productiva}
+              </MDTypography>
+            )}
+            {/* Fin de fecha productiva */}
+            <Button variant="text" color="primary" type="submit" mt={2} textGradient>
               Crear Ficha
             </Button>
           </MDBox>
@@ -144,14 +282,18 @@ const Fichas = () => {
 
   // Función para manejar el evento de eliminar
   const handleEliminar = (id) => {
+    // Validar si el id es válido
+    if (!id || typeof id !== "string") {
+      console.error("El ID proporcionado no es válido:", id);
+      // Puedes mostrar un mensaje de error al usuario si lo deseas
+      return;
+    }
+
     // Lógica para eliminar el elemento con el id proporcionado
     console.log("Eliminar elemento con id:", id);
-  };
 
-  // Función para manejar el evento de mostrar
-  const handleMostrar = (id) => {
-    // Lógica para mostrar el elemento con el id proporcionado
-    console.log("Mostrar elemento con id:", id);
+    // Llama a la función para eliminar de la API
+    eliminarFicha(authData.token, id);
   };
 
   //parte del modal
@@ -167,7 +309,7 @@ const Fichas = () => {
     <DashboardLayout>
       <DashboardNavbar />
       {/* Botón para abrir el modal */}
-      <Button variant="outlined" color="primary" onClick={handleOpenModal}>
+      <Button variant="outlined" color="primary" onClick={handleOpenModal} textGradient>
         Crear Ficha
       </Button>
       <br />
@@ -185,7 +327,7 @@ const Fichas = () => {
               Header: "Acciones",
               accessor: "acciones",
               width: "26%",
-              Cell: ({}) => (
+              Cell: ({ row }) => (
                 <div>
                   <Button
                     variant="text"
@@ -201,13 +343,6 @@ const Fichas = () => {
                   >
                     Eliminar
                   </Button>
-                  <Button
-                    variant="text"
-                    color="default"
-                    onClick={() => handleMostrar(row.original._id)}
-                  >
-                    Mostrar
-                  </Button>
                 </div>
               ),
             },
@@ -220,6 +355,16 @@ const Fichas = () => {
       <Footer />
     </DashboardLayout>
   );
+};
+
+Fichas.propTypes = {
+  // ... Otras propTypes que puedas tener
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      _id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
+      // ... Otras propiedades que puedas tener en tus objetos de datos
+    }).isRequired,
+  }).isRequired,
 };
 
 export default Fichas;

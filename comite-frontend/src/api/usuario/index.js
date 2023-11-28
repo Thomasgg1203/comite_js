@@ -33,3 +33,53 @@ export const allUsers = async (token) => {
     throw error; // Lanza el error para que pueda ser capturado en el componente
   }
 };
+
+export const guardarUsuario = async (token, userData) => {
+  try {
+    if (token) {
+      const response = await axios.post(`${baseURL}/usuarios/crear`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Usuario creado correctamente:", response.data);
+        return response.data;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error al enviar datos a la API:", error);
+    throw error;
+  }
+};
+
+export const eliminarUsuario = async (token, userId) => {
+  try {
+    if (token) {
+      const response = await axios.delete(`${baseURL}/usuarios/eliminar/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Usuario eliminado correctamente:", response.data);
+        return response.data;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error al enviar datos a la API:", error);
+    throw error;
+  }
+};
