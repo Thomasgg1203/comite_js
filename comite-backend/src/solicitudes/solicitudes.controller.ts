@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { SolicitudesService } from './solicitudes.service';
 import { CreateSolicitudeDto } from './dto/create-solicitude.dto';
 import { UpdateSolicitudeDto } from './dto/update-solicitude.dto';
@@ -14,8 +14,8 @@ export class SolicitudesController {
   constructor(private readonly solicitudesService: SolicitudesService) {}
 
   @Post('crear')
-  create(@Body() createSolicitudeDto: CreateSolicitudeDto, @Request() req) {
-    return this.solicitudesService.create(createSolicitudeDto, req);
+  create(@Body() createSolicitudeDto: CreateSolicitudeDto) {
+    return this.solicitudesService.create(createSolicitudeDto);
   }
 
   @Get('obtener')

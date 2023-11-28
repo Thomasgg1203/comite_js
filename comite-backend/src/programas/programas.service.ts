@@ -15,7 +15,7 @@ export class ProgramasService {
   }
   // Los metodos con función asincrona se encuentran en uso
   async create(createProgramaDto: CreateProgramaDto) {
-    return this.programaModel.create(createProgramaDto);
+    return this.programaModel.create(CreateProgramaDto);
   }
 
   async findAll() {
