@@ -8,143 +8,72 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import MDTypography from "components/MDTypography";
+import { useAuth } from "context";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const { authData } = useAuth(); // Asegúrate de que tu contexto AuthContext proporciona la información del usuario
+
+  // Función para obtener un mensaje de bienvenida personalizado según el rol
+  const getWelcomeMessage = () => {
+    if (authData.user.roles.includes("aprendiz")) {
+      return `¡Bienvenido a la Plataforma Aprendiz, ${authData.user.nombres}! Aquí puedes encontrar información sobre tus procesos académicos y detalles de tus faltas académicas.`;
+    } else if (authData.user.roles.includes("gestor-comite")) {
+      return `¡Bienvenido a la Plataforma Gestor de Comité, ${authData.user.nombres}! Aquí puedes acceder a herramientas y estadísticas para gestionar procesos disciplinarios.`;
+    } else if (authData.user.roles.includes("gestor-grupo")) {
+      return `¡Bienvenido a la Plataforma Gestor de Grupo, ${authData.user.nombres}! Aquí encontrarás información para gestionar eficientemente tus procesos disciplinarios de grupo.`;
+    } else if (authData.user.roles.includes("administrador")) {
+      return `¡Bienvenido a la Plataforma Administrador, ${authData.user.nombres}! Aquí puedes acceder a funciones administrativas y herramientas de gestión.`;
+    }
+
+    // Mensaje predeterminado si no se cumple ninguna condición
+    return `¡Bienvenido a la Plataforma del SENA, ${authData.user.nombres}!`;
+  };
 
   return (
     <DashboardLayout>
       {/*PArte de navegacion de arriba del dasboar */}
       <DashboardNavbar /> {/*PArte de navegacion de arriba del dasboar */}
       <MDBox py={3}>
-        {/* PArte de tarjeticas de inicio(inicio codigo) */}
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* PArte de tarjeticas de inicio(inicio codigo) */}
-        <MDBox mt={4.5}>
-          {/* PArte de graficos inicio */}
+        {/* Sección de bienvenida (nueva adición) */}
+        <MDBox my={5}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
-              </MDBox>
+            <Grid item xs={12}>
+              <MDTypography variant="h4" fontWeight="bold" textAlign="center">
+                {getWelcomeMessage()}
+              </MDTypography>
             </Grid>
           </Grid>
-          {/* PArte de graficos fin */}
+        </MDBox>
+        <MDBox my={3}>
+          <Grid item xs={12}>
+            <MDTypography variant="body1" textAlign="center">
+              Aquí encontrarás herramientas y estadísticas para gestionar eficientemente los
+              procesos diciplinarios.
+            </MDTypography>
+          </Grid>
         </MDBox>
         <MDBox>
-          {/* PArte de tablas kulas que aparecen antes del footer */}
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              <MDTypography variant="body1" textAlign="center">
+                Aquí podrás acceder a información detallada sobre tus procesos académicos y realizar
+                diversas actividades relacionadas con tu formación.
+              </MDTypography>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
+              <MDTypography variant="body1" textAlign="center">
+                Si necesitas asistencia o tienes alguna pregunta, no dudes en ponerte en contacto
+                con nosotros.
+              </MDTypography>
             </Grid>
           </Grid>
-          {/* PArte de tablas kulas que aparecen antes del footer */}
         </MDBox>
       </MDBox>
       <Footer />

@@ -9,8 +9,11 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 //Reglamento del aprendiz
 import Reglamento from "layouts/reglamento";
-//Gestor-grupo
-import Gestor_grupo from "layouts/cruds/gestor-grupo";
+//componente usuarios
+import Usuarios from "layouts/cruds/usuarios";
+//fichas
+import Fichas from "layouts/cruds/fichas";
+import Programas from "layouts/cruds/programas";
 
 const routes = [
   {
@@ -20,6 +23,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+    roles: ["administrador", "gestor-comite", "aprendiz", "gestor-grupo"],
   },
   {
     type: "collapse",
@@ -28,6 +32,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+    roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
   {
     type: "collapse",
@@ -36,6 +41,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -44,6 +50,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: <Billing />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -52,6 +59,7 @@ const routes = [
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: <Notifications />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -60,15 +68,8 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    roles: ["administrador", "gestor-comite"],
   },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
   //Parte Reglamento Aprendiz
   {
     type: "collapse",
@@ -77,42 +78,41 @@ const routes = [
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/reglamento",
     component: <Reglamento />,
+    roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
   //Parte Reglamento Aprendiz fin
-  //Parte crud Gestor de grupo
   {
     type: "collapse",
-    name: "Gestor Grupo",
-    key: "gestor-grupo",
+    name: "Usuarios",
+    key: "usuarios",
     icon: <Icon fontSize="small">menu_book</Icon>,
-    route: "/gestor-grupo",
-    component: <Gestor_grupo />,
+    route: "/usuarios",
+    component: <Usuarios />,
+    roles: ["administrador", "gestor-comite"],
   },
   //Parte crud Gestor de grupo fin
+  //ficha
+  {
+    type: "collapse",
+    name: "Fichas",
+    key: "ficha",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/ficha",
+    component: <Fichas />,
+    roles: ["administrador", "gestor-comite"],
+  },
+  // Ficha
+  //Programa
+  {
+    type: "collapse",
+    name: "Programas",
+    key: "programas",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/programas",
+    component: <Programas />,
+    roles: ["administrador", "gestor-comite"],
+  },
+  //Programa
 ];
-
-/**
- * ----------------------------------Rutas para Aprendiz--------------------------------
- */
-
-/**
- * ----------------------------------Fin rutas para Aprendiz--------------------------------
- */
-
-/**
- * ----------------------------------Rutas para Instructor--------------------------------
- */
-
-/**
- * ----------------------------------fin rutas para Instructor--------------------------------
- */
-
-/**
- * ----------------------------------Rutas para Gestor de comite--------------------------------
- */
-
-/**
- * ----------------------------------fin rutas para Gestor de comite--------------------------------
- */
 
 export default routes;

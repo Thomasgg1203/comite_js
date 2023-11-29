@@ -36,6 +36,9 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 //context
 import { AuthProvider } from "context";
+import { useAuth } from "context";
+//componente
+import SignIn from "layouts/authentication/sign-in";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -52,7 +55,8 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
+  //Parte de validacion de usuario
+  const { authData } = useAuth();
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -93,14 +97,20 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
+  const getRoutes = (allRoutes, authData) =>
+    allRoutes.flatMap((route) => {
       if (route.collapse) {
-        return getRoutes(route.collapse);
+        return getRoutes(route.collapse, authData);
       }
 
       if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+        if (!route.roles || !authData || route.roles.includes(authData.user.roles)) {
+          return <Route key={route.key} exact path={route.route} element={route.component} />;
+        } else {
+          // return <Route key={route.key} path="/authentication/sign-in" element={<SignIn />} />;
+          // return null;
+          return <Route key={route.key} exact path={route.route} element={route.component} />;
+        }
       }
 
       return null;
@@ -137,30 +147,33 @@ export default function App() {
       {configsButton}
     </>
   );
-
   return (
     <AuthProvider>
       <ThemeProvider theme={darkMode ? themeDark : theme}>
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            {/* Renderice el componente sidenav con las propiedades especificadas. */}
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="SSCS"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            {dashboardComponents}
+            {authData ? (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                  brandName="SCES"
+                  routes={routes} // Usa las rutas específicas de roles
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+                {dashboardComponents}
+              </>
+            ) : (
+              <Navigate to="/authentication/sign-in" />
+            )}
           </>
         )}
         {layout === "vr" && <Configurator />}
-        {/* Render route elements using React Router */}
         <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+          {getRoutes(routes, authData)}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
     </AuthProvider>

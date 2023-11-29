@@ -42,7 +42,7 @@ export class Usuario {
 
     @Prop({default:'aprendiz' ,type: [String], enum: Roles})
     roles:string[];
-
+  
     @Prop({ type: Types.ObjectId, ref: 'Ficha', required: false })
     ficha: Types.ObjectId;
 }
@@ -85,4 +85,3 @@ usuarioSchema.statics.usuarioAprendizFicha = async function(numeroFicha:string) 
         },
     ]);
     return list;
-}

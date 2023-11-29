@@ -21,6 +21,10 @@ import MDInput from "components/MDInput";
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
 
+//-------------  ---------------
+import { useAuth } from "context";
+import { useNavigate } from "react-router-dom";
+
 // Custom styles for DashboardNavbar
 import {
   navbar,
@@ -44,6 +48,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const { logout, authData } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    // Utiliza el componente de navegación de react-router-dom para ir a la página de inicio de sesión
+    navigate("/authentication/sign-in");
+  };
+
+  const handlePerfil = () => {
+    navigate("/profile");
+  };
 
   useEffect(() => {
     // Configurar el tipo de barra de navegación
@@ -89,9 +105,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-      <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
+      <NotificationItem icon={<Icon>account_circle</Icon>} onClick={handlePerfil} title="Perfil" />
+      <NotificationItem icon={<Icon>login</Icon>} onClick={handleLogout} title="Salir" />
     </Menu>
   );
 
@@ -121,12 +136,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-              <MDInput label="Search here" />
+              <MDInput label="Buscar aquí" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in/basic">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
+                  <Icon sx={iconsStyle}>notifications</Icon>
                 </IconButton>
               </Link>
               <IconButton
@@ -159,7 +174,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 variant="contained"
                 onClick={handleOpenMenu}
               >
-                <Icon sx={iconsStyle}>notifications</Icon>
+                <Icon sx={iconsStyle}>account_circle</Icon>
               </IconButton>
               {renderMenu()}
             </MDBox>

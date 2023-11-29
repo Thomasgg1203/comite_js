@@ -1,7 +1,7 @@
 /**
  * Logica por parte del diseño
  */
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer, useMemo, useState, useEffect } from "react";
 
 // prop-types es una biblioteca para la verificación de tipos de accesorios
 import PropTypes from "prop-types";
@@ -108,27 +108,24 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 /**
  * --------------------------Inicio de logica por parte de Apis----------------------------------
  */
-// //Logica por parte de capitulos
-// import { GetAllCapitulos } from "api/capitulo";
 
-// const capitulosData = async () => {
-//   try {
-//     const res = await GetAllCapitulos();
-//     return res;
-//   } catch (e) {
-//     console.log(`Error: ${e.message}`);
-//   }
-// };
-// //Logica por parte de articulos
-// import { getAllArticulos } from "api/articulo";
-// const articulosData = async () => {
-//   try {
-//     const res = await getAllArticulos();
-//     return res;
-//   } catch (e) {
-//     console.log(`Error: ${e.message}`);
-//   }
-// };
+/*
+Parte de usuarios
+*/
+const usuariosData = async () => {
+  try {
+    const res = await allUsers(authData.token);
+    console.log("Respuesta de la API (usuariosData):", res);
+    return res;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+};
+
+/*
+Parte de usuarios
+*/
+
 /**
  * Parte de reglamento
  */
@@ -161,19 +158,40 @@ const reglamento = async () => {
 };
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Parte de ingreso de aplicacion>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-import { useState } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState(null);
+  const [authData, setAuthData] = useState(() => {
+    // Intentar obtener datos de autenticación desde localStorage al inicio
+    const storedAuthData = localStorage.getItem("authData");
+    return storedAuthData ? JSON.parse(storedAuthData) : null;
+  });
 
-  return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    // Lógica para cerrar sesión
+    setAuthData(null);
+    // Puedes agregar lógica adicional de limpieza si es necesario
+  };
+
+  useEffect(() => {
+    // Guardar en localStorage cada vez que authData cambie
+    localStorage.setItem("authData", JSON.stringify(authData));
+  }, [authData]);
+
+  return (
+    <AuthContext.Provider value={{ authData, setAuthData, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-const useAuth = () => {
+
+export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };
 
@@ -185,7 +203,11 @@ AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 //<>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<PArte fin de validacion del ingreso<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//usuarios logica
 
+//logica para usuarios
+
+//fin usuarios
 /**
  * --------------------------Fin de logica por parte de Apis----------------------------------
  */
@@ -205,6 +227,6 @@ export {
   setDarkMode,
   reglamento,
   AuthContext,
-  useAuth,
+  usuariosData,
   AuthProvider,
 };

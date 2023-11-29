@@ -12,7 +12,7 @@ export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
   // ${baseURL}/usuarios/crear
   @Post('crear')
-  @Rol(['administrador'])//solo el administrador puede crear usuarios
+  @Rol(['administrador', 'gestor-comite'])//solo el administrador puede crear usuarios
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuariosService.registrar(createUsuarioDto);
   }
