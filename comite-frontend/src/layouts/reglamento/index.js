@@ -67,35 +67,22 @@ const Reglamento = () => {
               display="flex"
               justifyContent="center"
               alignItems="center"
-              bgColor="light"
             >
-              <MDTypography variant="h3" color="dark">
-                Reglamento Del Aprendiz
-              </MDTypography>
+              <MDTypography variant="h3">Reglamento Del Aprendiz</MDTypography>
             </MDBox>
             {datos.map((item) => (
-              <MDBox
-                key={item.capitulo._id}
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                bgColor="light"
-                borderRadius="lg"
-              >
+              <MDBox key={item.capitulo._id} mx={2} mt={-3} py={3} px={2} borderRadius="lg">
                 <br />
-                <MDTypography variant="h5" color="dark">
+                <MDTypography variant="h5">
                   {item.capitulo.capitulo} - {item.capitulo.titulo}
                 </MDTypography>
                 <br />
                 {item.articulos.map((articulo) => (
                   <div key={articulo._id}>
-                    <MDTypography variant="h6" color="dark">
+                    <MDTypography variant="h6">
                       {articulo.articulo} {articulo.titulo}
                     </MDTypography>
-                    <MDTypography variant="body2" color="dark">
-                      {articulo.descripcion}
-                    </MDTypography>
+                    <MDTypography variant="body2">{articulo.descripcion}</MDTypography>
                     {/* <MDTypography variant="body2" color="black">
                       <b>Parágrafo:</b> {articulo.paragrafo.descripcion}
                     </MDTypography> */}

@@ -32,7 +32,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
   {
     type: "collapse",
@@ -78,7 +78,7 @@ const routes = [
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/reglamento",
     component: <Reglamento />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
   //Parte Reglamento Aprendiz fin
   {
