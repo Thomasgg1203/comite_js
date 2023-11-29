@@ -15,7 +15,7 @@ export class FichasController {
   // ${baseURL}/fichas/crear
   @Post('crear')
   // con el decorador personalizado @Rol vamos a poder establecer que Roles tiene permiso de acceder a determinadas solicitudes
-  @Rol(['administrador'])
+  @Rol(['administrador', 'gestor-grupo'])
   create(@Req() req:Request , @Body() createFichaDto: CreateFichaDto) {
     return this.fichasService.create(createFichaDto);
   }

@@ -15,18 +15,19 @@ export class ProgramasService {
   }
   // Los metodos con función asincrona se encuentran en uso
   async create(createProgramaDto: CreateProgramaDto) {
-    return this.programaModel.create(CreateProgramaDto);
+    return await this.programaModel.create(createProgramaDto);
   }
 
   async findAll() {
-    return this.programaModel.find(Programas);
+    return await this.programaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.programaModel.findOne(Programas);
+  async findOne(id: string) {
+    const programa = await this.programaModel.findOne({id});
+    return programa;
   }
 
-  update(id: number, updateProgramaDto: UpdateProgramaDto) {
+  update(id: string, updateProgramaDto: UpdateProgramaDto) {
     return `This action updates a #${id} programa`;
   }
 
