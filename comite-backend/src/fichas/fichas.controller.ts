@@ -28,10 +28,10 @@ export class FichasController {
   }
 
   // ${baseURL}/fichas/obtener:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)
-  @Get('obtener:id')
+  @Get('obtener/:numero_ficha')
   @Rol(['administrador','aprendiz','gestor-grupo','gestor-comite'])
-  findOne(@Param('id') id: string) {
-    return this.fichasService.findOne(+id);
+  findOne(@Param('numero_ficha') numero_ficha: string) {
+    return this.fichasService.findOne(numero_ficha);
   }
 
   // ${baseURL}/fichas/actualizar:id?(_TODO_:aquí literal es el id, pero cambiara para obtener por medio de documento o usuario)

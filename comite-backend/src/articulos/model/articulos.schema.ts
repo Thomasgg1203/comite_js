@@ -110,7 +110,7 @@ articuloSchema.statics.findAllArticulos = function() {
         paragrafo: '$paragrafo.descripcion',
         capitulo: '$capitulo.capitulo',
         capituloTitulo: '$capitulo.titulo',
-        numeral: '$numeral.descripcion' // Puedes ajustar esto según la estructura de tu modelo Numeral
+        numeral: '$numeral.descripcion' 
       }
     },
   ]);
