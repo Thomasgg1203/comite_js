@@ -19,7 +19,5 @@ export class Programas {
     @Prop({required:true})
     nivel_formacion:string;
 
-    @Prop({type:FichaSchema})
-    fichaId:Ficha[];
 }
 export const ProgramasSchema = SchemaFactory.createForClass(Programas);
