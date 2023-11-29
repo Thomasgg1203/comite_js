@@ -12,5 +12,6 @@ import { Ficha, FichaSchema } from './model/fichas.schema';
   ],
   controllers: [FichasController],
   providers: [FichasService],
+  exports: [FichasService]
 })
 export class FichasModule {}

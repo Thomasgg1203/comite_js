@@ -9,12 +9,16 @@ import { GestorComiteService } from 'src/gestor-comite/gestor-comite.service';
 import { AuthsService } from 'src/auths/auths.service';
 import { jwtStrategy } from 'src/auths/strategy/jwt.strategy';
 import { JwtService } from '@nestjs/jwt';
+import { FichasModule } from 'src/fichas/fichas.module';
+import { Ficha, FichaSchema } from 'src/fichas/model/fichas.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      {name:Usuario.name, schema:usuarioSchema}
-    ])
+      { name:Usuario.name, schema:usuarioSchema },
+      { name: Ficha.name, schema: FichaSchema }
+    ]),
+    FichasModule
   ],
   controllers: [UsuariosController],
   providers: [
