@@ -28,7 +28,7 @@ export class Ficha {
     jornada:string
 
     @Prop({})
-    idPrograma:string
+    codigoPrograma:string
 }
 export const FichaSchema = SchemaFactory.createForClass(Ficha);
 
@@ -40,8 +40,8 @@ FichaSchema.statics.getFichaPrograma = async function(fichaId:string):Promise<fi
         {
             $lookup: {
                 from:'programas',
-                localField:'idPrograma',
-                foreignField:'id',
+                localField:'codigoPrograma',
+                foreignField:'codigo',
                 as:'programa'
             }
         },
