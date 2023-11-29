@@ -23,6 +23,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+    roles: ["administrador", "gestor-comite", "aprendiz", "gestor-grupo"],
   },
   {
     type: "collapse",
@@ -31,6 +32,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -39,6 +41,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -47,6 +50,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: <Billing />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -55,6 +59,7 @@ const routes = [
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: <Notifications />,
+    roles: ["administrador", "gestor-comite"],
   },
   {
     type: "collapse",
@@ -63,6 +68,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    roles: ["administrador", "gestor-comite"],
   },
   //Parte Reglamento Aprendiz
   {
@@ -72,6 +78,7 @@ const routes = [
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/reglamento",
     component: <Reglamento />,
+    roles: ["administrador", "gestor-comite"],
   },
   //Parte Reglamento Aprendiz fin
   {
@@ -81,6 +88,7 @@ const routes = [
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/usuarios",
     component: <Usuarios />,
+    roles: ["administrador", "gestor-comite"],
   },
   //Parte crud Gestor de grupo fin
   //ficha
@@ -91,6 +99,7 @@ const routes = [
     icon: <Icon fontSize="small">fact_check</Icon>,
     route: "/ficha",
     component: <Fichas />,
+    roles: ["administrador", "gestor-comite"],
   },
   // Ficha
   //Programa
@@ -101,6 +110,7 @@ const routes = [
     icon: <Icon fontSize="small">fact_check</Icon>,
     route: "/programas",
     component: <Programas />,
+    roles: ["administrador", "gestor-comite"],
   },
   //Programa
 ];

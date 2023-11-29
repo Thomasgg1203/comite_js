@@ -37,6 +37,8 @@ import brandDark from "assets/images/logo-ct-dark.png";
 //context
 import { AuthProvider } from "context";
 import { useAuth } from "context";
+//componente
+import SignIn from "layouts/authentication/sign-in";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -95,14 +97,20 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
+  const getRoutes = (allRoutes, authData) =>
+    allRoutes.flatMap((route) => {
       if (route.collapse) {
-        return getRoutes(route.collapse);
+        return getRoutes(route.collapse, authData);
       }
 
       if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+        if (!route.roles || !authData || route.roles.includes(authData.user.roles)) {
+          return <Route key={route.key} exact path={route.route} element={route.component} />;
+        } else {
+          // return <Route key={route.key} path="/authentication/sign-in" element={<SignIn />} />;
+          // return null;
+          return <Route key={route.key} exact path={route.route} element={route.component} />;
+        }
       }
 
       return null;
@@ -145,7 +153,7 @@ export default function App() {
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            {authData === null ? (
+            {authData ? (
               <>
                 <Sidenav
                   color={sidenavColor}
@@ -164,7 +172,7 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
+          {getRoutes(routes, authData)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
