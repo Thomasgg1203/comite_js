@@ -1,8 +1,5 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
-import { Type } from "class-transformer";
 import mongoose, { Document, Types } from "mongoose";
-import { FichasService } from "src/fichas/fichas.service";
-import { Ficha, fichaDocument } from "src/fichas/model/fichas.schema";
 import {v4 as uuidv4} from "uuid";
 export type usuarioDocument = Usuario & Document;
 
@@ -43,22 +40,48 @@ export class Usuario {
     @Prop()
     fecha_nacimiento: Date;
 
-    @Prop()
-    id_:mongoose.Types.ObjectId;
-
     @Prop({default:'aprendiz' ,type: [String], enum: Roles})
     roles:string[];
-
-    //No tiene integridad, si va a ingresar un usuario.Rol['aprendiz'] toca que le ingrese el id de la ficha
-    @Prop({})
-    fichaId:string;
+  
+    @Prop({ type: Types.ObjectId, ref: 'Ficha', required: false })
+    ficha: Types.ObjectId;
 }
 export const usuarioSchema=SchemaFactory.createForClass(Usuario);
-
-usuarioSchema.statics.getFichaAprendiz = async function(usuarioId:string):Promise<fichaDocument | null> {
-    const user=await this.findOne({id:usuarioId, roles:Roles.APRENDIZ});
-    if (!user){
-        return null
-    }
-    return this.findOne({ id: user.fichaId })
-}
+usuarioSchema.statics.usuarioAprendizFicha = async function(numeroFicha:string) {
+    const list = await this.aggregate([
+        {
+            $match: {
+                numero_ficha: numeroFicha,
+            },
+        },
+        {
+            $lookup: {
+              from: 'fichas', // Nombre de la colección de fichas
+              localField: 'ficha',
+              foreignField: '_id',
+              as: 'ficha',
+            },
+        },
+        {
+            $unwind: {
+                path: '$ficha',
+                preserveNullAndEmptyArrays: true,
+            },
+        },
+        {
+            $project: {
+                id:1,
+                nombres:1,
+                apellidos:1,    
+                documento:1,    
+                correo:1,    
+                contrasenia:1,
+                telefono:1,
+                direccion: 1,  
+                fecha_nacimiento: 1,
+                roles:1,
+                ficha: 'ficha._id'
+            },
+        },
+    ]);
+    return list;

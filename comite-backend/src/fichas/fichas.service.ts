@@ -21,8 +21,9 @@ export class FichasService {
     return this.fichaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ficha`;
+  async findOne(numero_ficha: string) {
+    const ficha = await this.fichaModel.findOne({numero_ficha});
+    return ficha;
   }
 
   update(id: number, updateFichaDto: UpdateFichaDto) {

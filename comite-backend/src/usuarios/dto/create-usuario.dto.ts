@@ -1,4 +1,4 @@
-import { IsNotEmpty,Length,IsEmail, MinLength, IsDateString } from "class-validator";
+import { IsNotEmpty,Length,IsEmail, MinLength, IsDateString, IsMongoId } from "class-validator";
 export class CreateUsuarioDto {
     @IsNotEmpty()
     nombres:string;
@@ -27,4 +27,8 @@ export class CreateUsuarioDto {
     @IsNotEmpty()
     @IsDateString()
     fecha_nacimiento: Date;
+}
+export class CreateAprendizDto extends CreateUsuarioDto {
+    @IsNotEmpty()
+    numero_ficha:string;
 }
