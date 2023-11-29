@@ -21,6 +21,10 @@ import MDInput from "components/MDInput";
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
 
+//-------------  ---------------
+import { useAuth } from "context";
+import { useNavigate } from "react-router-dom";
+
 // Custom styles for DashboardNavbar
 import {
   navbar,
@@ -44,6 +48,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const { logout, authData } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    // Utiliza el componente de navegación de react-router-dom para ir a la página de inicio de sesión
+    navigate("/authentication/sign-in");
+  };
+
+  const handlePerfil = () => {
+    navigate("/profile");
+  };
 
   useEffect(() => {
     // Configurar el tipo de barra de navegación
@@ -89,8 +105,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>account_circle</Icon>} title="Perfil" />
-      <NotificationItem icon={<Icon>login</Icon>} title="Salir" />
+      <NotificationItem icon={<Icon>account_circle</Icon>} onClick={handlePerfil} title="Perfil" />
+      <NotificationItem icon={<Icon>login</Icon>} onClick={handleLogout} title="Salir" />
     </Menu>
   );
 

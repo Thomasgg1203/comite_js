@@ -1,8 +1,8 @@
 //importacion de axios
 import axios from "axios";
 //Url
-// const baseURL = `http://192.168.1.88:4000`;
-const baseURL = "http://localhost:4000";
+const baseURL = `http://192.168.1.88:4000`;
+// const baseURL = "http://localhost:4000";
 //funcion, que valida el post, para ingreso
 export const loginUser = async (loginData) => {
   try {

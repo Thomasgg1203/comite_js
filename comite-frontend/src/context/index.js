@@ -167,12 +167,22 @@ const AuthProvider = ({ children }) => {
     return storedAuthData ? JSON.parse(storedAuthData) : null;
   });
 
+  const logout = () => {
+    // Lógica para cerrar sesión
+    setAuthData(null);
+    // Puedes agregar lógica adicional de limpieza si es necesario
+  };
+
   useEffect(() => {
     // Guardar en localStorage cada vez que authData cambie
     localStorage.setItem("authData", JSON.stringify(authData));
   }, [authData]);
 
-  return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ authData, setAuthData, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {

@@ -55,7 +55,6 @@ export default function App() {
   const { pathname } = useLocation();
   //Parte de validacion de usuario
   const { authData } = useAuth();
-
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -140,14 +139,13 @@ export default function App() {
       {configsButton}
     </>
   );
-
   return (
     <AuthProvider>
       <ThemeProvider theme={darkMode ? themeDark : theme}>
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            {authData ? (
+            {authData === null ? (
               <>
                 <Sidenav
                   color={sidenavColor}
@@ -168,7 +166,6 @@ export default function App() {
         <Routes>
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
-          {/* <Route path="*" element={<Navigate to="/authentication/sign-in" />} /> */}
         </Routes>
       </ThemeProvider>
     </AuthProvider>

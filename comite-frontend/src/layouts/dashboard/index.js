@@ -13,8 +13,6 @@ import Footer from "examples/Footer";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import MDTypography from "components/MDTypography";
 
 function Dashboard() {
@@ -39,19 +37,6 @@ function Dashboard() {
             </Grid>
           </Grid>
         </MDBox>
-        {/* Sección de bienvenida (nueva adición) */}
-        {/* <MDBox> */}
-        {/* PArte de tablas kulas que aparecen antes del footer */}
-        {/* <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <Projects />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid> */}
-        {/* PArte de tablas kulas que aparecen antes del footer */}
-        {/* </MDBox> */}
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
@@ -62,7 +47,7 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDTypography variant="body1" textAlign="center">
-                Aqui una descripcion bien arrecha
+                Aqui una descripcion bien arrecha.
               </MDTypography>
             </Grid>
           </Grid>
