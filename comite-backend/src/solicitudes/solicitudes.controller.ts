@@ -11,33 +11,38 @@ import { JwtGuardGuard } from 'src/guards/jwt-guard.guard';
 import { RoleGuardGuard } from 'src/guards/role-guard.guard';
 import { Rol } from 'src/decorators/rol.decorator';
 UseGuards(JwtGuardGuard,RoleGuardGuard)
-@Rol(['administrador','gestor-grupo','gestor-comite'])
 @Controller('solicitudes')
 export class SolicitudesController {
   constructor(private readonly solicitudesService: SolicitudesService) {}
 
   @Post('crear')
-  create(@Body() createSolicitudeDto: CreateSolicitudeDto) {
-    return this.solicitudesService.create(createSolicitudeDto);
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
+  create(@Body() createSolicitude: CreateSolicitudeDto) {
+    const solicitud = this.solicitudesService.create(createSolicitude);
+    return solicitud;
   }
 
   @Get('obtener')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   findAll() {
     return this.solicitudesService.findAll();
   }
   
   @Post('upload')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   @UseInterceptors(FileInterceptor('pruebas',{storage}))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
   console.log(file);
   }
 
   @Get('obtener:id')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   findOne(@Param('id') id: string) {
     return this.solicitudesService.findOne(id);
   }
 
   @Get('/archivo/:nombre')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   @Header('Content-Type', 'application/octet-stream')
   @Header('Content-Disposition', `attachment; filename=${"archivo"}`)
   async obtenerArchivo(@Param('nombre') nombre: string, @Res() res: Response) {
@@ -57,11 +62,13 @@ export class SolicitudesController {
 
 
   @Patch(':id')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   update(@Param('id') id: string, @Body() updateSolicitudeDto: UpdateSolicitudeDto) {
     return this.solicitudesService.update(id, updateSolicitudeDto);
   }
 
-  @Delete('eliminar:id')
+  @Delete('eliminar/:id')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
   remove(@Param('id') id: string) {
     return this.solicitudesService.remove(+id);
   }
