@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, ObjectId, Types } from 'mongoose';
 import * as moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import { type } from 'os';
 
 
 
@@ -24,8 +25,11 @@ export class solicitud {
   @Prop()
   asunto: string;
 
-  @Prop()
+  @Prop({required:false})
   pruebas: string;
+
+  @Prop({type:[{type:Types.ObjectId,ref:'Usuario'}]})
+  aprendices: Types.ObjectId[];
 }
 
 export const solicitudSchema = SchemaFactory.createForClass(solicitud);
