@@ -12,8 +12,8 @@ export class ArticulosController {
     return this.articulosService.create(createArticuloDto);
   }
 
-  @Get('') //localhost:3000/articulos
-  getListArticulos() {
+  @Get()//localhost:4000/articulos
+  findAll() {
     return this.articulosService.findAll();
   }
 
