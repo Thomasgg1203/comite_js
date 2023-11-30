@@ -1,13 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import * as moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export type solicitudDocument = solicitud & Document;
 
 @Schema()
 export class solicitud {
-    
+  @Prop({unique: true , default: uuidv4})
+  id: string;
+
+  @Prop()
+  creadoPor: string;
+
   @Prop()
   creadoEn: string;
 
@@ -16,6 +23,9 @@ export class solicitud {
 
   @Prop()
   asunto: string;
+
+  @Prop()
+  pruebas: string;
 }
 
 export const solicitudSchema = SchemaFactory.createForClass(solicitud);
