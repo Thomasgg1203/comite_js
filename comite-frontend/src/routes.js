@@ -14,6 +14,7 @@ import Usuarios from "layouts/cruds/usuarios";
 //fichas
 import Fichas from "layouts/cruds/fichas";
 import Programas from "layouts/cruds/programas";
+import SolicitudForm from "layouts/solicitud";
 
 const routes = [
   {
@@ -73,19 +74,19 @@ const routes = [
   //Parte Reglamento Aprendiz
   {
     type: "collapse",
-    name: "Reglamento Del Aprendiz",
+    name: "Reglamento Aprendiz",
     key: "reglamento",
     icon: <Icon fontSize="small">menu_book</Icon>,
     route: "/reglamento",
     component: <Reglamento />,
     roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
-  //Parte Reglamento Aprendiz fin
+  //Parte Reglamento Aprendiz fin import FolderSharedIcon from '@mui/icons-material/FolderShared';
   {
     type: "collapse",
     name: "Usuarios",
     key: "usuarios",
-    icon: <Icon fontSize="small">menu_book</Icon>,
+    icon: <Icon fontSize="small"> folder_shared</Icon>,
     route: "/usuarios",
     component: <Usuarios />,
     roles: ["administrador", "gestor-comite"],
@@ -96,7 +97,7 @@ const routes = [
     type: "collapse",
     name: "Fichas",
     key: "ficha",
-    icon: <Icon fontSize="small">fact_check</Icon>,
+    icon: <Icon fontSize="small">notes</Icon>,
     route: "/ficha",
     component: <Fichas />,
     roles: ["administrador", "gestor-comite"],
@@ -111,6 +112,17 @@ const routes = [
     route: "/programas",
     component: <Programas />,
     roles: ["administrador", "gestor-comite"],
+  },
+  //Programa
+  //Programa
+  {
+    type: "collapse",
+    name: "Solicitud",
+    key: "solicitud",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/solicitud",
+    component: <SolicitudForm />,
+    roles: ["administrador", "gestor-comite", "gestor-grupo"],
   },
   //Programa
 ];
