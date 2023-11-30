@@ -32,7 +32,7 @@ export class SolicitudesController {
   console.log(file);
   }
 
-  @Get('obtener:id')
+  @Get('obtener/:id')
   findOne(@Param('id') id: string) {
     return this.solicitudesService.findOne(id);
   }
@@ -61,8 +61,8 @@ export class SolicitudesController {
     return this.solicitudesService.update(id, updateSolicitudeDto);
   }
 
-  @Delete('eliminar:id')
+  @Delete('eliminar/:id')
   remove(@Param('id') id: string) {
-    return this.solicitudesService.remove(+id);
+    return this.solicitudesService.remove(id);
   }
 }

@@ -11,7 +11,10 @@ export type solicitudDocument = solicitud & Document;
 export class solicitud {
   @Prop({unique: true , default: uuidv4})
   id: string;
-    
+
+  @Prop()
+  creadoPor: string;    
+  
   @Prop()
   creadoEn: string;
 

@@ -34,4 +34,8 @@ export class SolicitudesService {
         new: true
       });
   }
+  async remove(id: string) {
+    const response = this.solicitudModel.deleteOne({id}).exec();
+    return `This action removes a #${id} programa`+ response;
+  }
 }
