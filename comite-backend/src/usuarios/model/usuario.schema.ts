@@ -1,5 +1,5 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
-import mongoose, { Document, Types } from "mongoose";
+import { Document, Types } from "mongoose";
 import {v4 as uuidv4} from "uuid";
 export type usuarioDocument = Usuario & Document;
 
@@ -42,7 +42,7 @@ export class Usuario {
 
     @Prop({default:'aprendiz' ,type: [String], enum: Roles})
     roles:string[];
-  
+
     @Prop({ type: Types.ObjectId, ref: 'Ficha', required: false })
     ficha: Types.ObjectId;
 }
@@ -85,3 +85,4 @@ usuarioSchema.statics.usuarioAprendizFicha = async function(numeroFicha:string) 
         },
     ]);
     return list;
+}
