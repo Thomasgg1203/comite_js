@@ -18,7 +18,8 @@ export class AprendicesService {
   constructor(
     @InjectModel(Usuario.name) private readonly aprendizModel: ModelExt<usuarioDocument>,
     @InjectModel(Ficha.name) private readonly fichaModel:Model<fichaDocument>
-  ){}
+  ){
+  }
 
   async createAprendiz(CreateAprendiz:CreateAprendizDto):Promise<usuarioDocument>{
     try {
@@ -35,31 +36,31 @@ export class AprendicesService {
       if (!ficha) throw new Error('Ficha inexistente')
       // se prosigue con la definicion del objeto usuario-rol:'aprediz'
       const usuario = new this.aprendizModel({
-        ...authAprendiz,
+        ...data,
         roles:['aprendiz'],
         ficha: ficha._id
       });
       // se retorna el objeto hacía la base de datos por medio del metodo save
     return await usuario.save();
-    }catch(error){
-      console.log(error);
+    }catch(err){
+
     }
     //console.log(usuario);
   }
 
   async findAll():Promise<usuarioDocument[]> {
     // const usuarioId = '2226d508-b579-49ee-9c34-a8fcd8a09d57'; // ID de usuario que deseas consultar
-    const usuarioId = 'dda321d3-0a2c-4716-92df-ac0c08e60aae'; // ID de usuario que deseas consultar
+    const usuarioId = '6566eb67e376ea6878a5a152'; // ID de usuario que deseas consultar
 
-    // Paso 1: Consulta el Usuario con la Referencia a la Ficha
-    const usuarioConFicha = await this.aprendizModel.usuarioAprendizFicha(usuarioId);
-      
-    // Paso 2: Verifica el Campo `numero_ficha`
-    const numeroFicha = usuarioConFicha.numero_ficha;
-    console.log(`Número de Ficha: ${numeroFicha}`);
-      
-    // Paso 3: Uso en tu Aplicación
-    console.log(`Nombre del Usuario: ${usuarioConFicha.nombres}`);
+// Paso 1: Consulta el Usuario con la Referencia a la Ficha
+const usuarioConFicha = await this.aprendizModel.usuarioAprendizFicha(usuarioId);
+
+// Paso 2: Verifica el Campo `numero_ficha`
+const numeroFicha = usuarioConFicha.numero_ficha;
+console.log(`Número de Ficha: ${numeroFicha}`);
+
+// Paso 3: Uso en tu Aplicación
+console.log(`Nombre del Usuario: ${usuarioConFicha.nombres}`);
     return await this.aprendizModel.find({roles:'aprendiz'});
   }
 
