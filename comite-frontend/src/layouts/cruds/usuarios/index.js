@@ -55,16 +55,19 @@ const Usuarios = () => {
     telefono: Yup.string()
       .matches(/^\d{10}$/, "El teléfono debe tener 10 dígitos")
       .required("El teléfono es requerido"),
-    numero_ficha: Yup.string().when("roles", {
-      is: (roles) => {
-        console.log("Roles:", roles);
-        return roles && roles.includes("aprendiz");
-      },
-      then: Yup.string().required("Número de ficha es requerido cuando el rol es 'aprendiz'"),
+    numero_ficha: Yup.string().when(["roles"], (roles, schema) => {
+      return roles && roles.includes("aprendiz")
+        ? schema.required("Número de ficha es requerido cuando el rol es 'aprendiz'")
+        : schema;
     }),
   });
 
   const MyModal = ({ open, handleClose }) => {
+    const handleRolesChange = (event) => {
+      const selectedRoles = event.target.value;
+      setShowAdditionalField(selectedRoles.includes("aprendiz"));
+      formik.setFieldValue("roles", selectedRoles);
+    };
     const formik = useFormik({
       initialValues: {
         nombres: "",
@@ -229,14 +232,8 @@ const Usuarios = () => {
                 id="roles"
                 name="roles"
                 multiple
-                value={formik.values.roles}
-                onChange={(event) => {
-                  const selectedRoles = event.target.value;
-                  // Mostrar el campo de entrada adicional si 'aprendiz' está seleccionado
-                  setShowAdditionalField(selectedRoles.includes("aprendiz"));
-                  // Actualizar los roles en el estado de formik
-                  formik.setFieldValue("roles", selectedRoles);
-                }}
+                value={formik.values.roles} // Asegúrate de que este valor sea un array
+                onChange={handleRolesChange}
               >
                 <MenuItem value="administrador">Administrador</MenuItem>
                 <MenuItem value="gestor-comite">Gestor Comite</MenuItem>
