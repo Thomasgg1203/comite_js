@@ -23,6 +23,7 @@ const Usuarios = () => {
   const [userData, setUserData] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [showAdditionalField, setShowAdditionalField] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +46,15 @@ const Usuarios = () => {
     apellidos: Yup.string().required("Los apellidos son requeridos"),
     documento: Yup.string().required("El documento es requerido"),
     correo: Yup.string().email("Correo electrónico inválido").required("El correo es requerido"),
-    roles: Yup.array().min(1, "Selecciona al menos un rol").required("Los roles son requeridos"),
+    roles: Yup.array()
+      .min(1, "Selecciona al menos un rol")
+      .required("Los roles son requeridos")
+      .max(1, "Solo puedes seleccionar un rol"),
+    fecha_nacimiento: Yup.date().required("La fecha de nacimiento es requerida"),
+    direccion: Yup.string().required("La dirección es requerida"),
+    telefono: Yup.string()
+      .matches(/^\d{10}$/, "El teléfono debe tener 10 dígitos")
+      .required("El teléfono es requerido"),
   });
 
   const MyModal = ({ open, handleClose }) => {
@@ -54,12 +63,21 @@ const Usuarios = () => {
         nombres: "",
         apellidos: "",
         documento: "",
+        contrasenia: "",
         correo: "",
+        fecha_nacimiento: "",
+        direccion: "",
+        telefono: "",
         roles: [],
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         try {
+          if (!values.contrasenia && values.documento) {
+            // Si el campo contrasenia está vacío y el campo documento tiene un valor,
+            // asigna el valor del campo documento al campo contrasenia
+            values.contrasenia = values.documento;
+          }
           if (selectedUserId) {
             // Si hay un usuario seleccionado, realiza la actualización
             // Lógica para actualizar el usuario con el ID seleccionado
@@ -129,6 +147,59 @@ const Usuarios = () => {
               </MDTypography>
             )}
             <MDInput
+              mt={2}
+              type="text"
+              fullWidth
+              label="Dirección"
+              id="direccion"
+              name="direccion"
+              variant="standard"
+              value={formik.values.direccion}
+              onChange={(event) => formik.handleChange(event)}
+              error={formik.touched.direccion && Boolean(formik.errors.direccion)}
+              success={formik.touched.direccion && !formik.errors.direccion}
+            />
+
+            {formik.touched.direccion && formik.errors.direccion && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.direccion}
+              </MDTypography>
+            )}
+            <MDInput
+              mt={2}
+              type="tel"
+              fullWidth
+              label="Teléfono"
+              id="telefono"
+              name="telefono"
+              variant="standard"
+              value={formik.values.telefono}
+              onChange={(event) => formik.handleChange(event)}
+              error={formik.touched.telefono && Boolean(formik.errors.telefono)}
+              success={formik.touched.telefono && !formik.errors.telefono}
+            />
+
+            {formik.touched.telefono && formik.errors.telefono && (
+              <MDTypography variant="caption" color="error" textGradient>
+                {formik.errors.telefono}
+              </MDTypography>
+            )}
+
+            {/* // Asumiendo que MDInput acepta las propiedades id, name, value y onChangek */}
+            <MDInput
+              type="date"
+              fullWidth
+              label="Fecha De Nacimiento"
+              id="fecha_nacimiento"
+              name="fecha_nacimiento"
+              variant="standard"
+              value={formik.values.fecha_nacimiento}
+              onChange={(event) => formik.setFieldValue("fecha_nacimiento", event.target.value)}
+              error={formik.touched.fecha_nacimiento && Boolean(formik.errors.fecha_nacimiento)}
+              success={formik.touched.fecha_nacimiento && !formik.errors.fecha_nacimiento}
+              // Otras propiedades que puedas necesitar
+            />
+            <MDInput
               label="Correo"
               fullWidth
               id="correo"
@@ -151,18 +222,34 @@ const Usuarios = () => {
                 name="roles"
                 multiple
                 value={formik.values.roles}
-                onChange={formik.handleChange}
+                onChange={(event) => {
+                  formik.handleChange(event);
+                  // Mostrar el campo de entrada adicional si 'aprendiz' está seleccionado
+                  setShowAdditionalField(event.target.value.includes("aprendiz"));
+                }}
               >
                 <MenuItem value="administrador">Administrador</MenuItem>
                 <MenuItem value="gestor-comite">Gestor Comite</MenuItem>
                 <MenuItem value="gestor-grupo">Gestor de Grupo</MenuItem>
-                <MenuItem value="aprendiz">aprendiz</MenuItem>
+                <MenuItem value="aprendiz">Aprendiz</MenuItem>
               </Select>
             </FormControl>
             {formik.touched.roles && formik.errors.roles && (
               <MDTypography variant="caption" color="error" textGradient>
                 {formik.errors.roles}
               </MDTypography>
+            )}
+            {showAdditionalField && (
+              <MDInput
+                label="Campo Adicional"
+                fullWidth
+                id="campoAdicional"
+                variant="standard"
+                value={formik.values.campoAdicional}
+                onChange={formik.handleChange}
+                error={formik.touched.campoAdicional && Boolean(formik.errors.campoAdicional)}
+                success={formik.touched.campoAdicional && Boolean(!formik.errors.campoAdicional)}
+              />
             )}
             <Button variant="text" color="primary" type="submit" mt={2}>
               {selectedUserId ? "Actualizar Usuario" : "Crear Usuario"}
@@ -236,16 +323,16 @@ const Usuarios = () => {
               Cell: ({ row }) => (
                 <div>
                   <Button
-                    variant="outlined"
+                    variant="text"
                     color="primary"
-                    onClick={() => handleEditarUsuario(row.original.id)}
+                    onClick={() => handleEditarUsuario(row.original.documento)}
                   >
                     Editar
                   </Button>
                   <Button
-                    variant="outlined"
+                    variant="text"
                     color="secondary"
-                    onClick={() => handleEliminarUsuario(row.original.id)}
+                    onClick={() => handleEliminarUsuario(row.original.documento)}
                   >
                     Eliminar
                   </Button>
@@ -266,7 +353,7 @@ Usuarios.propTypes = {
   // ... Otras propTypes que puedas tener
   row: PropTypes.shape({
     original: PropTypes.shape({
-      id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
+      documento: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
       // ... Otras propiedades que puedas tener en tus objetos de datos
     }).isRequired,
   }).isRequired,

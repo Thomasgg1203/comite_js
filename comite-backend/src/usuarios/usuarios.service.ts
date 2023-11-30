@@ -44,7 +44,7 @@ export class UsuariosService {
   }
 
   async remove(documento:string):Promise<any> {
-    return await this.usuarioModel.deleteOne({documento});
+    return await this.usuarioModel.deleteOne({documento}).exec();
   }
 }
 /*

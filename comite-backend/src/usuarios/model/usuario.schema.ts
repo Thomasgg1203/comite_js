@@ -85,3 +85,4 @@ usuarioSchema.statics.usuarioAprendizFicha = async function(numeroFicha:string) 
         },
     ]);
     return list;
+}
