@@ -143,6 +143,7 @@ const Fichas = () => {
                 labelId="jornada-label"
                 id="jornada"
                 name="jornada"
+                variant="standard"
                 value={formik.values.jornada}
                 onChange={formik.handleChange}
                 MenuProps={{
@@ -167,6 +168,7 @@ const Fichas = () => {
               mt={2}
               type="date"
               fullWidth
+              variant="standard"
               label="Fecha Inicio Lectiva"
               id="fecha_inicio_lectiva"
               name="fecha_inicio_lectiva"
@@ -190,6 +192,7 @@ const Fichas = () => {
               my={5}
               type="date"
               fullWidth
+              variant="standard"
               label="Fecha Fin Lectiva"
               id="fecha_fin_lectiva"
               name="fecha_fin_lectiva"
@@ -212,6 +215,7 @@ const Fichas = () => {
               mt={2}
               type="date"
               fullWidth
+              variant="standard"
               label="Fecha Inicio Productiva"
               id="fecha_inicio_productiva"
               name="fecha_inicio_productiva"
@@ -237,6 +241,7 @@ const Fichas = () => {
               my={5}
               type="date"
               fullWidth
+              variant="standard"
               label="Fecha Fin Productiva"
               id="fecha_fin_productiva"
               name="fecha_fin_productiva"

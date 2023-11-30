@@ -37,8 +37,6 @@ import brandDark from "assets/images/logo-ct-dark.png";
 //context
 import { AuthProvider } from "context";
 import { useAuth } from "context";
-//componente
-import SignIn from "layouts/authentication/sign-in";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();

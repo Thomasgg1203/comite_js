@@ -55,6 +55,13 @@ const Usuarios = () => {
     telefono: Yup.string()
       .matches(/^\d{10}$/, "El teléfono debe tener 10 dígitos")
       .required("El teléfono es requerido"),
+    numero_ficha: Yup.string().when("roles", {
+      is: (roles) => {
+        console.log("Roles:", roles);
+        return roles && roles.includes("aprendiz");
+      },
+      then: Yup.string().required("Número de ficha es requerido cuando el rol es 'aprendiz'"),
+    }),
   });
 
   const MyModal = ({ open, handleClose }) => {
@@ -69,6 +76,7 @@ const Usuarios = () => {
         direccion: "",
         telefono: "",
         roles: [],
+        numero_ficha: "",
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
@@ -223,9 +231,11 @@ const Usuarios = () => {
                 multiple
                 value={formik.values.roles}
                 onChange={(event) => {
-                  formik.handleChange(event);
+                  const selectedRoles = event.target.value;
                   // Mostrar el campo de entrada adicional si 'aprendiz' está seleccionado
-                  setShowAdditionalField(event.target.value.includes("aprendiz"));
+                  setShowAdditionalField(selectedRoles.includes("aprendiz"));
+                  // Actualizar los roles en el estado de formik
+                  formik.setFieldValue("roles", selectedRoles);
                 }}
               >
                 <MenuItem value="administrador">Administrador</MenuItem>
@@ -241,14 +251,14 @@ const Usuarios = () => {
             )}
             {showAdditionalField && (
               <MDInput
-                label="Campo Adicional"
+                label="Numero Ficha"
                 fullWidth
-                id="campoAdicional"
+                id="numero_ficha"
                 variant="standard"
-                value={formik.values.campoAdicional}
+                value={formik.values.numero_ficha}
                 onChange={formik.handleChange}
-                error={formik.touched.campoAdicional && Boolean(formik.errors.campoAdicional)}
-                success={formik.touched.campoAdicional && Boolean(!formik.errors.campoAdicional)}
+                error={formik.touched.numero_ficha && Boolean(formik.errors.numero_ficha)}
+                success={formik.touched.numero_ficha && Boolean(!formik.errors.numero_ficha)}
               />
             )}
             <Button variant="text" color="primary" type="submit" mt={2}>
