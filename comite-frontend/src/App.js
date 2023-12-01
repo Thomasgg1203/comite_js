@@ -55,6 +55,7 @@ export default function App() {
   const { pathname } = useLocation();
   //Parte de validacion de usuario
   const { authData } = useAuth();
+  // const { provi } = AuthProvider();
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -93,6 +94,8 @@ export default function App() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    console.log(authData);
+    console.log(AuthProvider);
   }, [pathname]);
 
   const getRoutes = (allRoutes, authData) =>
@@ -110,7 +113,6 @@ export default function App() {
           return <Route key={route.key} exact path={route.route} element={route.component} />;
         }
       }
-
       return null;
     });
 
@@ -146,34 +148,32 @@ export default function App() {
     </>
   );
   return (
-    <AuthProvider>
-      <ThemeProvider theme={darkMode ? themeDark : theme}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            {authData ? (
-              <>
-                <Sidenav
-                  color={sidenavColor}
-                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                  brandName="SCES"
-                  routes={routes} // Usa las rutas específicas de roles
-                  onMouseEnter={handleOnMouseEnter}
-                  onMouseLeave={handleOnMouseLeave}
-                />
-                {dashboardComponents}
-              </>
-            ) : (
-              <Navigate to="/authentication/sign-in" />
-            )}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes, authData)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider theme={darkMode ? themeDark : theme}>
+      <CssBaseline />
+      {layout === "dashboard" && (
+        <>
+          {AuthProvider ? (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                brandName="Lola"
+                routes={routes} // Usa las rutas específicas de roles
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              {dashboardComponents}
+            </>
+          ) : (
+            <Navigate to="/authentication/sign-in" />
+          )}
+        </>
+      )}
+      {layout === "vr" && <Configurator />}
+      <Routes>
+        {getRoutes(routes, authData)}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
