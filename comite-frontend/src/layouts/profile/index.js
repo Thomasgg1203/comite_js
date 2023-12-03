@@ -48,7 +48,7 @@ function Overview() {
       <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={12} xl={12} sx={12}>
+            <Grid item xs={12} md={12} xl={12}>
               <ProfileInfoCard
                 title="Información Perfil"
                 description={getRoleDescription(

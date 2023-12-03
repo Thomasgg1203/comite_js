@@ -15,6 +15,7 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import MDTypography from "components/MDTypography";
 import { useAuth } from "context";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
@@ -22,18 +23,22 @@ function Dashboard() {
 
   // Función para obtener un mensaje de bienvenida personalizado según el rol
   const getWelcomeMessage = () => {
-    if (authData.user.roles.includes("aprendiz")) {
-      return `¡Bienvenido a la Plataforma Aprendiz, ${authData.user.nombres}! Aquí puedes encontrar información sobre tus procesos académicos y detalles de tus faltas académicas.`;
-    } else if (authData.user.roles.includes("gestor-comite")) {
-      return `¡Bienvenido a la Plataforma Gestor de Comité, ${authData.user.nombres}! Aquí puedes acceder a herramientas y estadísticas para gestionar procesos disciplinarios.`;
-    } else if (authData.user.roles.includes("gestor-grupo")) {
-      return `¡Bienvenido a la Plataforma Gestor de Grupo, ${authData.user.nombres}! Aquí encontrarás información para gestionar eficientemente tus procesos disciplinarios de grupo.`;
-    } else if (authData.user.roles.includes("administrador")) {
-      return `¡Bienvenido a la Plataforma Administrador, ${authData.user.nombres}! Aquí puedes acceder a funciones administrativas y herramientas de gestión.`;
+    const navigate = useNavigate();
+    if (authData) {
+      if (authData.user.roles.includes("aprendiz")) {
+        return `¡Bienvenido a la Plataforma Aprendiz, ${authData.user.nombres}! Aquí puedes encontrar información sobre tus procesos académicos y detalles de tus faltas académicas.`;
+      } else if (authData.user.roles.includes("gestor-comite")) {
+        return `¡Bienvenido a la Plataforma Gestor de Comité, ${authData.user.nombres}! Aquí puedes acceder a herramientas y estadísticas para gestionar procesos disciplinarios.`;
+      } else if (authData.user.roles.includes("gestor-grupo")) {
+        return `¡Bienvenido a la Plataforma Gestor de Grupo, ${authData.user.nombres}! Aquí encontrarás información para gestionar eficientemente tus procesos disciplinarios de grupo.`;
+      } else if (authData.user.roles.includes("administrador")) {
+        return `¡Bienvenido a la Plataforma Administrador, ${authData.user.nombres}! Aquí puedes acceder a funciones administrativas y herramientas de gestión.`;
+      }
     }
 
     // Mensaje predeterminado si no se cumple ninguna condición
-    return `¡Bienvenido a la Plataforma del SENA, ${authData.user.nombres}!`;
+    navigate("/authentication/sign-in");
+    return `¡Bienvenido a la Plataforma del SENA, te queremos decir que no estas registrado!`;
   };
 
   return (

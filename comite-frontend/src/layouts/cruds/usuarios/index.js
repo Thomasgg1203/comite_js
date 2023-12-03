@@ -17,6 +17,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { obtenerUsuarioPorDocumento } from "api/usuario";
 
 const Usuarios = () => {
   const { authData } = useAuth();
@@ -62,6 +63,26 @@ const Usuarios = () => {
     }),
   });
 
+  useEffect(() => {
+    // Lógica para cargar datos iniciales si se está editando un usuario
+    if (selectedUserId) {
+      const fetchData = async () => {
+        try {
+          const response = await obtenerUsuarioPorDocumento(authData.token, selectedUserId);
+          if (response && response.data) {
+            // Llenar los datos en el formulario
+            formik.setValues(response.data);
+          } else {
+            console.error("La respuesta de la API no tiene la estructura esperada:", response);
+          }
+        } catch (error) {
+          console.error(`Error al obtener datos del usuario: ${error.message}`);
+        }
+      };
+      fetchData();
+    }
+  }, [selectedUserId]);
+
   const MyModal = ({ open, handleClose }) => {
     const handleRolesChange = (event) => {
       const selectedRoles = event.target.value;
@@ -90,11 +111,8 @@ const Usuarios = () => {
             values.contrasenia = values.documento;
           }
           if (selectedUserId) {
-            // Si hay un usuario seleccionado, realiza la actualización
-            // Lógica para actualizar el usuario con el ID seleccionado
-            console.log("Actualizar usuario con ID:", selectedUserId);
+            await actualizarUsuario(authData.token, selectedUserId, values);
           } else {
-            // Si no hay un usuario seleccionado, realiza la creación
             await guardarUsuario(authData.token, values);
           }
           alert("Operación exitosa");
@@ -282,11 +300,23 @@ const Usuarios = () => {
     setSelectedUserId(null);
   };
 
-  const handleEditarUsuario = (id) => {
-    const selectedUser = userData.find((user) => user.id === id);
-    if (selectedUser) {
-      setModalOpen(true);
-      setSelectedUserId(id);
+  const handleEditarUsuario = async (documento) => {
+    try {
+      // Lógica para obtener los datos del usuario específico usando su documento
+      const response = await obtenerUsuarioPorDocumento(authData.token, documento);
+
+      if (response && response.data) {
+        // Llenar los datos en el formulario
+        formik.setValues(response.data);
+
+        // Mostrar el modal
+        setModalOpen(true);
+        setSelectedUserId(response.data.documento);
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } catch (error) {
+      console.error(`Error al obtener datos del usuario: ${error.message}`);
     }
   };
 
@@ -332,7 +362,7 @@ const Usuarios = () => {
                   <Button
                     variant="text"
                     color="primary"
-                    onClick={() => handleEditarUsuario(row.original.documento)}
+                    onClick={() => handleEditarUsuario(row.original.id)}
                   >
                     Editar
                   </Button>
@@ -360,10 +390,11 @@ Usuarios.propTypes = {
   // ... Otras propTypes que puedas tener
   row: PropTypes.shape({
     original: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       documento: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
       // ... Otras propiedades que puedas tener en tus objetos de datos
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 };
 
 export default Usuarios;

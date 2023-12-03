@@ -1,8 +1,8 @@
 //importacion de axios
 import axios from "axios";
 //Url
-// const baseURL = `http://192.168.1.88:4000`;
-const baseURL = "http://localhost:4000";
+const baseURL = `http://192.168.1.88:4000`;
+// const baseURL = "http://localhost:4000";
 //funcion, que valida el post, para ingreso
 export const loginUser = async (loginData) => {
   try {
@@ -71,6 +71,57 @@ export const eliminarUsuario = async (token, userId) => {
 
       if (response.data) {
         console.log("Usuario eliminado correctamente:", response.data);
+        return response.data;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error al enviar datos a la API:", error);
+    throw error;
+  }
+};
+
+export const obtenerUsuarioPorDocumento = async (token, documento) => {
+  try {
+    if (token) {
+      const response = await axios.get(`${baseURL}/usuarios/obtener/${documento}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Usuario obtenido correctamente:", response.data);
+        return response.data;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error al obtener datos del usuario:", error);
+    throw error;
+  }
+};
+
+// Función para actualizar un usuario
+export const actualizarUsuario = async (token, userId, userData) => {
+  try {
+    if (token) {
+      const response = await axios.put(`${baseURL}/usuarios/actualizar/${userId}`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Usuario actualizado correctamente:", response.data);
         return response.data;
       } else {
         console.error("La respuesta de la API no tiene la estructura esperada:", response);

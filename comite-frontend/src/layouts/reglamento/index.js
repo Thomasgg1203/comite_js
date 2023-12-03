@@ -82,10 +82,23 @@ const Reglamento = () => {
                     <MDTypography variant="h6">
                       {articulo.articulo} {articulo.titulo}
                     </MDTypography>
-                    <MDTypography variant="body2">{articulo.descripcion}</MDTypography>
-                    {/* <MDTypography variant="body2" color="black">
-                      <b>Parágrafo:</b> {articulo.paragrafo.descripcion}
-                    </MDTypography> */}
+                    <MDTypography variant="body2">
+                      &nbsp;&nbsp;&nbsp;{articulo.descripcion}
+                    </MDTypography>
+                    {/* Recorrer el array 'numeral' e imprimir cada elemento */}
+                    {articulo.numeral.map((num, index) => (
+                      <MDTypography key={index} variant="body2">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`${num}\n`}
+                      </MDTypography>
+                    ))}
+                    {articulo.paragrafo && (
+                      <MDTypography variant="body2">
+                        <MDTypography variant="h6">
+                          <b>Parágrafo:</b>
+                        </MDTypography>
+                        {articulo.paragrafo}
+                      </MDTypography>
+                    )}
                     {/* Aqui  */}
                   </div>
                 ))}

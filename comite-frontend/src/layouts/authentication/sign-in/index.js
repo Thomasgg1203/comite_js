@@ -58,8 +58,8 @@ function Basic() {
     onSubmit: async (values) => {
       try {
         console.log("Enviando solicitud con datos:", values);
-        // const response = await axios.post("http://192.168.1.88:4000/auths/ingresar", values);
-        const response = await axios.post("http://localhost:4000/auths/ingresar", values);
+        const response = await axios.post("http://192.168.1.88:4000/auths/ingresar", values);
+        // const response = await axios.post("http://localhost:4000/auths/ingresar", values);
         console.log("Respuesta del servidor:", response);
 
         if (response.status === 201) {
@@ -76,11 +76,22 @@ function Basic() {
           console.error("Error al ingresar:", response.data.message);
         }
       } catch (error) {
-        console.error("Error de red:", error.message);
+        if (error.response) {
+          if (error.response.status === 401) {
+            alert("Error: Credenciales incorrectas. Verifica tu documento y contraseña.");
+          } else if (error.response.status === 400) {
+            alert("Error: La solicitud es incorrecta. Verifica los datos proporcionados.");
+          } else {
+            alert(
+              "Error de red: Hubo un problema al procesar tu solicitud. Inténtalo de nuevo más tarde."
+            );
+          }
+        } else {
+          alert("Error de red: Verifica tu conexión a Internet e inténtalo de nuevo.");
+        }
       }
     },
   });
-
   //retorno de la parte grafica
   return (
     <BasicLayout image={bgImage}>

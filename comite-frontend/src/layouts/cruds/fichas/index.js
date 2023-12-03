@@ -368,8 +368,8 @@ Fichas.propTypes = {
     original: PropTypes.shape({
       _id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
       // ... Otras propiedades que puedas tener en tus objetos de datos
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 };
 
 export default Fichas;

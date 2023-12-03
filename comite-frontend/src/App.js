@@ -94,8 +94,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    console.log(authData);
-    console.log(AuthProvider);
   }, [pathname]);
 
   const getRoutes = (allRoutes, authData) =>
