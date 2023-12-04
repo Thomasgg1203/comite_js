@@ -7,28 +7,29 @@ import { UpdateComiteDto } from './dto/update-comite.dto';
 export class ComitesController {
   constructor(private readonly comitesService: ComitesService) {}
 
-  @Post()
+  @Post('crear')
   create(@Body() createComiteDto: CreateComiteDto) {
-    return this.comitesService.create(createComiteDto);
+    const comite = this.comitesService.create(createComiteDto);
+    return comite;
   }
 
-  @Get()
+  @Get('obtener')
   findAll() {
     return this.comitesService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
   findOne(@Param('id') id: string) {
-    return this.comitesService.findOne(+id);
+    return this.comitesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('actualizar/:id')
   update(@Param('id') id: string, @Body() updateComiteDto: UpdateComiteDto) {
-    return this.comitesService.update(+id, updateComiteDto);
+    return this.comitesService.update(id, updateComiteDto);
   }
 
-  @Delete(':id')
+  @Delete('eliminar/:id')
   remove(@Param('id') id: string) {
-    return this.comitesService.remove(+id);
+    return this.comitesService.remove(id);
   }
 }

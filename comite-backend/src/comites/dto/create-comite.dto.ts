@@ -18,6 +18,6 @@ export class CreateComiteDto {
     detalles: string;
 
     @IsNotEmpty()
-    nombre_aprendiz: string;
+    documento_aprendiz: string;
 }
 
