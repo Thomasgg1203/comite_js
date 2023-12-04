@@ -27,8 +27,8 @@ export class UsuariosService {
     return await this.usuarioModel.find();
   }
 
-  async findOne(nombres:string,documento?:string) {
-    const usuario = await this.usuarioModel.findOne({nombres:nombres, documento:documento,});
+  async findOne(id:string) {
+    const usuario = await this.usuarioModel.findOne({id}).exec();
     return await usuario;
   }
 
