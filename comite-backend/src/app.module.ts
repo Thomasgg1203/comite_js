@@ -17,6 +17,8 @@ import { ParagrafosModule } from './paragrafos/paragrafos.module';
 import { Connection, connection } from 'mongoose';
 import { GestorComiteModule } from './gestor-comite/gestor-comite.module';
 import { ComitesModule } from './comites/comites.module';
+import { EmailService } from './config/email.service';
+import { EmailController } from './config/email.controller';
 
 @Module({
   imports: [
@@ -40,8 +42,9 @@ import { ComitesModule } from './comites/comites.module';
     ParagrafosModule, 
     GestorComiteModule, ComitesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController,EmailController],
+  providers: [AppService,EmailService],
+  exports:[EmailService]
 })
 export class AppModule {}
 
