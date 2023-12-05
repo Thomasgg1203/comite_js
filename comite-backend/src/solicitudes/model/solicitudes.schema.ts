@@ -4,10 +4,7 @@ import * as moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { type } from 'os';
 
-
-
 export type solicitudDocument = solicitud & Document;
-
 @Schema()
 export class solicitud {
   @Prop({unique: true , default: uuidv4})
@@ -30,6 +27,9 @@ export class solicitud {
 
   @Prop({type:[{type:Types.ObjectId,ref:'Usuario'}]})
   aprendices: Types.ObjectId[];
+
+  @Prop({default: false})
+  estado_solicitud:boolean;
 }
 
 export const solicitudSchema = SchemaFactory.createForClass(solicitud);

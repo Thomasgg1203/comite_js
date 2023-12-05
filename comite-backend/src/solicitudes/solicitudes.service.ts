@@ -53,4 +53,10 @@ export class SolicitudesService {
   remove(id: number) {
     return `This action removes a #${id} solicitude`;
   }
+  async aceptSolicitud(id:string){
+    const solicitud = await this.solicitudModel.findOneAndUpdate({id},{ estado_solicitud:true },{
+      new:true
+    });
+    return solicitud;
+  }
 }

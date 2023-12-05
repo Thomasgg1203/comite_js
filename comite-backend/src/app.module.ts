@@ -17,6 +17,9 @@ import { ParagrafosModule } from './paragrafos/paragrafos.module';
 import { Connection, connection } from 'mongoose';
 import { GestorComiteModule } from './gestor-comite/gestor-comite.module';
 import { ComitesModule } from './comites/comites.module';
+import { EmailService } from './config/email.service';
+import { EmailController } from './config/email.controller';
+import { ObservacionesModule } from './observaciones/observaciones.module';
 
 @Module({
   imports: [
@@ -38,10 +41,11 @@ import { ComitesModule } from './comites/comites.module';
     NumeralesModule, 
     SolicitudesModule, 
     ParagrafosModule, 
-    GestorComiteModule, ComitesModule,
+    GestorComiteModule, ComitesModule, ObservacionesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController,EmailController],
+  providers: [AppService,EmailService],
+  exports:[EmailService]
 })
 export class AppModule {}
 

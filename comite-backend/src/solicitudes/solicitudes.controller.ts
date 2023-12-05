@@ -67,6 +67,12 @@ export class SolicitudesController {
     return this.solicitudesService.update(id, updateSolicitudeDto);
   }
 
+  @Patch('acept/:id')
+  @Rol(['administrador','gestor-grupo','gestor-comite'])
+  acept(@Param('id') id: string) {
+    return this.solicitudesService.aceptSolicitud(id);
+  }
+
   @Delete('eliminar/:id')
   @Rol(['administrador','gestor-grupo','gestor-comite'])
   remove(@Param('id') id: string) {
