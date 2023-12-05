@@ -19,6 +19,7 @@ import { GestorComiteModule } from './gestor-comite/gestor-comite.module';
 import { ComitesModule } from './comites/comites.module';
 import { EmailService } from './config/email.service';
 import { EmailController } from './config/email.controller';
+import { ObservacionesModule } from './observaciones/observaciones.module';
 
 @Module({
   imports: [
@@ -40,7 +41,7 @@ import { EmailController } from './config/email.controller';
     NumeralesModule, 
     SolicitudesModule, 
     ParagrafosModule, 
-    GestorComiteModule, ComitesModule,
+    GestorComiteModule, ComitesModule, ObservacionesModule,
   ],
   controllers: [AppController,EmailController],
   providers: [AppService,EmailService],
