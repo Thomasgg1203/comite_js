@@ -32,6 +32,7 @@ const Fichas = () => {
 
   const [fichaData, setFichaData] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +110,7 @@ const Fichas = () => {
     });
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Crear Ficha</DialogTitle>
+        <DialogTitle>{selectedUserId ? "Editar Ficha" : "Crear Ficha"}</DialogTitle>
         <DialogContent>
           <MDBox component="form" role="form" onSubmit={formik.handleSubmit} mb={2}>
             {/* Campos de entrada del formulario */}
@@ -262,7 +263,7 @@ const Fichas = () => {
             )}
             {/* Fin de fecha productiva */}
             <Button variant="text" color="primary" type="submit" mt={2} textGradient>
-              Crear Ficha
+              {selectedUserId ? "Editar Ficha" : "Crear Ficha"}
             </Button>
           </MDBox>
         </DialogContent>
@@ -281,8 +282,8 @@ const Fichas = () => {
 
   // Función para manejar el evento de editar
   const handleEditar = (id) => {
-    // Lógica para editar el elemento con el id proporcionado
-    console.log("Editar elemento con id:", id);
+    setSelectedUserId(id);
+    setModalOpen(true);
   };
 
   // Función para manejar el evento de eliminar
@@ -303,6 +304,7 @@ const Fichas = () => {
 
   //parte del modal
   const handleOpenModal = () => {
+    setSelectedUserId(null);
     setModalOpen(true);
   };
 

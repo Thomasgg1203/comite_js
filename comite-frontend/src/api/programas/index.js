@@ -48,3 +48,29 @@ export const guardarPrograma = async (token, programaData) => {
     throw error;
   }
 };
+
+// Eliminar un programa por ID
+export const eliminarPrograma = async (token, programaId) => {
+  try {
+    if (token) {
+      const response = await axios.delete(`${baseURL}/programas/eliminar/${programaId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Programa eliminado correctamente:", response.data);
+        return response.data; // Puedes devolver los datos si es necesario
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error al enviar solicitud de eliminación a la API:", error);
+    throw error;
+  }
+};

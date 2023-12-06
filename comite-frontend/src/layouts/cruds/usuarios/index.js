@@ -110,11 +110,7 @@ const Usuarios = () => {
             // asigna el valor del campo documento al campo contrasenia
             values.contrasenia = values.documento;
           }
-          if (selectedUserId) {
-            await actualizarUsuario(authData.token, selectedUserId, values);
-          } else {
-            await guardarUsuario(authData.token, values);
-          }
+          await guardarUsuario(authData.token, values);
           alert("Operación exitosa");
           handleClose();
           window.location.reload();
@@ -301,23 +297,9 @@ const Usuarios = () => {
   };
 
   const handleEditarUsuario = async (documento) => {
-    try {
-      // Lógica para obtener los datos del usuario específico usando su documento
-      const response = await obtenerUsuarioPorDocumento(authData.token, documento);
-
-      if (response && response.data) {
-        // Llenar los datos en el formulario
-        formik.setValues(response.data);
-
-        // Mostrar el modal
-        setModalOpen(true);
-        setSelectedUserId(response.data.documento);
-      } else {
-        console.error("La respuesta de la API no tiene la estructura esperada:", response);
-      }
-    } catch (error) {
-      console.error(`Error al obtener datos del usuario: ${error.message}`);
-    }
+    // Mostrar el modal
+    setModalOpen(true);
+    setSelectedUserId(1);
   };
 
   const handleEliminarUsuario = async (id) => {

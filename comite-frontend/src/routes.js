@@ -42,7 +42,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador"],
   },
   {
     type: "collapse",
@@ -51,7 +51,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: <Billing />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador"],
   },
   {
     type: "collapse",
@@ -60,7 +60,7 @@ const routes = [
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: <Notifications />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador"],
   },
   {
     type: "collapse",
@@ -69,7 +69,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
-    roles: ["administrador", "gestor-comite"],
+    roles: ["administrador"],
   },
   //Parte Reglamento Aprendiz
   {

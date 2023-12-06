@@ -25,12 +25,14 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { eliminarPrograma } from "api/programas";
 
 const Programas = () => {
   const { authData } = useAuth();
 
   const [programaData, setProgramaData] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +80,7 @@ const Programas = () => {
 
     return (
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Crear Programa</DialogTitle>
+        <DialogTitle>{selectedUserId ? "Editar Programa" : "Crear Programa"}</DialogTitle>
         <DialogContent>
           <MDBox component="form" role="form" onSubmit={formik.handleSubmit} mb={2}>
             <MDInput
@@ -147,7 +149,7 @@ const Programas = () => {
             )}
 
             <Button variant="text" color="primary" type="submit" mt={2} textGradient>
-              Crear Programa
+              {selectedUserId ? "Editar Programa" : "Crear Programa"}
             </Button>
           </MDBox>
         </DialogContent>
@@ -167,21 +169,27 @@ const Programas = () => {
 
   // Función para manejar el evento de editar
   const handleEditar = (id) => {
-    console.log("Editar programa con id:", id);
+    setSelectedUserId(id);
+    setModalOpen(true);
   };
 
   // Función para manejar el evento de eliminar
-  const handleEliminar = (id) => {
-    console.log("Eliminar programa con id:", id);
-  };
-
-  // Función para manejar el evento de mostrar
-  const handleMostrar = (id) => {
-    console.log("Mostrar programa con id:", id);
+  const handleEliminar = async (id) => {
+    try {
+      if (window.confirm("¿Estás seguro de que deseas eliminar este programa?")) {
+        await eliminarPrograma(authData.token, id);
+        alert("Programa eliminado con éxito");
+        window.location.reload();
+      }
+    } catch (error) {
+      alert("No se pudo eliminar el programa");
+      console.log("Error:", error);
+    }
   };
 
   // Parte del modal
   const handleOpenModal = () => {
+    setSelectedUserId(null);
     setModalOpen(true);
   };
 
@@ -247,6 +255,7 @@ Programas.propTypes = {
   row: PropTypes.shape({
     original: PropTypes.shape({
       id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
+      _id: PropTypes.string.isRequired, // Asegúrate de que el tipo sea correcto
       // ... Otras propiedades que puedas tener en tus objetos de datos
     }),
   }),

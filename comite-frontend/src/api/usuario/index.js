@@ -135,3 +135,31 @@ export const actualizarUsuario = async (token, userId, userData) => {
     throw error;
   }
 };
+
+// En el archivo de API
+export const allAprendices = async (token) => {
+  try {
+    if (token) {
+      const response = await axios.get(`${baseURL}/usuarios/obtener`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        // Filtra los usuarios para incluir solo a aquellos con el rol "aprendiz"
+        const aprendices = response.data.filter((user) => user.roles.includes("aprendiz"));
+        console.log("Respuesta de la API (aprendices):", aprendices);
+        return aprendices;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error en allUsers:", error);
+    throw error; // Lanza el error para que pueda ser capturado en el componente
+  }
+};
