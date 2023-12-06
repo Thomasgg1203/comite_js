@@ -28,7 +28,7 @@ export class ObservacionesService {
   }
 
   findAll() {
-    return `This action returns all observaciones`;
+    return this.observacionModel.find().exec();
   }
 
   findOne(id: string) {
