@@ -58,7 +58,8 @@ function Basic() {
     onSubmit: async (values) => {
       try {
         console.log("Enviando solicitud con datos:", values);
-        const response = await axios.post("http://192.168.1.88:4000/auths/ingresar", values);
+        // const response = await axios.post("http://192.168.1.88:4000/auths/ingresar", values);
+        const response = await axios.post("http://10.183.153.130:4000/auths/ingresar", values);
         // const response = await axios.post("http://localhost:4000/auths/ingresar", values);
         console.log("Respuesta del servidor:", response);
 

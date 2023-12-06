@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.1.88:4000"; // Reemplaza con tu URL de la API
+const baseURL = "http://10.183.153.130:4000"; // Reemplaza con tu URL de la API
 
 // Crear una nueva solicitud
 export const crearSolicitud = async (token, solicitudData) => {

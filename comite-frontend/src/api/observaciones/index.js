@@ -1,41 +1,49 @@
-//importacion de axios para el consumo de la api
+//importacion de axios
 import axios from "axios";
-
-const baseURL = "http://10.183.153.130:4000";
+//Url
+const baseURL = `http://10.183.153.130:4000`;
 // const baseURL = "http://localhost:4000";
-export const allProgramas = async (token) => {
-  try {
-    if (token) {
-      const response = await axios.get(`${baseURL}/programas/obtener`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Respuesta de la API (programas):", response.data);
-      return response;
-    } else {
-      console.error("No hay token disponible en la información de autenticación.");
-      throw new Error("No hay token disponible");
-    }
-  } catch (error) {
-    console.error("Error en allProgramas:", error);
-    throw error; // Lanza el error para que pueda ser capturado en el componente
-  }
-};
 
-// Guardar un nuevo programa
-export const guardarPrograma = async (token, programaData) => {
+// En el archivo de API
+export const allAprendices = async (token) => {
   try {
     if (token) {
-      const response = await axios.post(`${baseURL}/programas/crear`, programaData, {
+      const response = await axios.get(`${baseURL}/usuarios/obtener`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.data) {
-        console.log("Datos del programa guardados correctamente:", response.data);
-        return response.data; // Puedes devolver los datos si es necesario
+        // Filtra los usuarios para incluir solo a aquellos con el rol "aprendiz"
+        const aprendices = response.data.filter((user) => user.roles.includes("aprendiz"));
+        console.log("Respuesta de la API (aprendices):", aprendices);
+        return aprendices;
+      } else {
+        console.error("La respuesta de la API no tiene la estructura esperada:", response);
+      }
+    } else {
+      console.error("No hay token disponible en la información de autenticación.");
+      throw new Error("No hay token disponible");
+    }
+  } catch (error) {
+    console.error("Error en allUsers:", error);
+    throw error; // Lanza el error para que pueda ser capturado en el componente
+  }
+};
+
+export const crearObservaciones = async (token, observacionesData) => {
+  try {
+    if (token) {
+      const response = await axios.post(`${baseURL}/observaciones/crear`, observacionesData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        console.log("Observaciones creadas correctamente:", response.data);
+        return response.data;
       } else {
         console.error("La respuesta de la API no tiene la estructura esperada:", response);
       }
@@ -49,19 +57,18 @@ export const guardarPrograma = async (token, programaData) => {
   }
 };
 
-// Eliminar un programa por ID
-export const eliminarPrograma = async (token, programaId) => {
+export const obtenerObservaciones = async (token) => {
   try {
     if (token) {
-      const response = await axios.delete(`${baseURL}/programas/eliminar/${programaId}`, {
+      const response = await axios.get(`${baseURL}/observaciones/obtener`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.data) {
-        console.log("Programa eliminado correctamente:", response.data);
-        return response.data; // Puedes devolver los datos si es necesario
+        console.log("Respuesta de la API (observaciones):", response.data);
+        return response.data;
       } else {
         console.error("La respuesta de la API no tiene la estructura esperada:", response);
       }
@@ -70,7 +77,7 @@ export const eliminarPrograma = async (token, programaId) => {
       throw new Error("No hay token disponible");
     }
   } catch (error) {
-    console.error("Error al enviar solicitud de eliminación a la API:", error);
+    console.error("Error en obtenerObservaciones:", error);
     throw error;
   }
 };

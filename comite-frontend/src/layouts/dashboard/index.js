@@ -30,15 +30,22 @@ function Dashboard() {
       } else if (authData.user.roles.includes("gestor-comite")) {
         return `¡Bienvenido a la Plataforma Gestor de Comité, ${authData.user.nombres}! Aquí puedes acceder a herramientas y estadísticas para gestionar procesos disciplinarios.`;
       } else if (authData.user.roles.includes("gestor-grupo")) {
-        return `¡Bienvenido a la Plataforma Gestor de Grupo, ${authData.user.nombres}! Aquí encontrarás información para gestionar eficientemente tus procesos disciplinarios de grupo.`;
+        return `🚀 Optimiza la Gestión de Comités con Nuestro Software Administrativo para el SENA.`;
       } else if (authData.user.roles.includes("administrador")) {
         return `¡Bienvenido a la Plataforma Administrador, ${authData.user.nombres}! Aquí puedes acceder a funciones administrativas y herramientas de gestión.`;
       }
     }
-
     // Mensaje predeterminado si no se cumple ninguna condición
     navigate("/authentication/sign-in");
     return `¡Bienvenido a la Plataforma del SENA, te queremos decir que no estas registrado!`;
+  };
+  const otroMensaje = () => {
+    if (authData.user.roles.includes("gestor-grupo")) {
+      return `Descubre la eficiencia en la administración, seguridad sin compromisos y automatización inteligente. Simplifica tu enfoque, ahorra tiempo y eleva la excelencia educativa.`;
+    } else {
+      return `Aquí encontrarás herramientas y estadísticas para gestionar eficientemente los
+      procesos diciplinarios.`;
+    }
   };
 
   return (
@@ -59,25 +66,8 @@ function Dashboard() {
         <MDBox my={3}>
           <Grid item xs={12}>
             <MDTypography variant="body1" textAlign="center">
-              Aquí encontrarás herramientas y estadísticas para gestionar eficientemente los
-              procesos diciplinarios.
+              {otroMensaje()}
             </MDTypography>
-          </Grid>
-        </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <MDTypography variant="body1" textAlign="center">
-                Aquí podrás acceder a información detallada sobre tus procesos académicos y realizar
-                diversas actividades relacionadas con tu formación.
-              </MDTypography>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDTypography variant="body1" textAlign="center">
-                Si necesitas asistencia o tienes alguna pregunta, no dudes en ponerte en contacto
-                con nosotros.
-              </MDTypography>
-            </Grid>
           </Grid>
         </MDBox>
       </MDBox>

@@ -15,6 +15,8 @@ import Usuarios from "layouts/cruds/usuarios";
 import Fichas from "layouts/cruds/fichas";
 import Programas from "layouts/cruds/programas";
 import SolicitudForm from "layouts/solicitud";
+import ObservacionesForm from "layouts/observaciones";
+import ObservacionesList from "layouts/ver_observaciones";
 
 const routes = [
   {
@@ -122,9 +124,30 @@ const routes = [
     icon: <Icon fontSize="small">fact_check</Icon>,
     route: "/solicitud",
     component: <SolicitudForm />,
-    roles: ["administrador", "gestor-comite", "gestor-grupo"],
+    roles: ["administrador", "gestor-comite"],
   },
   //Programa
+  //Programa
+  {
+    type: "collapse",
+    name: "Observaciones",
+    key: "observaciones",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/observaciones",
+    component: <ObservacionesForm />,
+    roles: ["administrador", "gestor-grupo"],
+  },
+  //ProgramaObservacionesList
+  //Programa
+  {
+    type: "collapse",
+    name: "Lista observa",
+    key: "lista_obser",
+    icon: <Icon fontSize="small">fact_check</Icon>,
+    route: "/lista_obser",
+    component: <ObservacionesList />,
+    roles: ["administrador", "gestor-grupo"],
+  },
 ];
 
 export default routes;
